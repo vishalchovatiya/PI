@@ -6,11 +6,11 @@ using namespace std;
 
 
 /*
-	Question: Kruskal’s Algorithm for Minimum Spanning Tree 
+	Question: Kruskalâ€™s Algorithm for Minimum Spanning Tree 
 	
 	Contents: 
 		- Properties of MST 
-		- Kruskal’s Algo 
+		- Kruskalâ€™s Algo 
 		- Application of MST	
 		- Time & Space Complexity
 		- Dependency Algo : - Disjoint Set
@@ -152,7 +152,7 @@ class Graph : public DisjointSet
 				- MST Contain V-1 edges where V stands for number of vertices
 				- If Graph has distinct edge length, then MST would be unique and only one
 				
-			# Kruskal’s Algorithm :-	
+			# Kruskalâ€™s Algorithm :-	
 			
 				- Sort Edges in increasing order
 				- Start picking smallest edge, Check for edge not forming cycle by Disjoint Set Algo
@@ -164,9 +164,9 @@ class Graph : public DisjointSet
 									you want to lease phone lines to connect them up with each other; 
 									and the phone company charges different amounts of money to connect different pairs of cities. 
 									You want a set of lines that connects all your offices with a minimum total cost. 
-									It should be a spanning tree, since if a network isn’t a tree you can always remove some edges and save money.
-				– learning salient features for real-time face verification
-				– reducing data storage in sequencing amino acids in a protein					
+									It should be a spanning tree, since if a network isnâ€™t a tree you can always remove some edges and save money.
+				â€“ learning salient features for real-time face verification
+				â€“ reducing data storage in sequencing amino acids in a protein					
 				- Cluster analysis for mobile network implementation
 			
 			# Time & Space Complexity :-
