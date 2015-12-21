@@ -9,11 +9,11 @@ using namespace std;
 
 
 /*
-	Question: Dijsktra’s Algorithm for Single Source Shortest Path
+	Question: Dijsktraâ€™s Algorithm for Single Source Shortest Path
 	
 	Contents: 
-		- Dijsktra’s Algorithm 
-		- Application of Dijsktra’s Algorithm	
+		- Dijsktraâ€™s Algorithm 
+		- Application of Dijsktraâ€™s Algorithm	
 		- Time & Space Complexity
 		- Dependency Algo : - Binary Min Heap
 */
@@ -229,20 +229,20 @@ class Graph
 		}
 		
 		/*			 				
-			# Dijsktra’s Algorithm :-	Single Source Shortest Path (SSSP)
+			# Dijsktraâ€™s Algorithm :-	Single Source Shortest Path (SSSP)
 			
 			===== Finding shortest path between each vertex would lead to shortest path from source to any vertex =====
 			===== Works only on positive or zero edge length =====
 			
 				- Initially set all the Keys values of vertices to INFINITE in Heap except first vertice. Initialize first vertex key value with 0
-				- While Heap doesn’t Empty
+				- While Heap doesnâ€™t Empty
 					1. Now Exctract Min from Heap and Traverse through its Adjecents( Traverse Edges in a "cut")
 					2. For every adjacent vertex, if (length from source to that vertex) + (weight of edge) is less than the previous weight of Key value, update the key value with new weight 
 					3. Record its parent & Shortest path from source vertex to that vertex				
 				
 			# Time Complexity:-
 			# Space Complexity:-	
-			# Application of Dijsktra’s Algorithm :- Google Maps, Rubik's Cube(with the minimum possible number of moves), Operation Research, Road Network, VLSI, Robotics
+			# Application of Dijsktraâ€™s Algorithm :- Google Maps, Rubik's Cube(with the minimum possible number of moves), Operation Research, Road Network, VLSI, Robotics
 			# Dependency Algo : - Binary Min Heap
 		*/
 		map<int, int>* SSSP()
