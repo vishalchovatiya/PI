@@ -52,7 +52,7 @@ void Graph::AddEdge(int V, int E)
 		
 	# Algorithm :- 
 	 
-	 	- Do DFS
+	 	- Do BFS
 	 	- Mark the visited vertices(or Mark vertices which are in queue) with same color
 	 	- Check handle cases
 	 	 	1. Do not have cycle forming edge on same level
