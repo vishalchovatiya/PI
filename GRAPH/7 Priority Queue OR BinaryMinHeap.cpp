@@ -10,7 +10,7 @@ using namespace std;
 	Question: Priority Queue OR BinaryMinHeap
 	
 	Contents: 
-		- Priority Queue’s Algo 
+		- Priority Queueâ€™s Algo 
 		- Application Priority Queue OR BinaryMinHeap	
 		- Time & Space Complexity
 		- Dependency Algo : - Min & Max Heap Property
@@ -161,7 +161,7 @@ class BinaryMinHeap
 		    cout<<endl;
 		}
 		/*
-		# Priority Queue’s Algo :-
+		# Priority Queueâ€™s Algo :-
 			- Insert every element with Key & Priority
 			- HeapifyUP that Key
 			- Extract element, Copy last vertex to first, mend map table
@@ -171,7 +171,7 @@ class BinaryMinHeap
 		
 			 - Priority  Queue
 			 - Scheduling algorithms
-			 - Graph algorithms like Prim’s Algorithm and Dijkstra’s algorithm 	
+			 - Graph algorithms like Primâ€™s Algorithm and Dijkstraâ€™s algorithm 	
 			 
 		# Time Complexity :-  
 		# Dependency Algo :- Min & Max Heap Property
