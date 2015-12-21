@@ -54,7 +54,7 @@ void Graph::AddEdge(int V, int E)
 	
 	- Shortest Path & Minimum Spanning tree
 	
-	- Ford–Fulkerson algorithm
+	- Fordâ€“Fulkerson algorithm
 	
 	- Path between two vertices
 	
@@ -62,7 +62,7 @@ void Graph::AddEdge(int V, int E)
 	
 	- Crawlers in Search Engines: Build index using BFS. The idea is to start from source page and follow all links from source and keep doing same.
 	
-	- Social Networking : find people within a given distance ‘k’ from a person using Breadth First Search till ‘k’ levels.
+	- Social Networking : find people within a given distance â€˜kâ€™ from a person using Breadth First Search till â€˜kâ€™ levels.
 	
 	- GPS Navigation systems: BFS is used to find all neighboring locations.
 	
