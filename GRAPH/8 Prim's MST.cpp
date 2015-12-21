@@ -9,12 +9,12 @@ using namespace std;
 
 
 /*
-	Question: Prim’s Algorithm for Minimum Spanning Tree 
+	Question: Primâ€™s Algorithm for Minimum Spanning Tree 
 	
 	Contents: 
 	
 		- Properties of MST 
-		- Prim’s Algo 
+		- Primâ€™s Algo 
 		- Application of MST	
 		- Time & Space Complexity
 		- Dependency Algo : - Binary Min Heap
@@ -238,10 +238,10 @@ class Graph
 				- MST Contain V-1 edges where V stands for number of vertices in a Graph
 				- If Graph has distinct edge length, then MST would be unique and only one
 				
-			# Prim’s Algorithm :-	
+			# Primâ€™s Algorithm :-	
 			
 				- Initially set all the Keys of vertices to INFINITE in Heap except first vertice. Initialize first vertex key with 0
-				- While Heap doesn’t Empty
+				- While Heap doesnâ€™t Empty
 					1. Now Exctract Min Element from Heap and Traverse through its Adjecents( Traverse Edges in a "cut")
 					2. For every adjacent vertex, if weight of edge is less than the previous weight of Key value, update the key value with new weight 
 				- After Each single iteration we get single Minimum Spanning Tree Edge
