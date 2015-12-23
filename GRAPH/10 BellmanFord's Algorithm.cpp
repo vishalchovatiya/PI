@@ -81,57 +81,56 @@ class Graph
 		}
 		
 		/*			 				
-			# BellmanFord's Algorithm :-	Single Source Shortest Path with Negative Edge length
+			# BellmanFord's Algorithm :-	Single Source Shortest Path with Negative Edge Weight Cycle Detection
 			
 			===== Finding shortest path between each vertex would lead to shortest path from source to any vertex =====
-			===== Works only on positive or zero edge length =====
+			===== Works on negative edge length & can detect negative weight cycle =====
 			
-				- Initially set all the Keys values of vertices to INFINITE in Heap except first vertice. Initialize first vertex key value with 0
-				- While Heap doesn’t Empty
-					1. Now Exctract Min from Heap and Traverse through its Adjecents( Traverse Edges in a "cut")
-					2. For every adjacent vertex, if (length from source to that vertex) + (weight of edge) is less than the previous weight of Key value, update the key value with new weight 
-					3. Record its parent & Shortest path from source vertex to that vertex				
+				- Initially set all vertex's distance to INFINITE except first vertice. Initialize first vertex distance with 0
+				- For Round |V| - 1 time
+					- Relax all edges
+						1. For every adjacent vertex of v, if (Distance from source to v) + (weight of edge(v,u)) is less than the label of u, then update the label of v with new weight 
+						2. Record parent of v & Shortest path from source vertex to vertex u
+				- Relax all edges once, if still one of the edge relaxed, then graph has negative weight cycle
 				
 			# Time Complexity:-
 			# Space Complexity:-	
 			# Application of BellmanFord's Algorithm :- Google Maps, Rubik's Cube(with the minimum possible number of moves), Operation Research, Road Network, VLSI, Robotics
-			# Dependency Algo : - Binary Min Heap
+			# Dependency Algo : - 
 		*/
 		int* SSSP()
 		{			
-			int	*Distance = new int[V];
+			int *Distance = new int[V];
 			int Parent[V];
-		
-			for( int v=0; v<V; v++)
-				Distance[v] = INT_MAX;
-
+			
+			for(int i=0; i<V; i++)
+				Distance[i] = INT_MAX;
+			
 			Distance[0] = 0;
 			
 			list<Edge> :: iterator edge;
-			//Relax edges repeatedly V - 1 times
-	        for (int i = 0; i < V - 1 ; i++) 
+			
+			for(int Round=0; Round<(V-1); Round++)
 			{
-	            for (edge = EdgeList.begin(); edge != EdgeList.end(); edge++) 
+				for(edge = EdgeList.begin(); edge != EdgeList.end(); edge++)
 				{
-					//if we get better distance to v via u then use this distance and set u as parent of v.
-	                //if ( Distance[(*edge).getSrc()] != INT_MAX && Distance[(*edge).getDest()] > Distance[(*edge).getSrc()] + (*edge).getWeight()) 
-	                if ( Distance[(*edge).getSrc()] + (*edge).getWeight() < Distance[(*edge).getDest()]) 
+					
+					if( Distance[(*edge).getSrc()] != INT_MAX && Distance[(*edge).getDest()] > (*edge).getWeight() + Distance[(*edge).getSrc()] )
 					{
-						Distance[(*edge).getDest()] = Distance[(*edge).getSrc()] + (*edge).getWeight();
-	                    Parent[(*edge).getDest()] = (*edge).getSrc();
-	                }
-	            }
-	        }
-	        
-	        //Relax all edges again. If we still get lesser distance it means, there is negative weight cycle in the graph. 
-	        for (edge = EdgeList.begin(); edge != EdgeList.end(); edge++)
-	        {
-	        	if ( Distance[(*edge).getDest()] > Distance[(*edge).getSrc()] + (*edge).getWeight()) 
+						Distance[(*edge).getDest()] = (*edge).getWeight() + Distance[(*edge).getSrc()];
+						Parent[(*edge).getDest()] = (*edge).getSrc();
+					}
+				}
+			}
+			
+			for(edge = EdgeList.begin(); edge!=EdgeList.end(); edge++)
+			{
+				if( Distance[(*edge).getDest()] > (*edge).getWeight() + (*edge).getSrc() )
 				{
-	            	cout<< "Negative Cycle Found"<<endl;
-	            }
-	        }
-        			
+					cout<< "Negative Weight Cycle Detected"<< endl;
+				}
+			}
+			
 			return Distance;
 		}
 		
@@ -162,6 +161,7 @@ int main()
 	Graph G(5);
 	
 	//	G.AddEdge( 2, 0, -5);
+
 	G.AddEdge( 2, 3, 2);
 	
 	G.AddEdge( 0, 4, 4);
