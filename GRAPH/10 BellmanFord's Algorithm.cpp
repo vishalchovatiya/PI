@@ -15,7 +15,7 @@ using namespace std;
 		- BellmanFord's Algorithm
 		- Application of BellmanFord's Algorithm
 		- Time & Space Complexity
-		- Dependency Algo : - Binary Min Heap
+		- Dependency Algo :
 */
 
 
@@ -95,7 +95,7 @@ class Graph
 				
 			# Time Complexity:-
 			# Space Complexity:-	
-			# Application of BellmanFord's Algorithm :- Google Maps, Rubik's Cube(with the minimum possible number of moves), Operation Research, Road Network, VLSI, Robotics
+			# Application :- Google Maps, Rubik's Cube(with the minimum possible number of moves), Operation Research, Road Network, VLSI, Robotics
 			# Dependency Algo : - 
 		*/
 		int* SSSP()
