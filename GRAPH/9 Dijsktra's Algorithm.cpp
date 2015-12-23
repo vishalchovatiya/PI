@@ -225,7 +225,7 @@ class Graph
 			EdgeList.push_back(edge);
 			
 			AdList[V].push_back(E);
-			AdList[E].push_back(V);		// Comment This Line For Directed Graph
+			//AdList[E].push_back(V);		// Comment This Line For Directed Graph
 		}
 		
 		/*			 				
@@ -242,7 +242,7 @@ class Graph
 				
 			# Time Complexity:-
 			# Space Complexity:-	
-			# Application of Dijsktra’s Algorithm :- Google Maps, Rubik's Cube(with the minimum possible number of moves), Operation Research, Road Network, VLSI, Robotics
+			# Application of Dijsktra's Algorithm :- Google Maps, Rubik's Cube(with the minimum possible number of moves), Operation Research, Road Network, VLSI, Robotics
 			# Dependency Algo : - Binary Min Heap
 		*/
 		map<int, int>* SSSP()
@@ -280,8 +280,7 @@ class Graph
 					}
 				}
 				Set[V] = 1;
-			}
-			
+			}			
 			
 			return Distance;
 		}
@@ -343,15 +342,16 @@ int main()
 {
 	Graph G(5);
 	
-	G.AddEdge( 0, 2, 10);
-	G.AddEdge( 0, 4, 7);
-	G.AddEdge( 0, 3, 1);
 	
-	G.AddEdge( 3, 4, 12);
-	G.AddEdge( 2, 4, 1);
+	G.AddEdge( 0, 1, 1);
+	G.AddEdge( 1, 2, -3);
+	G.AddEdge( 2, 0, -5);
+	G.AddEdge( 2, 3, 2);
 	
-	G.AddEdge( 1, 3, 3);
-	G.AddEdge( 1, 2, 15);
+	G.AddEdge( 0, 4, 4);
+	G.AddEdge( 3, 4, 1);
+	
+	G.AddEdge( 4, 3, 5);
 	
 	G.PrintSSSP();
 	
