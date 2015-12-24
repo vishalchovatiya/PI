@@ -118,9 +118,12 @@ class Graph
 			# FloydWarShall's Algorithm :-	All Pair Shortest Path 
 	
 			===== Works on negative edges =====
+			===== Connectivity Between Vertices =====
+			===== Detection Negative Edge Weight Cycles =====
+			
 			
 				- We initialize the Distance matrix same as the input graph matrix
-				- Then we update the solution matrix by picking all vertices as an intermediate vertex  one by one
+				- Then we update the solution matrix by picking all vertices as an intermediate vertex one by one
 				- For every pair (i, j) of source and destination vertices, there are two possible cases	
 						1. k is not an intermediate vertex in shortest path from i to j. We keep the value of dist[i][j] as it is
 						2. k is an intermediate vertex in shortest path from i to j. We update the value of dist[i][j] as dist[i][k] + dist[k][j]
@@ -132,26 +135,51 @@ class Graph
 		*/
 		int** APSP()		//All Pair Shortest Path
 		{			
-			int **Distance = GetTwoDimensionalArray(), i, j, k;
+			int **Distance = GetTwoDimensionalArray(), **Path = GetTwoDimensionalArray(), i, j, k;
 			
 			 for (i = 0; i < V; i++)
 		        for (j = 0; j < V; j++)
-		            Distance[i][j] = GraphMatrix[i][j];
+		        {
+		        	Distance[i][j] = GraphMatrix[i][j];
+		        	
+	                if (Distance[i][j] != INT_MAX && i != j) 
+	                    Path[i][j] = i;		// If there is path between Source & Destination update this with source 
+	                else
+	                    Path[i][j] = INT_MAX;
+		        }
+		            
 			
 			
 			for (k = 0; k < V; k++)// All Intermediate Vertex	
 		    for (i = 0; i < V; i++)// All Source Vertex	
 		    for (j = 0; j < V; j++)// All Destination Vertex
 		        if ( Distance[i][k] != INT_MAX && Distance[k][j] != INT_MAX && Distance[i][j] > Distance[i][k] + Distance[k][j] )
-		             Distance[i][j] = Distance[i][k] + Distance[k][j];
+		        {
+		        	Distance[i][j] = Distance[i][k] + Distance[k][j];
+		        	Path[i][j] = Path[k][j];
+		        }
+		    
+			//if values on diagonal of distance matrix is negative, then there is negative weight cycle in the graph.
+			for(int i = 0; i < V; i++) 
+			{
+	            if(Distance[i][i] < 0) 
+				{
+	                cout<<"Negative Edge Weigth Cycle Detected"<<endl;
+	            }
+	        }    
+		             
+			PrintAPSP(Distance);
+			
+			cout<<endl;	
+			
+			PrintPath( Path, 0, 4);
+
 			
 			return Distance;
 		}
 		
-		void PrintAPSP()
-		{
-			int **SPaths = APSP();		
-			
+		void PrintAPSP( int **SPaths)
+		{					
 			cout<<"\n\nAll Pair Shortest Path (FloydWarShall): \n"<<endl;
 			
 			for(int i=0; i<V; i++)
@@ -165,8 +193,32 @@ class Graph
 				}
 				cout<<endl;	
 			}
-			freeTwoDimensionalArray(SPaths);
+			
 		}	
+		
+		void PrintPath(int **Path, int S, int D)
+		{			
+			PrintPathWrapper( Path, S, D);
+			cout<<" "<<D;
+		}
+		
+		void PrintPathWrapper(int **Path, int S, int D)
+		{
+			if( Path[S][D] == INT_MAX )
+			{
+				cout<<"Unreachable"<<endl;
+				return;
+			}
+			
+			if( Path[S][D] == S )
+			{
+				cout<<" "<<Path[S][D];
+				return;
+			}				
+			
+			PrintPathWrapper( Path, S, Path[S][D]);
+			cout<<" "<<Path[S][D];
+		}
 
 		void test()
 		{	
@@ -194,7 +246,7 @@ int main()
 	G.AddEdge( 0, 1, 1);
 	G.AddEdge( 1, 2, -3);	
 	
-	G.PrintAPSP();
+	G.APSP();
 	
 	return 0;
 }
