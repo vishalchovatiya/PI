@@ -8,9 +8,10 @@ using namespace std;
 #define RIGHT(X)	(2*X+2)
 
 /*
-	Question: Heap Sort
+	Question: Heap Sort (Max Heap)
 	
 	Contents: 
+		- Algo
 		- Time Complexity
 		- Applications
 */
@@ -35,6 +36,7 @@ void printArray(char name[], int A[], int size)
 		
 	cout<<"\n\n";
 }
+
 
 void Heapify(int A[], int size, int idx)		// O(Log n)
 {
@@ -67,10 +69,17 @@ void BuildMaxHeap(int A[], int size)
 
 /*
 
-	# Time Complexity :- 
+	# Heap Sort (in-place algorithm) :- 
 	
-		
+			- Build Max Heap
+			- For length greater than zero
+				- Swap First and Last element
+				- Heapify for n-1 length, and decrease length by one 
 			
+	# Time Complexity :-   N O(Log N) 
+	
+	# Space Complexity :-  O(1) 
+				
 	# Application  :-	
 	
 		 - Priority  Queue
@@ -78,11 +87,11 @@ void BuildMaxHeap(int A[], int size)
 
 */
 
-void HeapSort(int A[], int size)		// n O(Log n)
+void HeapSort(int A[], int size)			// n O(Log n)
 {
 	BuildMaxHeap( A, size);
 	
-	while(size != 0)
+	while(size > 0)					
 	{
 		swap( A[0], A[size]);
 		Heapify( A, --size,  0);		
