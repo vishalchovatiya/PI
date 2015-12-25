@@ -242,7 +242,12 @@ class Graph
 				
 			# Time Complexity:-
 			# Space Complexity:-	
-			# Application of Dijsktra's Algorithm :- Google Maps, Rubik's Cube(with the minimum possible number of moves), Operation Research, Road Network, VLSI, Robotics
+			# Application of Dijsktra's Algorithm :- 
+			       - Google Maps, Rubik's Cube(with the minimum possible number of moves), 
+			       - Operation Research, 
+			       - Road Network, 
+			       - VLSI, 
+			       - Robotics
 			# Dependency Algo : - Binary Min Heap
 		*/
 		map<int, int>* SSSP()
