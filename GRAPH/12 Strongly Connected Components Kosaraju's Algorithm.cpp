@@ -52,10 +52,16 @@ void Graph::AddEdge(int V, int E)
 	
 	# Kosaraju's Algorithm(SCC) : - 
 	
-			- Do DFS(like Topological Sort) and populate stack
-			- Reverse Direction of all edges
-			- Pop a vertex from Stack and do DFS which prints strongly connected components
+		- Do DFS(like Topological Sort) and populate stack
+		- Reverse Direction of all edges
+		- Pop a vertex from Stack and do DFS which prints strongly connected components
 		
+	# Application of Kosaraju's Algorithm :-
+	
+		- The SCC algorithms can be used to find common interest of people in group(Like Facebook)
+		
+	# Time & Space Complexity :-
+	# Dependency Algo :	-
 */
 
 void Graph::SSC(int S)
