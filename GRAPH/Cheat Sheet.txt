@@ -1,0 +1,71 @@
+
+
+0  BFS:- BFS Tree(Spanning Tree), Level Order
+ 
+1  DFS:- Maze Traversal
+
+	Directed G :- Tree Edge + Back Edge + Forward Edge + Cross Edge
+	Undirected G :- Tree Edge + Back Edge
+
+2  Bipartite:- Do not have cycle on same level, maintain level info
+
+3  Cycle Undirected Graph:- DFS, if cycle its Back Edge, handlcase(HC) parent
+
+4  Cycle Undirected Graph(DisjointSet):- 
+
+	- For All Edge if two end points of edge are in same set 
+	- then there is path exist already
+	- And adding current edge form cycle
+
+5  Cycle in Directed Graph:- Check for Back Edge in DFS Tree, HC1:Self Loop, HC2:parent, HC3:Cross edge
+
+6  Topological Sort:- Populate stack by reverse DFS
+
+7  Krushkal's MST:- Sort All Edges, Use disjoint set(for cycle detection), add cycle to map
+
+8  Priority Queue or BMH:- 
+
+	- Insert every element with Key & Priority
+	- HeapifyUP that Key
+	- Extract element, Copy last vertex to first, mend map table
+	- HeapifyDOWN 
+
+9  Prim's MST:-
+
+	- Initialize all the Keys of vertices to INFINITE in Heap exept first vertex
+	- While Heap doesn't Empty
+	   - Now Exctract Min Element from Heap 
+	   - Traverse through its Adjecents( Traverse Edges in a "cut")
+	   - For every adjacent, if label value of adjecent is less than previous, then update Key in heap
+	   - After Each iteration we get MST Edge exept first iteration
+
+11 Dijsktra's SSSP:- 
+
+	- Initialize all the Keys of vertices to INFINITE in Heap exept first vertex
+	- While Heap doesn't Empty
+	   - Now Exctract Min Element from Heap 
+	   - Traverse through its Adjecents( Traverse Edges in a "cut")
+	   - For every adjacent, if label value of adjecent is less than previous, then update parent and distance 
+
+
+12 BellMan Ford SSSP:- Negative weight cycle Detection
+
+	- Initialize set all vertex's distance to INFINITE except first vertice
+	- For Round |V| - 1 time, Relax all edges
+		- For every adjacent vertex of v, if (Distance from source to v) + (weight of edge(v,u)) is less than the label of u, then update the label of v with new weight 
+		- Record parent of v & Shortest path from source vertex to vertex u
+		- Relax all edges once, if still one of the edge relaxed, then graph has negative weight cycle
+
+13 FloydWarShall APSP:- Detect Negative Cycle, Transitive closure
+
+	- We initialize the Distance matrix same as the input graph matrix
+	- Picking all vertices as an intermediate vertex one by one
+	- For every pair (i, j) of source and destination vertices, there are two possible cases:
+		1. k is not an intermediate vertex,keep the value of dist[i][j] as it is
+		2. k is an intermediate vertex, update the value of dist[i][j] as dist[i][k] + dist[k][j]
+
+14 Kosaraju's SCC:- Strongly Connected Component, Common interest in facebook
+
+	- Do DFS(like Topological Sort) and populate stack
+	- Reverse Direction of all edges
+	- Pop a vertex from Stack and do DFS which prints strongly connected components
