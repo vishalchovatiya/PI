@@ -45,7 +45,6 @@ void Graph::AddEdge(int V, int E)
 	# Algorithm:-
 	
 		- Check for Deapest Back edge
-		- if back edge(u,v) found then vertices between u and v would never be Articulation Points
 			Handle Case 1: V is root with two independent childs
 			Handle Case 2: If V is not root, and one of its child have whose deepest back edge is greater or equal to arrival time of that vertex 
 			
