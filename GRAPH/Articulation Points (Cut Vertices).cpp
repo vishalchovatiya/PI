@@ -39,7 +39,7 @@ void Graph::AddEdge(int V, int E)
 	AdList[E].push_back(V);		// Comment This Line For Directed Graph
 }
 
-/*-----------------------------------------Topological Sort-------------------------------------------*/
+/*---------------------------------Articulation Points (or Cut Vertices) --------------------------------------*/
 
 /*
 	# Algorithm:-
