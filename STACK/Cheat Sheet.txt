@@ -2,13 +2,19 @@
  
 1  Reverse a stack using recursion:- Method InsertAtBottom(Stack, LastPopped)
 
-    - Hold all values in Function Call Stack until the stack becomes empty. 
-		- When the stack becomes empty, insert all held items one by one at the bottom of the stack. 
-		- Handle Case & Base Casse : If Stack Empty insert item at bottom	
+    	- Hold all values in Function Call Stack until the stack becomes empty. 
+	- When the stack becomes empty, insert all held items one by one at the bottom of the stack. 
+	- Handle Case & Base Casse : If Stack Empty insert item at bottom	
 
 2  Sort a stack using recursion:- Method InsertAtBottom(Stack, LastPopped)
 
-		- Hold all values in Function Call Stack until the stack becomes empty. 
-		- When the stack becomes empty, insert all held items one by one at the bottom of the stack. 
-		- Handle Case : If Held item less than stack top insert it in stack
-		- Base Case : If Stack Empty insert element at bottom
+	- Hold all values in Function Call Stack until the stack becomes empty. 
+	- When the stack becomes empty, insert all held items one by one at the bottom of the stack. 
+	- Handle Case : If Held item less than stack top insert it in stack
+	- Base Case : If Stack Empty insert element at bottom
+		
+3 Implement Stack Using Queue:- Use 2 Queue
+
+	- If Main Queue empty push directly
+	- If Main Queue not empty Put all elements to temp Queue, then Push Element to TOP
+	- Again get all elements from temp Queue to Main Queue
