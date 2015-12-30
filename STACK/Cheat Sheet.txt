@@ -1,1 +1,18 @@
-Cheat Sheet
+
+
+0  Implement two stacks in an array:- Stack1 starts from the leftmost element and Stack2 starts from the rightmost corner
+ 
+1  Reverse a stack using recursion:- Method InsertAtBottom(Stack, LastPopped)
+
+    - Hold all values in Function Call Stack until the stack becomes empty. 
+		- When the stack becomes empty, insert all held items one by one at the bottom of the stack. 
+		- Handle Case & Base Casse : If Stack Empty insert item at bottom	
+
+2  Sort a stack using recursion:- Method InsertAtBottom(Stack, LastPopped)
+
+		- Hold all values in Function Call Stack until the stack becomes empty. 
+		- When the stack becomes empty, insert all held items one by one at the bottom of the stack. 
+		- Handle Case : If Held item less than stack top insert it in stack
+		- Base Case : If Stack Empty insert element at bottom
+
+3 
