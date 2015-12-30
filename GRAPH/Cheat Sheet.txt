@@ -69,3 +69,16 @@
 	- Do DFS(like Topological Sort) and populate stack
 	- Reverse Direction of all edges
 	- Pop a vertex from Stack and do DFS which prints strongly connected components
+	
+15 2 Edge Connectivity(Bridges Edges):- To check Link Failure in Network
+
+	- Check for Deapest Back edge
+	- if back edge(u,v) found then edges between u and v would never be bridge edges
+	- print bridge edges when backtracking
+
+16 Articulation Points (Cut Vertices):- To check Node Failure in Network
+
+	- Check for Deapest Back edge
+	Handle Case 1: V is root with two independent childs
+	Handle Case 2: If V is not root, and one of its child have whose deepest back edge is 
+			greater or equal to arrival time of that vertex 
