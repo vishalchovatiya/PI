@@ -80,7 +80,7 @@ int Graph::TwoEdgeConnectivityUtil(int V, int parent, bool visited[], int arr[])
 		{
 			dbe = min(dbe, TwoEdgeConnectivityUtil( *adjecent, V, visited, arr));
 		}
-		//if Adjecent is parent, Back Edge found
+		//if Adjecent is not parent, Back Edge found
 		else if( *adjecent != parent)
 		{
 			dbe = min(dbe, arr[*adjecent]);
