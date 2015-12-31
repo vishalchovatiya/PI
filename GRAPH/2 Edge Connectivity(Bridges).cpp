@@ -48,7 +48,7 @@ void Graph::AddEdge(int V, int E)
 	
 		- Check for Deapest Back edge
 		- if back edge(u,v) found then edges between u and v would never be bridge edges
-		- print bridge edges when backtracking
+			Handle Case : Vertex != root & deepest back edge = Arrival time of vertex
 		
 	# Time Complexity:-
 	# Space Complexity:-
@@ -86,7 +86,7 @@ int Graph::TwoEdgeConnectivityUtil(int V, int parent, bool visited[], int arr[])
 			dbe = min(dbe, arr[*adjecent]);
 		}
 	}
-	// Print Bridge Edges when Backtracking
+	// Handle Case : Vertex != root & deepest back edge = Arrival time of vertex
 	if( arr[V] != 0 && dbe == arr[V])
 		cout<<parent<<" "<<V<<endl;
 		
