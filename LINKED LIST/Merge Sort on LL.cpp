@@ -11,8 +11,10 @@ using namespace std;
 /*
 	Algo :-
 	
-		- Use Linear time Recursive Merge Function
-	   
+		- Split LL in Two Halves, SlowPtr and FastPtr, Handle Case: LL is of size 1 or 2
+		- Merge Two Sorted LL, Use Linear time Recursive Merge Function, Hangle case: Last Node of LLs
+		- Handle Case: Handle Pointers Carefully
+	
 */
 
 class List
@@ -44,72 +46,63 @@ class List
 
 	public:	
 	
-		Node* Merge(Node *Head1, Node *Head2)
+		Node* Merge(Node* Head1, Node* Head2)
 		{
 			Node *Result = NULL;
-			if( Head1 == NULL )	 return Head2;
-			if( Head2 == NULL )	 return Head1;
+			if( Head1 ==  NULL)	 return Head2;
+			if( Head2 ==  NULL)	 return Head1;
 			
 			if( Head1->data <= Head2->data)
 			{
 				Result = Head1;
-				Result->link = Merge(Head1->link, Head2);
+				Result->link = Merge( Head1->link,  Head2);
 			}
 			else
 			{
 				Result = Head2;
-				Result->link = Merge(Head1, Head2->link);
+				Result->link = Merge( Head1,  Head2->link);
 			}
 			return Result;
 		}
 		
-		void DivideInTwoHalfs(Node *Head, Node **Head1, Node **Head2)
+		void SplitInTwoHalves(Node *Head, Node** Head1, Node** Head2)
 		{
-			  Node* fast;
-		 	  Node* slow;
-			  if ( Head == NULL || Head->link == NULL)
-			  {
-				    /* length < 2 cases */
-				    *Head1 = Head;
-				    *Head2 = NULL;
-			  }
-			  else
-			  {
-				    slow = Head;
-				    fast = Head->link;
-				 
-				    /* Advance 'fast' two nodes, and advance 'slow' one node */
-				    while (fast != NULL)
-				    {
-					      fast = fast->link;
-					      if (fast != NULL)
-					      {
-						        slow = slow->link;
-						        fast = fast->link;
-					      }
-				    }
-				 
-				    /* 'slow' is before the midpoint in the list, so split it in two
-				      at that point. */
-				    *Head1 = Head;
-				    *Head2 = slow->link;
-				    slow->link = NULL;
-			  }
+			Node* SlowPtr = Head;
+			*Head1 = Head;
+			
+			// If LL is of size 1 or 2 
+			if( Head->link == NULL || Head->link->link == NULL )
+			{
+				*Head2 = Head->link;
+				(*Head1)->link = NULL;
+			}
+			// If LL is of size Greater than 2
+			else
+			{
+				while( Head != NULL && Head->link != NULL)
+				{
+					SlowPtr = SlowPtr->link;
+					Head = Head->link->link;
+				}
+				
+				*Head2 = SlowPtr->link;
+				SlowPtr->link = NULL;	
+			}			
 		}
 		
 		void MergeSort(Node **Head)
 		{
-			Node *Head1 = NULL, *Head2 = NULL;		
+			Node *Head1 = NULL,*Head2 = NULL;
 			
-			if( *Head == NULL || (*Head)->link == NULL) 	return;
+			// Base Case : If LL is of size 1 then return
+			if( *Head == NULL || (*Head)->link == NULL )	return;
 			
-			DivideInTwoHalfs(*Head, &Head1, &Head2);
-			
+			SplitInTwoHalves(*Head, &Head1, &Head2);
+
 			MergeSort(&Head1);
 			MergeSort(&Head2);
 			
-			*Head = Merge( Head1, Head2);
-
+			*Head = Merge(Head1, Head2);
 		}
 		
 		void test()
@@ -117,11 +110,12 @@ class List
 			Head = GetNewNode(4);			
 			Head->link = GetNewNode(3);
 			Head->link->link = GetNewNode(1);
+			Head->link->link->link = GetNewNode(9);
+			Head->link->link->link->link = GetNewNode(7);
 	
 			MergeSort(&Head);
 			PrintLL(Head);
-			cout<<endl;
-			
+			cout<<endl;			
 		}
 };
 
