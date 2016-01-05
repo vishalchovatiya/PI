@@ -7,10 +7,19 @@
 using namespace std;
 
 /*
+	# Game Rules:
+	
+		1. You can’t place a larger disk onto smaller disk
+	    2. Only one disk can be moved at a time
 
 	# Algorithm:
 	
-			
+		1. Calculate the total number of moves required i.e. "pow(2, n)- 1" here n is number of disks.
+
+		2. for i = 1 to total number of moves:
+		     if i%3 == 1: movement between source and destination pole
+		     if i%3 == 2: movement between source and auxiliary pole
+		     if i%3 == 0: movement between auxiliary and destination pole
 */
 
 
