@@ -18,10 +18,10 @@ using namespace std;
 			
 	# Algo :-
 	
-		- Recursively call for all nodes
-		- Split the linked list into two: one containing all even nodes and other containing all odd nodes
-		- Maintain Head Pointers of Even & Odd LL
-		- When main LL ends, merge Even & Odd LL
+		- Recursively call one by one node of both LL
+		- Calculate the sum and carry
+		- Maintain Head Pointers of Resulted LL and rest of Resulted LL
+		- Handle Case : Different size of LL
 		
 	# Time Complexity: O(N)
 */
