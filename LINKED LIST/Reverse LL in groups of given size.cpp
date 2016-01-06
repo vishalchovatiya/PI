@@ -11,6 +11,10 @@ using namespace std;
 /*
 	Algo :-
 	
+	1) Reverse the first sub-list of given size. While reversing keep track of the next and previous node.
+	2) Recursively call next sub-list and link the two sub-lists (head->next = reverse(next, k))
+	3) Prev becomes the new head of the sub-list (return prev) 
+	
 */
 
 class List
@@ -42,37 +46,36 @@ class List
 
 	public:	
 		
-		Node* ReverseInGroup(Node* Head, int GroupSize)
+		Node* ReverseInGroupRecursive(Node* Head, int GroupSize)
 		{
 			int Count = 0;
-			Node *Current = Head;
-			Node *Prev = NULL;
-			Node *Next = NULL;
-			
+			Node* Prev = NULL;
+			Node* Next = NULL;
+			Node* Current = Head;			
 			// Reverse first GroupSize
 			while( Current != NULL && Count < GroupSize)
 			{
 				Next = Current->link;
 				Current->link = Prev;
-				Prev = Current;
+				Prev = Current;				
 				
 				Current = Next;
+				
 				Count++;
 			}
-			
 			// Recur for reversing next GroupSize
-			if( Next != NULL)
-				Head->link = ReverseInGroup( Next, GroupSize);
+			if( Next != NULL )
+				Head->link = ReverseInGroupRecursive( Next, GroupSize);
 				
-			return Prev;	// Return last node which link to first node of previous groupsize	
+			return Prev;	// Return last node which will link to first node of previous groupsize	
 		}
-		
+			
 		void test()
 		{						
 			Head = GetNewNode(1);			
 			Head->link = GetNewNode(2);
 			Head->link->link = GetNewNode(3);
-			Head->link->link->link = GetNewNode(4);
+			Head->link->link->link = GetNewNode(4);		
 			Head->link->link->link->link = GetNewNode(5);
 			Head->link->link->link->link->link = GetNewNode(6);
 			Head->link->link->link->link->link->link = GetNewNode(7);
@@ -81,8 +84,8 @@ class List
 			
 			PrintLL(Head);
 			cout<<endl;
-			
-			PrintLL(ReverseInGroup( Head, 3));		
+					
+			PrintLL(ReverseInGroupRecursive(Head, 2));
 			cout<<endl;			
 		}
 };
