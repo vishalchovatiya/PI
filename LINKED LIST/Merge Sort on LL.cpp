@@ -9,11 +9,13 @@ using namespace std;
 
 
 /*
-	Algo :-
+	# Algo :-
 	
 		- Split LL in Two Halves, SlowPtr and FastPtr, Handle Case: LL is of size 1 or 2
 		- Merge Two Sorted LL, Use Linear time Recursive Merge Function, Hangle case: Last Node of LLs
 		- Handle Case: Handle Pointers Carefully
+		
+	# Time Complexity:- 	 O(NLog N)
 	
 */
 
@@ -46,7 +48,7 @@ class List
 
 	public:	
 	
-		Node* Merge(Node* Head1, Node* Head2)
+		Node* Merge(Node* Head1, Node* Head2)	// O( M + N )
 		{
 			Node *Result = NULL;
 			if( Head1 ==  NULL)	 return Head2;
@@ -65,7 +67,7 @@ class List
 			return Result;
 		}
 		
-		void SplitInTwoHalves(Node *Head, Node** Head1, Node** Head2)
+		void SplitInTwoHalves(Node *Head, Node** Head1, Node** Head2)	// O( N )
 		{
 			Node* SlowPtr = Head;
 			*Head1 = Head;
@@ -90,7 +92,7 @@ class List
 			}			
 		}
 		
-		void MergeSort(Node **Head)
+		void MergeSort(Node **Head)		// O(NLogN)
 		{
 			Node *Head1 = NULL,*Head2 = NULL;
 			
