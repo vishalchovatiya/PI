@@ -9,8 +9,8 @@ using namespace std;
 /*
 	# Game Rules:
 	
-		1. You can’t place a larger disk onto smaller disk
-	    2. Only one disk can be moved at a time
+		1. You canâ€™t place a larger disk onto smaller disk
+	    	2. Only one disk can be moved at a time
 
 	# Algorithm:
 	
@@ -23,11 +23,11 @@ using namespace std;
 		     
 	# Cheat:- Formulating Algo with 2 Disk simulation
 	
-	- Initial 		- Step 1: Move A to B	- Step 2: Move A to C	- Step 3: Move B to C	- Step 4: Repeat this 3 steps untill 2^N -1 times
+	- Initial 	- Step 1: Move A to B	- Step 2: Move A to C	- Step 3: Move B to C	- Step 4: Repeat this 3 steps untill 2^N -1 times
 		
-		1																		1
-		2________		2___1____				____1___2				________2
-		A	B	C		A	B	C				A	B	C				A	B	C
+	1									1
+	2________	2___1____		____1___2		________2
+	A   B	C	A   B	C		A   B	C		A   B	C
 			     
 */
 
