@@ -1,1 +1,19 @@
-Cheat Sheet
+
+1 Tower of Hanoi Iterative
+
+	# Algorithm:
+	
+		1. Calculate the total number of moves required i.e. "pow(2, n)- 1" here n is number of disks.
+
+		2. for i = 1 to total number of moves:
+		     if i%3 == 1: movement between source and destination pole
+		     if i%3 == 2: movement between source and auxiliary pole
+		     if i%3 == 0: movement between auxiliary and destination pole
+		     
+	# Cheat:- Formulating Algo with 2 Disk simulation
+	
+	- Initial 		- Step 1: Move A to B	- Step 2: Move A to C	- Step 3: Move B to C	- Step 4: Repeat this 3 steps untill 2^N -1 times
+		
+		1																		1
+		2________		2___1____				____1___2				________2
+		A	B	C		A	B	C				A	B	C				A	B	C
