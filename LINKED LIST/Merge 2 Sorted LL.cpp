@@ -8,7 +8,11 @@ using namespace std;
 
 
 /*
-
+	# Algo:
+	
+		-Initialize Result Pointer and Compare Both LL
+		- Add Node which ever node is smaller to Result 
+		- And traverse for Result->link
 	   
 */
 
