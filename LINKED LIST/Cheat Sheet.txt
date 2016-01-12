@@ -1,1 +1,89 @@
-Cheat Sheet
+1 Nth Node from end of Linked List :- 
+
+		- Maintain two pointers – reference pointer and main pointer. 
+		- First move reference pointer to n nodes from head. 
+		- Now move both pointers until reference pointer reaches end. 
+		- Now main pointer will point to nth node from the end. Return main pointer.
+		
+2 Remove duplicates from an unsorted LL :-  Use Hash table and Prev, Next, Current Pointers 
+
+3 Detect Cycle in Linked List :- Floyd’s Cycle-Finding Algorithm	(Fastest Method compared to Hash Table) 
+	
+		- Slow Ptr and Fast Ptr
+		- Time Complexity : O(N)
+		- Space Complexity : O(1)
+
+4 Reverse LL Using Single Pointer :- Use Recursion Utility function, After complete reverse traversal & link settlement make first node's link to NULL
+
+5 Merge 2 Sorted LL :-  (Handle Corner Cases when one of LL ends)
+
+    -Initialize Result Pointer and Compare Both LL
+		- Add Node which ever node is smaller to Result 
+		- And traverse for Result->link
+
+6 Merge Point of 2 LL :- Use Hash Map Property, When there is no element present in map with given key, map create null element with that key
+
+7 Merge Sort on LL :- 
+
+		- Split LL in Two Halves, SlowPtr and FastPtr, Handle Case: LL is of size 1 or 2
+		- Merge Two Sorted LL, Use Linear time Recursive Merge Function, Hangle case: Last Node of LLs
+		- Handle Case: Handle Pointers Carefully
+		
+8 Add two numbers represented by LL :- 
+
+    - Recursively call one by one node of both LL
+		- Calculate the sum and carry
+		- Maintain Head Pointers of Resulted LL and rest of Resulted LL
+		- Handle Case : Different size of LL
+		
+9 Segregate Even Odd Nodes in LL :- 
+
+		- Recursively call for all nodes
+		- Split the linked list into two: one containing all even nodes and other containing all odd nodes
+		- Maintain Head Pointers of Even & Odd LL
+		- When main LL ends, merge Even & Odd LL
+		
+10 Reverse LL in groups of given size :- 
+
+  1) Reverse the first sub-list of given size. While reversing keep track of the next and previous node.
+	2) Recursively call next sub-list and link the two sub-lists (head->next = reverse(next, k))
+	3) Prev becomes the new head of the sub-list (return prev) 
+		
+11 Reverse LL in groups of alternate given size :- Skip Next GroupSize rest logic remain same as above
+
+12 Find a triplet from three linked lists with sum equal to a given number:-
+
+Sorting can be used to reduce the time complexity to O(n*n)
+		- Sort list b in ascending order, and list c in descending order.
+		- After the b and c are sorted, one by one pick an element from list a and find the pair by traversing both b and c. 
+		- See isSumSorted() in the following code. The idea is similar to Quadratic algorithm of 3 sum problem.	
+		
+13 Flattening a Linked List Sorted LL :- Merge any 2 Down LL with MergeSortedLL Function
+
+14 Quick Sort on LL
+
+15 Flatten a Multi-level LL :- 
+
+  - Traverse level by level and add next level nodes in queue
+  - Append all next level node to previous level
+  - repeat this process until all level append completely
+  
+16 Merge 2 LL at alternate Position :- 
+
+		- Record Next Nodes of both LL
+		- Merge both current node of both LL
+		- Recure for both Next LL Nodes
+		
+17 Merge two sorted LL such that merged list is in reverse order:-
+
+	- Insert the smaller value node at the front of result.
+	- Construct like stack with link building
+	
+18 Delete N nodes after M nodes of a LL :- Skip M Nodes, Delete N Nodes, Recur for next M+N cycle	
+
+19 Insertion Sort on LL:- Create function sorted insert, One by one insert every not in function SortedInsert
+
+20
+		
+		
+		
