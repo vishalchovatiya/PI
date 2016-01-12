@@ -15,7 +15,13 @@ using namespace std;
 		
 	Solution : 
 	
-		5->12->7->10->17->2->13->4->11->6->NULL		
+		5->12->7->10->17->2->13->4->11->6->NULL	
+		
+	Algo :
+	
+		- Record Next Nodes of both LL
+		- Merge both current node of both LL
+		- Recure for both Next LL Nodes
 	   
 */
 
