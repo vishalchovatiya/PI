@@ -20,6 +20,15 @@ using namespace std;
 		     if i%3 == 1: movement between source and destination pole
 		     if i%3 == 2: movement between source and auxiliary pole
 		     if i%3 == 0: movement between auxiliary and destination pole
+		     
+	# Cheat:- Formulating Algo with 2 Disk simulation
+	
+	- Initial 		- Step 1: Move A to B	- Step 2: Move A to C	- Step 3: Move B to C	- Step 4: Repeat this 3 steps untill 2^N -1 times
+		
+		1																		1
+		2________		2___1____				____1___2				________2
+		A	B	C		A	B	C				A	B	C				A	B	C
+			     
 */
 
 
@@ -86,19 +95,19 @@ void TowerOfHanoi( int NoOfDisks, stack<int> &Source, stack<int> &Destination, s
 	for(int Move = 1; Move <= TotalMoveRequired; Move++)	
 	{
 		if( Move % 3 == 1)
-			DiskMovement( "Source", Source, "Destination", Destination);
-		
-		if( Move % 3 == 2)
 			DiskMovement( "Source", Source, "Auxiliary", Auxiliary);
 		
+		if( Move % 3 == 2)
+			DiskMovement( "Source", Source, "Destination", Destination);
+		
 		if( Move % 3 == 0)
-			DiskMovement( "Auxiliary", Auxiliary, "Destination", Destination);	
+			DiskMovement( "Auxiliary", Auxiliary, "Destination", Destination);		
 	}
 }
 
 int main()
 {
-	int NoOfDisks = 10;
+	int NoOfDisks = 3;
 	
 	stack<int> Source;
 	stack<int> Destination;
@@ -106,11 +115,8 @@ int main()
 	
 	TowerOfHanoi( NoOfDisks, Source, Destination, Auxiliary);
 	
-	// If No if disks are odd then resultant Stack would be Destination else Auxiliary
-	if( NoOfDisks % 2 )
-		PrintStack( "Destination  Stack : ", Destination);
-	else
-		PrintStack( "Auxiliary  Stack : ", Auxiliary);
+	PrintStack( "Destination  Stack : ", Destination);
+	PrintStack( "Auxiliary  Stack : ", Auxiliary);
 	
 	return 0;
 }
