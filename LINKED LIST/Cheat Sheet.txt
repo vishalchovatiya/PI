@@ -60,7 +60,15 @@ Sorting can be used to reduce the time complexity to O(n*n)
 		
 13 Flattening a Linked List Sorted LL :- Merge any 2 Down LL with MergeSortedLL Function
 
-14 Quick Sort on LL
+14 Quick Sort on LL :- 
+
+	- Form Parition function which will return Pivot element and Move all greater node right to Pivot element
+	- Recur for left LL of Pivot, and merge befor recuring for Right LL of Pivot
+	
+	- Handle Case:- 
+		1). Head == NULL & Head == End
+		2). Before recuring for Left LL make end link of Left LL NULL and after recur merge again to Pivot
+		3). In right recurm, Recur for Pivot next element not pivot
 
 15 Flatten a Multi-level LL :- 
 
