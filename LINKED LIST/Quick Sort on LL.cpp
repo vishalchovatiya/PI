@@ -7,16 +7,16 @@
 #include <queue>
 using namespace std;
 
-================================Pending
-
 /*
 	# Algo :-
 	
-		- Split LL in Two Halves, SlowPtr and FastPtr, Handle Case: LL is of size 1 or 2
-		- Merge Two Sorted LL, Use Linear time Recursive Merge Function, Hangle case: Last Node of LLs
-		- Handle Case: Handle Pointers Carefully
+		- Form Parition function which will return Pivot element and Move all greater node right to Pivot element
+		- Recur for left LL of Pivot, and merge befor recuring for Right LL of Pivot
 		
-	# Time Complexity:- 	 O(NLog N)
+		- Handle Case:- 
+			1). Head == NULL & Head == End
+			2). Before recuring for Left LL make end link of Left LL NULL and after recur merge again to Pivot
+			3). In right recurm, Recur for Pivot next element not pivot
 	
 */
 
@@ -78,15 +78,14 @@ class List
 					
 					if (Prev != NULL)
 						Prev->link = temp;
-					// First Element is Greater than Pivot then handle Prev
+					// First Element is Greater than Pivot then update Prev & Newhead
 					else if(Prev == NULL)
 						*NewHead = temp;	
 						
 					End->link = Traverse;
 					End = End->link;
 					Traverse = temp;
-				}
-				
+				}				
 			}
 			
 			End->link = NULL;
@@ -97,28 +96,31 @@ class List
 		
 		Node* QuickSort(Node* Head, Node *End )
 		{
-			Node *NewHead = NULL, *NewEnd = NULL, *Pivot = NULL;
-
-			if( Head == NULL || Head == End )	return NULL;
+			// Base Case
+			if( Head == NULL || Head == End )	return Head;			
 			
-			// 2 5 3 1
-			Pivot = Partition( Head, &NewHead, &NewEnd);
-			// 1 2 5 3
+			Node *NewHead = NULL, *NewEnd = NULL;
 			
+			Node *Pivot = Partition( Head, &NewHead, &NewEnd);
+			
+			// If Pivot is first element then there is no left LL
 			if( NewHead != Pivot )
 			{
+				// Construct Left LL by making link of node before Pivot
 				Node *temp = NewHead;
 				while( temp->link != Pivot )
 					temp = temp->link;
 				temp->link = NULL;
 				
 				NewHead = QuickSort( NewHead, temp);
+				
+				// Again merge Left Sorted LL to Pivot
+				temp = GetEnd(NewHead);
+        		temp->link =  Pivot;
 			}
 			
-			Pivot->link = QuickSort( Pivot->link, NewEnd);
-			
-			PrintLL(NewHead);
-			cout<<endl;
+			// recure for right LL
+			Pivot->link = QuickSort( Pivot->link, NewEnd);	
 			
 			return NewHead;
 		}
@@ -127,17 +129,13 @@ class List
 		{						
 			Head = GetNewNode(1);			
 			Head->link = GetNewNode(5);
-			Head->link->link = GetNewNode(3);
+			Head->link->link = GetNewNode(3);			
 			Head->link->link->link = GetNewNode(2);
+			Head->link->link->link->link = GetNewNode(4);
 
 			//PrintLL(Head);
 			
 			PrintLL(QuickSort( Head, GetEnd(Head) ));
-			
-			//cout<<endl;	
-			//cout<<GetEnd(Head)->data;
-
-			//PrintLL(Head);	
 		}
 		
 };
