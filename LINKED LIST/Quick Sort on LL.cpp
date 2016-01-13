@@ -15,8 +15,9 @@ using namespace std;
 		
 		- Handle Case:- 
 			1). Head == NULL & Head == End
-			2). Before recuring for Left LL make end link of Left LL NULL and after recur merge again to Pivot
-			3). In right recurm, Recur for Pivot next element not pivot
+			2). Divide LL in two separate LL with before and after Pivot if left exist
+			
+		Note:- Handle Links of every moving node and Corner Cases	
 	
 */
 
