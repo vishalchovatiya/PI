@@ -119,4 +119,6 @@ Sorting can be used to reduce the time complexity to O(n*n)
 	- When Backtracking look for Kth node from End 		
 	- If K is less than half of LL size then swap and adjust Next Prev link
 			
-26		
+26 Reverse Last K nodes of LL :- Logic:	Recursive, NOTE : Handle Corner Cases   
+
+27 Merge 2 Unsorted LL to Sorted LL :-  Append 2nd LL with 1 LL, Use Merge or Quick sort to sort complete list
