@@ -91,7 +91,32 @@ Sorting can be used to reduce the time complexity to O(n*n)
 
 19 Insertion Sort on LL:- Create function sorted insert, One by one insert every not in function SortedInsert
 
-20
+20 Insert in Circular Sorted LL:- Handle Cases: Insertion at Head, Insertion at Tail, Insert Element with same value present in LL
 		
+21 Reverse Doubly LL:- Corner Cases
+
+22 Quick Sort on Doubly LL :- 
+
+	- Form Parition function which will return Pivot element and Move all greater node right to Pivot element
+	- Recur for left LL of Pivot, and merge befor recuring for Right LL of Pivot
+	
+	- Handle Case:- 
+		1). Head == NULL & Head == End
+		2). Divide LL in two separate LL with before and after Pivot if left exist
 		
-		
+23 Merge 2 Sorted Doubly LL :- Handle Corner cases and Prev link of every nodes
+
+24 Merge Sort on Doubly LL :- 
+
+	- Split LL in Two Halves, SlowPtr and FastPtr, Handle Case: LL is of size 1 or 2
+	- Merge Two Sorted LL, Use Linear time Recursive Merge Function, Hangle case: Last Node of LLs & All Prev Link of nodes
+	- Handle Case: Dont forget to handle Prev link of First Element
+	
+25 Swap Kth node of beginning with Kth node of end in a DLL :- 
+
+	Traverse LL with Prev Curr & Next node info & LL Size Variable
+	- Recor Beginning Kth node data	like Prev Curr & Next	
+	- When Backtracking look for Kth node from End 		
+	- If K is less than half of LL size then swap and adjust Next Prev link
+			
+26		
