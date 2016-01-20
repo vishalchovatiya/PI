@@ -1,1 +1,11 @@
-Cheat Sheet
+
+0 Matrix Multiplication:
+
+		A = 3 x 2
+		B = 2 x 3
+				     ------------------ Internal size match, hence multiplication possible
+				    |		|
+		A * B = 	3 x 2	& 	2 x 3
+				|		    |
+				|   		    |    
+				-------------------------Output Matrix Size = 3 x 3
