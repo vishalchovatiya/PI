@@ -1,1 +1,11 @@
-Cheat Sheet
+
+1 Height of Binary Tree Iterative & Recursive : 
+
+	Iterative:	Use Queue Size & Double While
+	Recursive:	Traverse down and decreament level, print data when level=1
+
+2 Print level order traversal line by line : Same as Height of Binary Tree
+
+3 Level Order Traversal BFS Iterative : Use Queue
+
+4 Level Order Traversal BFS Recursive : Find Height and PrintAllLevel as Height of Binary Tree Recursive 
