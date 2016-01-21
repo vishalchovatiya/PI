@@ -9,3 +9,9 @@
 3 Level Order Traversal BFS Iterative : Use Queue
 
 4 Level Order Traversal BFS Recursive : Find Height and PrintAllLevel as Height of Binary Tree Recursive 
+
+5 Inorder Tree Traversal Iterative:-
+
+	- Store all left node in stack
+	- Print node when left child of node is NULL
+	- If right not NULL push it in stack
