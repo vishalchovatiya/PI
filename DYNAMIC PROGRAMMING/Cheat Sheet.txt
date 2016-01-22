@@ -1,1 +1,5 @@
-Cheat Sheet
+
+Top-Down, Memoization
+Bottom-Up, Tabulation
+
+0 Fibonacci 

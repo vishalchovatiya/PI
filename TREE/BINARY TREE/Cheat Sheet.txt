@@ -83,4 +83,8 @@ Application of DFSs:
 	- Pick Element of Preorder traversal from start to end(For PreOrder & Inorder) or from end to start (For Postorder & Inorder), one by one
 	- Find Root in Inorder traversal and figure out left & right subtree
 	- repeat this process untill all element finish
+
+14 Connect nodes at same level:- 
+
+15 Boundary Traversal of Binary Tree:-
 		
