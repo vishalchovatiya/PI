@@ -1,4 +1,22 @@
 
+PreOrder:-  First Parent, Then Child; Top-Down  Walk(Root First)		
+PostOrder:- First Child, Then Parent; Bottom-Up Walk(Root Last)		
+InOrder:-   First Left Child, Then Parent, Then Right Child;
+		
+Application of DFSs:
+
+	    *
+	   / \
+	  +   C
+	 / \   
+	A   B  
+		
+	- PreOrder traversal of above tree produce PREFIX NOTATION     * + A B C
+	- PostOrder traversal of above tree produce POSTFIX NOTATION   A B + C *
+	- InOrder traversal of above tree produce INFIX NOTATION       A + B * C
+	
+	- DU command of UNIX is PostOrder traversal which get disk usage data of its child first then come to parent; 
+
 1 Height of Binary Tree Iterative & Recursive : 
 
 	Iterative:	Use Queue Size & Double While
@@ -10,19 +28,30 @@
 
 4 Level Order Traversal BFS Recursive : Find Height and PrintAllLevel as Height of Binary Tree Recursive 
 
-5 Inorder Tree Traversal Iterative:-
+5 Level Order Traversal in Spiral Form:- 
+
+	Recursive :- Modify printGivenLevel method with bool variable
+	
+	Iterative 1 :- Modify iterative BF traversal Using Stack & bool variable (Queue + Stack)
+	
+	Iterative 2 :- Use 2 Stack 
+			- Do until both stack not empty
+			- Pop from Stack1, and add next level nodes to Stack2
+			- Pop from Stack2, and add next level nodes to Stack1
+
+6 Inorder Tree Traversal Iterative:-
 
 	- Store all left node in stack
 	- Print node when left child of node is NULL
 	- If right not NULL push it in stack
 
-6 PreOrder Tree Traversal Iterative:-
+7 PreOrder Tree Traversal Iterative:-
 
 	- Do until stack empty
 	- Fetch stack top and print;
 	- Push right child first, then left
 
-7 PostOrder Tree Traversal Iterative:-
+8 PostOrder Tree Traversal Iterative:-
 
 	- Push root to first stack.
 	- Loop while first stack is not empty
@@ -30,13 +59,14 @@
 	   - Push left and right children of the popped node to first stack
 	- Print contents of second stack
 
-8 Mirror Tree:-
+9 Mirror Tree:-
 
 	- Call Mirror for left-subtree    i.e., Mirror(left-subtree)
 	- Call Mirror for right-subtree  i.e., Mirror(right-subtree)
 	- Swap left and right subtrees	
 
-9 All Root to Leaf Path:- 
+10 All Root to Leaf Path:- 
 
 	- Store each node in array 
 	- When you find leaf node (whose right & left child are null) print array		
+
