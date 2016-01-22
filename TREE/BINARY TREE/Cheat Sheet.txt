@@ -15,3 +15,28 @@
 	- Store all left node in stack
 	- Print node when left child of node is NULL
 	- If right not NULL push it in stack
+
+6 PreOrder Tree Traversal Iterative:-
+
+	- Do until stack empty
+	- Fetch stack top and print;
+	- Push right child first, then left
+
+7 PostOrder Tree Traversal Iterative:-
+
+	- Push root to first stack.
+	- Loop while first stack is not empty
+	   - Pop a node from first stack and push it to second stack
+	   - Push left and right children of the popped node to first stack
+	- Print contents of second stack
+
+8 Mirror Tree:-
+
+	- Call Mirror for left-subtree    i.e., Mirror(left-subtree)
+	- Call Mirror for right-subtree  i.e., Mirror(right-subtree)
+	- Swap left and right subtrees	
+
+9 All Root to Leaf Path:- 
+
+	- Store each node in array 
+	- When you find leaf node (whose right & left child are null) print array		
