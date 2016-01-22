@@ -70,3 +70,7 @@ Application of DFSs:
 	- Store each node in array 
 	- When you find leaf node (whose right & left child are null) print array		
 
+11 Children Sum Property OR Convert an arbitrary Binary Tree to a tree that holds Children Sum Property:- 
+
+	- Modify Post order traversal (Because in post order first visited child, then parent )
+		
