@@ -8,9 +8,13 @@ using namespace std;
 
 
 /*
-		Diameter of Tree:- The longest path between leaves that goes through the root of Tree
 		
-		Diameter of Tree = Height of Left Subtree + Height of Right Subtree
+	The diameter of a tree T is the largest of the following quantities:
+	
+	* the diameter of T’s left subtree
+	* the diameter of T’s right subtree
+	* the longest path between leaves that goes through the root of T (this can be computed from the heights of the subtrees of T) 
+
 */
 
 class Tree
@@ -39,28 +43,24 @@ class Tree
 
 	public:	
 	
-		int Height(Node *Root, int Level = 0)
-		{
-			static int HeightOftree;
+		int Height(Node *Root)
+		{			
+			if(Root==NULL)				return 0;
 			
-			if(Root==NULL)
-			{
-				HeightOftree = ( Level > HeightOftree) ? Level : HeightOftree ;
-				return HeightOftree;
-			}
-			
-			Height( Root->left, Level+1);
-			Height( Root->right, Level+1);
-			
-			return HeightOftree;
+			return 1 + max(Height(Root->left), Height(Root->right));
 		}
 
 		int Diameter(Node* Root)
 		{
-			int LeftSubTreeHeight = Height( Root->left, -1);
-			int RightSubTreeHeight = Height( Root->right, -1);
+			if(Root==NULL)				return 0;
 			
-			return 	LeftSubTreeHeight + RightSubTreeHeight;
+			int LeftSubTreeHeight = Height( Root->left);
+			int RightSubTreeHeight = Height( Root->right);
+			
+			int LDia = Diameter( Root->left);
+			int RDia = Diameter( Root->right);
+			
+			return 	max( LeftSubTreeHeight+RightSubTreeHeight, max(LDia, RDia));
 		}
 		
 		void test()
