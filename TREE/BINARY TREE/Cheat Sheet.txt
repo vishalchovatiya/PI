@@ -86,5 +86,9 @@ Application of DFSs:
 
 14 Connect nodes at same level:- 
 
+	- Naive Approach :- Use Queue and while poping link those nodes		
+	- Efficient Approach :- Traverse Tree right to left & link nodes (By reverse traversal of Preorder)
+			
+
 15 Boundary Traversal of Binary Tree:-
 		
