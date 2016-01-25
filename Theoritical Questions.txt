@@ -1,0 +1,27 @@
+1). When to use a linked list over an array & Vice-versa ?
+
+	# When to use linked list
+	- you need constant-time insertions/deletions from the list 
+	- you don't know how many items will be in the list
+	- you don't need random access to any elements
+	- you need to arrange object of different types(void pointer LL)
+
+	- Practical Example: Message Queue
+
+	# When to use Array
+	- you need indexed/random access to elements
+	- memory is a concern
+	- When you know memory of same data type
+
+2). What's the difference between passing by reference vs. passing by value?
+
+	Best explanation I ever heard of this.
+
+	Say I want to share a web page with you.
+
+	- If I tell you the URL, I'm passing by reference. You can use that URL to see the same web page I can see. If that page is changed, we both see the changes. 
+	- If you delete the URL, all you're doing is destroying your reference to that page - you're not deleting the actual page itself.
+
+	- If I print out the page and give you the printout, I'm passing by value. Your page is a disconnected copy of the original. You won't see any subsequent changes,
+	- and any changes that you make will not show up on the original page. 
+	- If you destroy the printout, you have actually destroyed your copy of the object - but the original web page remains intact.
