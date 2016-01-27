@@ -88,7 +88,9 @@ Application of DFSs:
 
 	- Naive Approach :- Use Queue and while poping link those nodes		
 	- Efficient Approach :- Traverse Tree right to left & link nodes (By reverse traversal of Preorder)
-			
 
-15 Boundary Traversal of Binary Tree:-
+15 Doubly LL to Binary Tree :- Use Queue
+
+16 Vertical Order Printing of Binary Tree:- Use Hash Map of int key and vector of int data
+
 		
