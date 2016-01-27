@@ -74,9 +74,11 @@ Application of DFSs:
 
 	- Modify Post order traversal (Because in post order first visited child, then parent )
 
-12 Diameter of Tree:- The longest path between leaves that goes through the root of Tree
-		
-	- Diameter of Tree = Height of Left Subtree + Height of Right Subtree
+12 Diameter of Tree:- The diameter of a tree T is the largest of the following quantities:
+	
+	* the diameter of T’s left subtree
+	* the diameter of T’s right subtree
+	* the longest path between leaves that goes through the root of T (this can be computed from the heights of the subtrees of T) 
 
 13 Construct tree from given Preorder & Inorder traversal or Postorder & Inorder traversal :-
 
@@ -93,4 +95,4 @@ Application of DFSs:
 
 16 Vertical Order Printing of Binary Tree:- Use Hash Map of int key and vector of int data
 
-		
+17 Top Bottom Left Right View of Binary Tree:- Use Hash Map		
