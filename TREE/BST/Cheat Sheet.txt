@@ -1,1 +1,12 @@
-Cheat Sheet
+0 Deletion from BST:- 1).If node is Leafe Node, 2).If node has only one child, 3).If node has both child(get max ele from left subtree or min from right subtree)
+
+1 Inorder predecessor and successor  BST:-
+
+	- While Traversing Left keep track of prev node for Successor
+	- While Traversing right keep track of prev node for Predecessor
+	
+	Handle Cases like :- Leafe node, left child null, right child null, root
+
+2 Check if a binary tree is BST or not:- Set Boundary limits of min and max(initially INT_MIN & INT_MAX), traverse and set limits.
+
+3 Find k-th smallest element in BST:- Modify inorder traversal by using static member count and find node
