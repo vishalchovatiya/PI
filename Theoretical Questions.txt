@@ -25,3 +25,12 @@
 	- If I print out the page and give you the printout, I'm passing by value. Your page is a disconnected copy of the original. You won't see any subsequent changes,
 	- and any changes that you make will not show up on the original page. 
 	- If you destroy the printout, you have actually destroyed your copy of the object - but the original web page remains intact.
+
+3). Advantages of BST over Hash Table
+
+
+     	- Inorder Traversal of BST produce sorted data. This is not a natural operation in Hash Tables and requires extra efforts.
+	- Finding closest minimum and maximum elements
+	- Doing range queries are easy to do with BSTs. 
+    	- With BSTs, all operations are guaranteed to work in O(Logn) time. But with Hashing, T(1) is average time and some particular operations may be costly, especially when table is large
+
