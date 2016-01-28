@@ -9,3 +9,7 @@
 				|		    |
 				|   		    |    
 				-------------------------Output Matrix Size = 3 x 3
+
+1 Print Matrix Spirally
+
+	Use Variable Top-Bottom & Left-Right with Direction
