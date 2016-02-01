@@ -1,1 +1,8 @@
-Cheat Sheet
+AVL Tree:- Self-Balanced BST(Difference b/w left & right subtree can not be more than 1)
+	
+AVL Tree Insertion & Deletion:-
+	
+	1) Perform the normal BST insertion or Deletion.
+	2) Update the height of the current node.
+	3) Get the difference factor ( height left subtree – right subtree) of the current root.
+	4) Do the Rotations(i.e. LL, LR, RR, RL) upon Difference & Inserted Key
