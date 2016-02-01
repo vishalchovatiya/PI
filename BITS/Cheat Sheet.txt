@@ -1,1 +1,7 @@
-Cheat Sheet
+0 Number of bits required to represent given integer:- Continuos divide number & increament counter
+
+1 Set, Clear, Toggle Macros:  use AND(&), OR(|) and XOR(^)
+
+2 Convert given number to binary, hexadecimal, octal:- Use universal method, divide with base and assemble results in char array
+
+3 Checking Power of 2:-  X && !( X & (X - 1) )
