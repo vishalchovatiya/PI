@@ -34,3 +34,16 @@
 	- Doing range queries are easy to do with BSTs. 
     	- With BSTs, all operations are guaranteed to work in O(Logn) time. But with Hashing, T(1) is average time and some particular operations may be costly, especially when table is large
 
+4). When does the worst case of Quicksort occur?
+
+	The answer depends on strategy for choosing pivot. If leftmost (or rightmost) element is chosen as pivot, the worst occurs in following cases.
+
+	- Array is already sorted in same order.
+	- Array is already sorted in reverse order.
+	- All elements are same (special case of case 1 and 2)
+
+	Solution :- 
+
+	- Problem was easily solved by choosing either a random index OR middle index of the partition or (especially for longer partitions) 
+	- Choosing the median as the pivot can reduce the chances of worst case of Quick sort.
+	- But worst case can still occur if the input array is such that the maximum (or minimum) element is always chosen as pivot. 
