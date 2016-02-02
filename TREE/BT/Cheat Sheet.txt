@@ -1,0 +1,98 @@
+
+PreOrder:-  First Parent, Then Child; Top-Down  Walk(Root First)		
+PostOrder:- First Child, Then Parent; Bottom-Up Walk(Root Last)		
+InOrder:-   First Left Child, Then Parent, Then Right Child;
+		
+Application of DFSs:
+
+	    *
+	   / \
+	  +   C
+	 / \   
+	A   B  
+		
+	- PreOrder traversal of above tree produce PREFIX NOTATION     * + A B C
+	- PostOrder traversal of above tree produce POSTFIX NOTATION   A B + C *
+	- InOrder traversal of above tree produce INFIX NOTATION       A + B * C
+	
+	- DU command of UNIX is PostOrder traversal which get disk usage data of its child first then come to parent; 
+
+1 Height of Binary Tree Iterative & Recursive : 
+
+	Iterative:	Use Queue Size & Double While
+	Recursive:	Traverse down and decreament level, print data when level=1
+
+2 Print level order traversal line by line OR Print nodes at k distance from root : Same as Height of Binary Tree
+
+3 Level Order Traversal BFS Iterative OR Maximum width of a binary tree: Use Queue
+
+4 Level Order Traversal BFS Recursive : Find Height and PrintAllLevel as Height of Binary Tree Recursive 
+
+5 Level Order Traversal in Spiral Form:- 
+
+	Recursive :- Modify printGivenLevel method with bool variable
+	
+	Iterative 1 :- Modify iterative BF traversal Using Stack & bool variable (Queue + Stack)
+	
+	Iterative 2 :- Use 2 Stack 
+			- Do until both stack not empty
+			- Pop from Stack1, and add next level nodes to Stack2
+			- Pop from Stack2, and add next level nodes to Stack1
+
+6 Inorder Tree Traversal Iterative:-
+
+	- Store all left node in stack
+	- Print node when left child of node is NULL
+	- If right not NULL push it in stack
+
+7 PreOrder Tree Traversal Iterative:-
+
+	- Do until stack empty
+	- Fetch stack top and print;
+	- Push right child first, then left
+
+8 PostOrder Tree Traversal Iterative:-
+
+	- Push root to first stack.
+	- Loop while first stack is not empty
+	   - Pop a node from first stack and push it to second stack
+	   - Push left and right children of the popped node to first stack
+	- Print contents of second stack
+
+9 Mirror Tree:-
+
+	- Call Mirror for left-subtree    i.e., Mirror(left-subtree)
+	- Call Mirror for right-subtree  i.e., Mirror(right-subtree)
+	- Swap left and right subtrees	
+
+10 All Root to Leaf Path:- 
+
+	- Store each node in array 
+	- When you find leaf node (whose right & left child are null) print array		
+
+11 Children Sum Property OR Convert an arbitrary Binary Tree to a tree that holds Children Sum Property:- 
+
+	- Modify Post order traversal (Because in post order first visited child, then parent )
+
+12 Diameter of Tree:- The diameter of a tree T is the largest of the following quantities:
+	
+	* the diameter of T’s left subtree
+	* the diameter of T’s right subtree
+	* the longest path between leaves that goes through the root of T (this can be computed from the heights of the subtrees of T) 
+
+13 Construct tree from given Preorder & Inorder traversal or Postorder & Inorder traversal :-
+
+	- Pick Element of Preorder traversal from start to end(For PreOrder & Inorder) or from end to start (For Postorder & Inorder), one by one
+	- Find Root in Inorder traversal and figure out left & right subtree
+	- repeat this process untill all element finish
+
+14 Connect nodes at same level:- 
+
+	- Naive Approach :- Use Queue and while poping link those nodes		
+	- Efficient Approach :- Traverse Tree right to left & link nodes (By reverse traversal of Preorder)
+
+15 Doubly LL to Binary Tree :- Use Queue
+
+16 Vertical Order Printing of Binary Tree:- Use Hash Map of int key and vector of int data
+
+17 Top Bottom Left Right View of Binary Tree:- Use Hash Map		
