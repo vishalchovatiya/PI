@@ -25,7 +25,7 @@ using namespace std;
 	4) Do the Rotations(i.e. LL, LR, RR, RL) upon Difference & Inserted Key
 */
 
-class Tree
+class AVLTree
 {
 	class Node
 	{
@@ -172,7 +172,7 @@ class Tree
 
 int main()
 {
-	Tree T;
+	AVLTree T;
 	
 	T.test();	
 	

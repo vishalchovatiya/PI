@@ -1,1 +1,34 @@
-Cheat Sheet
+
+0). Insert & Search in Trie
+
+	class Node
+	{
+		public:
+			bool isKeyEnd;		// This Variable is used to delete or search key /* Used to mark key leaf nodes */
+			Node *Child[ALPHABET_SIZE];
+	};
+	
+	keys = {"the", "a", "there", "answer", "any", "by", "bye", "their"};
+	
+                       root
+                    /   \    \
+                    t   a     b
+                    |   |     |
+                    h   n     y
+                    |   |  \  |
+                    e   s  y  e
+                 /  |   |
+                 i  r   w
+                 |  |   |
+                 r  e   e
+                        |
+                        r
+     	- Time Complexity:- Insert & search = O(key_length), 
+	- Space Complexity:- O(ALPHABET_SIZE * key_length * N) where N is number of keys in trie. 
+	- There are efficient representation of trie nodes (e.g. compressed trie, ternary search tree, etc.) to minimize memory requirements of trie.     
+
+1). Deletion Trie
+
+	- Time Complexity:- O(key_length), 
+	 
+	Logic:- Use bool variable in trie node structure to find key end or not              
