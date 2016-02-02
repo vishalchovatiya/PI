@@ -10,6 +10,13 @@ using namespace std;
 /*
 	AVL Tree:- Self-Balanced BST(Difference b/w left & right subtree can not be more than 1)
 	
+	Why AVL Trees? :- 
+	
+	- Most of the BST operations (e.g., search, max, min, insert, delete.. etc) take O(h) time where h is the height of the BST. 
+	- The cost of these operations may become O(n) for a skewed Binary tree.
+	- If we make sure that height of the tree remains O(Logn) after every insertion and deletion.
+	- Then we can guarantee an upper bound of O(Logn) for all these operations
+	
 	AVL Tree Implementation:
 	
 	1) Perform the normal BST insertion.
