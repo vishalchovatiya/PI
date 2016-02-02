@@ -1,1 +1,6 @@
-Cheat Sheet
+
+0 Maximum Sum Subarray:-
+
+	1). Brute Force O(NxNxN) (3 Loop(or 2 Loop), subArraySize Loop, Array traverse loop, sum of sub array loop)
+	2). Divide & conquer ( Modified Quick Sort, while traversing reverse(for left sub array) & forward(for right sub array))
+	3). Kadane's Algo (Assumption: Atleast one positive number, Logic :- sum up elements, record max of all positive sum
