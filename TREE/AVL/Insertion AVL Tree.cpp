@@ -8,6 +8,12 @@ using namespace std;
 
 
 /*
+	class AVLNode
+	{
+			int data, height;
+			Node *left, *right;	
+	};
+	
 	AVL Tree:- Self-Balanced BST(Difference b/w left & right subtree can not be more than 1)
 	
 	Why AVL Trees? :- 
