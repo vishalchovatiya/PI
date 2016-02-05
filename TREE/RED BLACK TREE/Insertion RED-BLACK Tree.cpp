@@ -6,13 +6,15 @@
 #include <queue>
 using namespace std;
 
+#define BLACK 	0
+#define RED		1
 
 /*
 	Red-Black Tree:- Self-Balancing BST(Color Scheme)
 	
 	Properties:-
-	1) Root of tree is always black.
-	2) There are no two adjacent red nodes.	
+	1) Root is always black.
+	2) No two adjacent red nodes.	
 	3) Every path from root to a NULL node has same number of black nodes.
 	
 	Why Red-Black Trees? :- 
@@ -31,9 +33,17 @@ using namespace std;
 	Red-Black Tree Implementation:
 	
 	1) Perform the normal BST insertion.
-	2) Update the height of the current node.
-	3) Get the difference factor ( height left subtree – right subtree) of the current root.
-	4) Do the Rotations(i.e. LL, LR, RR, RL) upon Difference & Inserted Key
+	2) Do following if color of x’s parent is not BLACK or x is not root.
+		a) If x’s uncle is RED (Grand parent must have been black from property 4)
+			(i) Change color of parent and uncle as BLACK.
+			(ii) color of grand parent as RED.
+			(iii) Change x = x’s grandparent, repeat steps 2 and 3 for new x.
+		b) If x’s uncle is BLACK, then there can be four configurations for x, x’s parent (p) and x’s grandparent (g).
+			i) Left Left Case (p is left child of g and x is left child of p)
+			ii) Left Right Case (p is left child of g and x is right child of p)
+			iii) Right Right Case (Mirror of case a)
+			iv) Right Left Case (Mirror of case c)
+	3) If x is root, change color of x as BLACK (Black height of complete tree increases by 1).
 */
 
 class Tree
@@ -42,21 +52,25 @@ class Tree
 	{
 		public:
 			int data;
-			int height;
+			bool color;
+			
 			Node *left;	
 			Node *right;	
+			Node *parent;
 	};
 	
 	Node *root = NULL;
 	
 	/*-------------------------------Utility Functions----------------------------------*/
-	Node *getNewNode(int data)
+	Node *getNewNode(int data, Node* Parent = NULL)
 	{
 		Node *temp = new Node;
 		temp->data = data;
-		temp->height = 0;
+		temp->color = RED;
+		
 		temp->left = NULL;
 		temp->right = NULL;
+		temp->parent = Parent;
 		
 		return temp;
 	}	
@@ -69,91 +83,181 @@ class Tree
 		PreOrder(Root->left);		
 		PreOrder(Root->right);
 	}
+	
+	void swapColor(bool &data1, bool &data2)
+	{
+		bool temp = data1;
+		data1 = data2;
+		data2 = temp;
+	}
 
+	Node *getSibling(Node *Root)
+	{
+		Node *Parent = Root->parent;
+		if( Parent->left == Root )
+			return Parent->right;
+		return Parent->left;	
+	}
+	
+	bool isLeftChild(Node *Root) 
+	{
+        Node *Parent = Root->parent;
+        if(Parent->left == Root) 
+            return true;
+        return false;
+    }
 	/*-----------------------------------------------------------------------------------*/
 
 	public:	
 	
-		Node *RotateLeft(Node *Root)
-		{
-			Node *Right = Root->right;
-			Node *Left  = Root->left;
-			
-			Root->right = Right->left;			
-			Right->left = Root;
-			
-			Root->height = max( Height( Root->left), Height( Root->right)) ;
-			Right->height = max( Height( Right->left), Height( Right->right)) ;
-			
-			return Right;
+		Node *RotateLeft(Node *Root, bool changeColor)
+		{			
+			Node *Parent = Root->parent;
+	        Root->parent = Parent->parent;
+	        
+	        if( Parent->parent != NULL ) 
+			{
+	            if( Parent->parent->right == Parent) 
+	                Parent->parent->right = Root;
+	            else 
+	                Parent->parent->left = Root;
+	        }
+	        
+	        Node *Left = Root->left;
+	        Root->left = Parent;
+	        Parent->parent = Root;
+	        Parent->right = Left;
+	        
+	        if( Left != NULL ) 
+	            Left->parent = Parent;
+
+	        if( changeColor) 
+			{
+	            Root->color = BLACK;
+	            Parent->color = RED;
+	        }
 		}
 		
-		Node *RotateRight(Node *Root)
+		
+		
+		Node *RotateRight(Node *Root, bool changeColor)
 		{
 			Node *Left  = Root->left;
 			Node *Right = Root->right;
 			
 			Root->left = Left->right;
 			Left->right = Root;
-			
-			Root->height = max( Height( Root->left), Height( Root->right)) ;
-			Left->height = max( Height( Left->left), Height( Left->right)) ;
 		
 			return Left;
 		}
-	
-		int Height(Node *Root)
-		{
-			if( Root == NULL )	return 0;
-			
-			return Root->height;
-		}
 		
-		int GetDifference(Node *Root)
-		{
-			if( Root == NULL )	return 0;
-			
-			return Height( Root->left) - Height( Root->right);
-		}
 
-		Node *Insert(Node *Root, int Data)
-		{
-			// Step 1:- Insert Node as BST
-			if( Root == NULL )	return getNewNode( Data);
+		
+		Node* Insert(Node *Root, int data, Node* Parent = NULL)
+		{	
+		
+			if( Root == NULL )
+			{
+				Root = getNewNode( data, Parent);
+				if( Parent == NULL)
+					Root->color = BLACK;
+				return Root;
+			}
 			
-			if( Data < Root->data )
-				Root->left = Insert( Root->left, Data);				
-			else 
-				Root->right = Insert( Root->right, Data);	
+			bool isLeft = false;
+			
+			if( data <= Root->data)
+			{
+				Node *Left = Insert( Root->left, data, Root);
 				
-			// Step 2:- Update Height 	
-			Root->height = 	max( Height( Root->left), Height( Root->right)) + 1;
+				if(Left == Root->parent) 
+				{
+                	return Left;
+            	}
+            	
+            	Root->left = Left;
+            
+				isLeft = true;
+			}
+			else
+			{
+				Node *Right = Insert( Root->right, data, Root);
+				
+				if(Right == Root->parent) 
+				{
+                	return Right;
+            	}
+            	
+            	Root->right = Right;
+            	
+				isLeft = false;
+			}
 			
-			// Step 3:- Get the difference factor
-			int Difference = GetDifference( Root);
 			
-			// Step 4:- Do the Rotations upon Difference & Inserted Key
-			// Case RR:
-			if( Difference < -1 && Data > Root->right->data )
+			
+			if( isLeft)
 			{
-				Root = RotateLeft( Root);
+				if( Root->color == RED && Root->left->color == RED )
+				{
+					Node *Sibling = getSibling( Root);
+					
+					if( Sibling == NULL || Sibling->color == BLACK )
+					{
+						if( isLeftChild(Root)) 
+                        	RotateRight( Root, true);
+                        else
+						{
+							RotateRight( Root->left, false);
+							
+							Root = Root->parent;
+							
+							RotateLeft( Root, true);
+						}	
+					}
+				}
+				else
+				{
+					Root->color = BLACK;
+					getSibling( Root)->color = BLACK;
+					
+					if( Root->parent->parent != NULL )
+						Root->parent->color = RED;
+				}
 			}
-			// Case RL:
-			else if( Difference < -1 && Data < Root->right->data )
-			{
-				Root->left = RotateRight( Root->left);
-				Root = RotateLeft( Root);
-			}
-			// Case LL:
-			else if( Difference > 1 && Data < Root->left->data )
-			{
-				Root = RotateRight( Root);
-			}
-			// Case LR:
-			else if( Difference > 1 && Data > Root->left->data )
-			{
-				Root->left = RotateLeft( Root->left);
-				Root = RotateRight( Root);
+			else
+			{				
+				if( Root->color == RED && Root->right->color == RED )
+				{
+					//cout<<" Root = "<<Root->data<<" Root->color = "<<Root->color<<endl;
+					Node *Sibling = getSibling( Root);
+					
+					
+					if( Sibling == NULL || Sibling->color == BLACK )
+					{
+						//cout<<" Sibling = "<<Sibling<<endl;
+						if( !isLeftChild(Root)) 
+						{
+							//cout<<"This"<<endl;
+							RotateLeft( Root, true);
+						}                        	
+                        else
+						{
+							RotateLeft( Root->right, false);
+							
+							Root = Root->parent;
+							
+							RotateRight( Root, true);
+						}
+					}
+					else
+					{
+						Root->color = BLACK;
+						getSibling( Root)->color = BLACK;
+					
+	                    if( Root->parent->parent != NULL )
+						Root->parent->color = RED;
+					}
+				}
 			}
 			
 			return Root;
@@ -161,18 +265,18 @@ class Tree
 
 		void test()
 		{			
-			root = Insert( root, 10);
 			root = Insert( root, 20);
+			root = Insert( root, 10);
 			root = Insert( root, 30);
 			root = Insert( root, 40);
-			root = Insert( root, 50);
-			root = Insert( root, 25);
-				
-			PreOrder( root);
-			cout<<endl;
 			
-			cout<<Height( root->left)<<endl;
-			cout<<Height( root->right)<<endl;
+			//cout<<getSibling( root->left)->data<<endl;
+		//	root = Insert( root, 50);			
+					
+			cout<<root->parent<<endl;			
+			cout<<root->left->parent->color<<endl;			
+			cout<<root->right->parent->color<<endl;
+			
 		}
 };
 
@@ -189,3 +293,4 @@ int main()
 	
 	return 0;
 }
+

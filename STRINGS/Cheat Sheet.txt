@@ -1,3 +1,4 @@
-0 Check for Anagram Property of Strings:-  Naive Method is to apply merge sort and arrange all characters, Efficient Method 1 is sum all character
+0 Check for Anagram Property of Strings:-  Naive Method is to apply merge sort and arrange all characters, 
+					   Effiecient :- Take 2 unsigned (32 bit) integer & set bits in integers according to string char one by one
 
 
