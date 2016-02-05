@@ -32,18 +32,12 @@ using namespace std;
 	
 	Red-Black Tree Implementation:
 	
-	1) Perform the normal BST insertion.
-	2) Do following if color of x’s parent is not BLACK or x is not root.
-		a) If x’s uncle is RED (Grand parent must have been black from property 4)
-			(i) Change color of parent and uncle as BLACK.
-			(ii) color of grand parent as RED.
-			(iii) Change x = x’s grandparent, repeat steps 2 and 3 for new x.
-		b) If x’s uncle is BLACK, then there can be four configurations for x, x’s parent (p) and x’s grandparent (g).
-			i) Left Left Case (p is left child of g and x is left child of p)
-			ii) Left Right Case (p is left child of g and x is right child of p)
-			iii) Right Right Case (Mirror of case a)
-			iv) Right Left Case (Mirror of case c)
-	3) If x is root, change color of x as BLACK (Black height of complete tree increases by 1).
+	- If empty tree, Insert black node
+	- Insert new leaf node as red
+	   a). If parent is black then done
+	   b). If parent is red
+	       - if sibling is black or absent rotate and recolor
+	       - if sibling is red recolor & check
 */
 
 class Tree
@@ -93,6 +87,9 @@ class Tree
 
 	Node *getSibling(Node *Root)
 	{
+		if( Root->parent == NULL )
+			return NULL;
+		
 		Node *Parent = Root->parent;
 		if( Parent->left == Root )
 			return Parent->right;
@@ -142,19 +139,38 @@ class Tree
 		
 		Node *RotateRight(Node *Root, bool changeColor)
 		{
-			Node *Left  = Root->left;
+			Node *Parent = Root->parent;
 			Node *Right = Root->right;
 			
-			Root->left = Left->right;
-			Left->right = Root;
+			if( Parent->parent != NULL ) 
+			{
+	            if( Parent->parent->right == Parent) 
+	                Parent->parent->right = Root;
+	            else 
+	                Parent->parent->left = Root;
+	        }
+			
+			Root->right = Parent;
+			
+			Root->parent = Parent->parent;
+			Parent->parent = Root;
+			Parent->left = Right;
+			
+			if( Right != NULL )
+				Right->parent = Parent;
+			
+			if( changeColor)
+			{
+				Root->color = BLACK;
+				Parent->color = RED;
+			}
 		
-			return Left;
 		}
 		
 
 		
 		Node* Insert(Node *Root, int data, Node* Parent = NULL)
-		{	
+		{
 		
 			if( Root == NULL )
 			{
@@ -196,11 +212,11 @@ class Tree
 			
 			
 			if( isLeft)
-			{
+			{				
 				if( Root->color == RED && Root->left->color == RED )
-				{
+				{					
 					Node *Sibling = getSibling( Root);
-					
+
 					if( Sibling == NULL || Sibling->color == BLACK )
 					{
 						if( isLeftChild(Root)) 
@@ -218,26 +234,24 @@ class Tree
 				else
 				{
 					Root->color = BLACK;
-					getSibling( Root)->color = BLACK;
-					
-					if( Root->parent->parent != NULL )
-						Root->parent->color = RED;
+					if( getSibling( Root) != NULL )
+					{
+						getSibling( Root)->color = BLACK;
+						if( Root->parent->parent != NULL )
+							Root->parent->color = RED;
+					}					
 				}
 			}
 			else
 			{				
 				if( Root->color == RED && Root->right->color == RED )
 				{
-					//cout<<" Root = "<<Root->data<<" Root->color = "<<Root->color<<endl;
-					Node *Sibling = getSibling( Root);
-					
+					Node *Sibling = getSibling( Root);					
 					
 					if( Sibling == NULL || Sibling->color == BLACK )
 					{
-						//cout<<" Sibling = "<<Sibling<<endl;
 						if( !isLeftChild(Root)) 
 						{
-							//cout<<"This"<<endl;
 							RotateLeft( Root, true);
 						}                        	
                         else
@@ -265,18 +279,29 @@ class Tree
 
 		void test()
 		{			
-			root = Insert( root, 20);
-			root = Insert( root, 10);
 			root = Insert( root, 30);
 			root = Insert( root, 40);
-			
-			//cout<<getSibling( root->left)->data<<endl;
-		//	root = Insert( root, 50);			
-					
+			root = Insert( root, 35);
+			root = Insert( root, 45);
+			root = Insert( root, 50);		
+			root = Insert( root, 55);
+			root = Insert( root, 5);
+			root = Insert( root, 7);
+			root = Insert( root, 4);
+			root = Insert( root, 9);
+				
+#if 01				
 			cout<<root->parent<<endl;			
-			cout<<root->left->parent->color<<endl;			
-			cout<<root->right->parent->color<<endl;
-			
+			cout<<root->left->color<<endl;			
+			cout<<root->right->color<<endl;
+			cout<<root->right->right->color<<endl;
+#endif			
+
+#if 01					
+			cout<<root->data<<endl;			
+			cout<<root->left->data<<endl;			
+			cout<<root->right->data<<endl;
+#endif			
 		}
 };
 
@@ -293,4 +318,6 @@ int main()
 	
 	return 0;
 }
+
+
 
