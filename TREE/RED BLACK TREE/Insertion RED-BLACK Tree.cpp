@@ -77,13 +77,6 @@ class Tree
 		PreOrder(Root->left);		
 		PreOrder(Root->right);
 	}
-	
-	void swapColor(bool &data1, bool &data2)
-	{
-		bool temp = data1;
-		data1 = data2;
-		data2 = temp;
-	}
 
 	Node *getSibling(Node *Root)
 	{
@@ -107,158 +100,146 @@ class Tree
 
 	public:	
 	
-		Node *RotateLeft(Node *Root, bool changeColor)
-		{			
-			Node *Parent = Root->parent;
-	        Root->parent = Parent->parent;
-	        
-	        if( Parent->parent != NULL ) 
-			{
-	            if( Parent->parent->right == Parent) 
-	                Parent->parent->right = Root;
-	            else 
-	                Parent->parent->left = Root;
-	        }
-	        
-	        Node *Left = Root->left;
-	        Root->left = Parent;
-	        Parent->parent = Root;
-	        Parent->right = Left;
-	        
-	        if( Left != NULL ) 
-	            Left->parent = Parent;
-
-	        if( changeColor) 
-			{
-	            Root->color = BLACK;
-	            Parent->color = RED;
-	        }
-		}
-		
-		
-		
-		Node *RotateRight(Node *Root, bool changeColor)
+	
+		void RotateLeft(Node *Root, bool ColorChange)
 		{
 			Node *Parent = Root->parent;
+			Root->parent = Parent->parent;
+			
+			Node *Left = Root->left;
 			Node *Right = Root->right;
 			
-			if( Parent->parent != NULL ) 
+			if( Parent != NULL)
 			{
-	            if( Parent->parent->right == Parent) 
-	                Parent->parent->right = Root;
-	            else 
-	                Parent->parent->left = Root;
-	        }
+				Parent->right = Left;
+				Parent->parent = Root;
+			}				
+				
+			if( Left !=  NULL )	
+				Left->parent = Parent;				
 			
-			Root->right = Parent;
+			Root->left = Parent;
 			
-			Root->parent = Parent->parent;
-			Parent->parent = Root;
-			Parent->left = Right;
-			
-			if( Right != NULL )
-				Right->parent = Parent;
-			
-			if( changeColor)
+			if( ColorChange)			
 			{
 				Root->color = BLACK;
 				Parent->color = RED;
 			}
-		
 		}
 		
-
+		void RotateRight(Node *Root, bool ColorChange)
+		{
+			Node *Parent = Root->parent;
+			Root->parent = Parent->parent;
+			
+			Node *Left = Root->left;
+			Node *Right = Root->right;
+			
+			if( Parent != NULL )
+			{
+				Parent->left = Right;
+				Parent->parent = Root;	
+			}	
+			
+			if( Right != NULL )
+				Right->parent = Parent;
+								
+			Root->right = Parent;
+			
+			if( ColorChange)			
+			{
+				Root->color = BLACK;
+				Parent->color = RED;
+			}
+		}
 		
 		Node* Insert(Node *Root, int data, Node* Parent = NULL)
 		{
-		
 			if( Root == NULL )
 			{
 				Root = getNewNode( data, Parent);
-				if( Parent == NULL)
+				if( Parent == NULL )
 					Root->color = BLACK;
-				return Root;
+				return Root;				
 			}
 			
 			bool isLeft = false;
-			
 			if( data <= Root->data)
 			{
 				Node *Left = Insert( Root->left, data, Root);
 				
-				if(Left == Root->parent) 
-				{
-                	return Left;
-            	}
-            	
-            	Root->left = Left;
-            
+				if( Left == Root->parent )
+					return Left;
+				
+				Root->left = Left;	
 				isLeft = true;
 			}
 			else
 			{
 				Node *Right = Insert( Root->right, data, Root);
 				
-				if(Right == Root->parent) 
-				{
-                	return Right;
-            	}
-            	
-            	Root->right = Right;
-            	
+				if( Right == Root->parent )
+					return Right;
+				
+				Root->right = Right;	
 				isLeft = false;
 			}
-			
-			
-			
+	
 			if( isLeft)
-			{				
-				if( Root->color == RED && Root->left->color == RED )
-				{					
-					Node *Sibling = getSibling( Root);
-
+			{
+				if( Root->color == RED && Root->left->color == RED)
+				{
+					Node *Sibling = getSibling( Root);	
+										
+			
 					if( Sibling == NULL || Sibling->color == BLACK )
 					{
-						if( isLeftChild(Root)) 
-                        	RotateRight( Root, true);
-                        else
+						if( isLeftChild(Root))
+						{
+						
+							RotateRight( Root, true);
+						}
+						else
 						{
 							RotateRight( Root->left, false);
-							
+						
 							Root = Root->parent;
+							//cout<<"Root = "<<Root->data<<" Root->left = "<<Root->left->data<<endl;
 							
 							RotateLeft( Root, true);
-						}	
+						}
 					}
-				}
-				else
-				{
-					Root->color = BLACK;
-					if( getSibling( Root) != NULL )
+					else
 					{
-						getSibling( Root)->color = BLACK;
-						if( Root->parent->parent != NULL )
-							Root->parent->color = RED;
-					}					
+						Root->color = BLACK;
+						
+						if( Sibling != NULL )
+						{
+							Sibling->color = BLACK;
+							if( Root->parent->parent != NULL )
+								Root->parent->parent->color = RED;
+						}
+					}
 				}
 			}
 			else
-			{				
-				if( Root->color == RED && Root->right->color == RED )
+			{			
+				if( Root->color == RED && Root->right->color == RED)
 				{
-					Node *Sibling = getSibling( Root);					
-					
+					Node *Sibling = getSibling( Root);				
+					cout<<" Root = "<<Root->data<<" Sibling = "<<Sibling<<endl;	
 					if( Sibling == NULL || Sibling->color == BLACK )
-					{
-						if( !isLeftChild(Root)) 
-						{
-							RotateLeft( Root, true);
-						}                        	
-                        else
+					{						
+						if( !isLeftChild(Root))
+						{							
+							RotateLeft(Root, true);
+						}
+						else
 						{
 							RotateLeft( Root->right, false);
-							
+						
 							Root = Root->parent;
+							//cout<<"Root = "<<Root->data<<" Root->left = "<<Root->left->data<<endl;
 							
 							RotateRight( Root, true);
 						}
@@ -266,10 +247,13 @@ class Tree
 					else
 					{
 						Root->color = BLACK;
-						getSibling( Root)->color = BLACK;
-					
-	                    if( Root->parent->parent != NULL )
-						Root->parent->color = RED;
+						
+						if( Sibling != NULL )
+						{
+							Sibling->color = BLACK;
+							if( Root->parent->parent != NULL )
+								Root->parent->parent->color = RED;
+						}
 					}
 				}
 			}
@@ -279,25 +263,22 @@ class Tree
 
 		void test()
 		{			
-			root = Insert( root, 30);
-			root = Insert( root, 40);
-			root = Insert( root, 35);
-			root = Insert( root, 45);
-			root = Insert( root, 50);		
+			root = Insert( root, 50);
+			root = Insert( root, 60);
 			root = Insert( root, 55);
-			root = Insert( root, 5);
-			root = Insert( root, 7);
-			root = Insert( root, 4);
-			root = Insert( root, 9);
+			root = Insert( root, 20);
+			root = Insert( root, 25);
+			root = Insert( root, 35);
+
 				
 #if 01				
-			cout<<root->parent<<endl;			
+			cout<<root->color<<endl;			
 			cout<<root->left->color<<endl;			
 			cout<<root->right->color<<endl;
-			cout<<root->right->right->color<<endl;
+		//	cout<<root->right->right->color<<endl;
 #endif			
 
-#if 01					
+#if 01			
 			cout<<root->data<<endl;			
 			cout<<root->left->data<<endl;			
 			cout<<root->right->data<<endl;
