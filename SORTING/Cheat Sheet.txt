@@ -1,1 +1,17 @@
-Cheat Sheet
+
+
+1. Selection Sort :- Select Min for each iteration
+
+2. Bubble Sort :- Bubble up adjecent elements
+
+3. Insertion Sort :- Teen Patti
+
+4. Merge Sort :- Divide & Conquer with Merge Logic
+
+5. Quick Sort :- Divide & Conquer with Partition Logic
+
+6. Heap Sort :- Max Heap and Transfer top element to last continuosly
+
+7. Counting Sort :- Count Occurence & use aux array to track position
+
+8. Radix Sort :- 
