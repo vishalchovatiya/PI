@@ -9,10 +9,13 @@ using namespace std;
 
 
 /*
-
-	- Horner’s method can be used to evaluate polynomial in O(n) time. 
-	- To understand the method, let us consider the example of 2x^3 – 6x^2 + 2x – 1. 
-	- The polynomial can be evaluated as ((2x – 6)x + 2)x – 1. 
+        Naive Method:- Use power of function of math.h & multiply coefficients
+                       Time Complexity :- O(NxN)
+                       
+        Hornor's Method:- Time Complexity :- O(N)                
+	- Hornerâ€™s method can be used to evaluate polynomial in O(n) time. 
+	- To understand the method, let us consider the example of 2x^3 â€“ 6x^2 + 2x â€“ 1. 
+	- The polynomial can be evaluated as ((2x â€“ 6)x + 2)x â€“ 1. 
 	- The idea is to initialize result as coefficient of xn which is 2 in this case, 
 	- repeatedly multiply result with x and add next coefficient to result. Finally return result.
 	
