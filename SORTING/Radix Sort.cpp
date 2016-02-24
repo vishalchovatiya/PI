@@ -9,7 +9,7 @@ using namespace std;
 #define LIMIT 10
 
 /*
-	Question: Counting Sort 
+	Question: Radix Sort 
 	
 	Contents: 
 		- Algo
@@ -34,34 +34,13 @@ void printArray( const char name[], int A[], int size)
 /*-----------------------------------------------------------------------------------------------------------------*/
 
 
-/*------------------------------------------------ Counting Sort---------------------------------------------------*/
+/*------------------------------------------------ Radix Sort---------------------------------------------------*/
 
 /*
 
-	# Counting Sort :- 
-	
-	For simplicity, consider the data in the range 0 to 9. 
-	Input data: 1, 4, 1, 2, 7, 5, 2
-	  1) Take a count array to store the count of each unique object.
-	  Index:     0  1  2  3  4  5  6  7  8  9
-	  Count:     0  2  2  0   1  1  0  1  0  0
-	
-	  2) Modify the count array such that each element at each index 
-	  stores the sum of previous counts. 
-	  Index:     0  1  2  3  4  5  6  7  8  9
-	  Count:     0  2  4  4  5  6  6  7  7  7
-	
-	The modified count array indicates the position of each object in 
-	the output sequence.
-	 
-	  3) Output each object from the input sequence followed by 
-	  decreasing its count by 1.
-	  Process the input data: 1, 4, 1, 2, 7, 5, 2. Position of 1 is 2.
-	  Put data 1 at index 2 in output. Decrease count by 1 to place 
-	  next data 1 at an index 1 smaller than this index.
+	# Radix Sort :- 
 
-			
-	# Time Complexity :-   O(N)
+	# Time Complexity :-   O(N * digit)
 	
 	# Space Complexity :-  O(N + N)
 	
@@ -73,14 +52,34 @@ void printArray( const char name[], int A[], int size)
 
 */
 
-void CountingSort(int A[], int Size)		
+inline int nthDigit(int Number, int Digit)
+{
+	int result = 0;
+	
+	while( Number > 0 && Digit > 0)
+	{
+		result = Number % 10;
+		Number /= 10;
+		
+		Digit--;
+	}
+	
+	if( Digit)
+		return 0;
+	
+	return result;
+}
+
+
+
+void CountingSort(int A[], int Size, int Digit)		
 {
 	int OccurenceCount[LIMIT];
 	memset( OccurenceCount, 0, sizeof(OccurenceCount));
 
 	/*------------------------ Count Occurence --------------------------*/	
 	for(int i=0; i<Size; i++)
-		OccurenceCount[ A[i] ]++;
+		OccurenceCount[ nthDigit( A[i], Digit) ]++;
 		
 	for(int i=1; i<LIMIT; i++)
 		OccurenceCount[i] = OccurenceCount[i] + OccurenceCount[i-1];
@@ -90,12 +89,23 @@ void CountingSort(int A[], int Size)
 	
 	// Sort main array in temp array
 	for(int i=Size-1; i >= 0; i--)
-		Output[ --OccurenceCount[A[i]] ] = A[i];
+		Output[ --OccurenceCount[ nthDigit( A[i], Digit)] ] = A[i];
 		
 	// Re-settle main array	
 	for(int i=0; i<Size; i++)
 		A[i] = Output[i];
 }
+
+void RadixSort(int A[], int Size)
+{
+	int noOfDigit = 3;
+	
+	for(int i=1; i<=noOfDigit; i++)
+	{
+		CountingSort( A, Size, i);
+	}
+}
+
 
 /*-----------------------------------------------------------------------------------------------------------------*/
 
@@ -103,11 +113,11 @@ void CountingSort(int A[], int Size)
 
 int main()
 {
-	int A[] = { 2, 2, 1, 9, 5};
+	int A[] = {170, 45, 75, 90, 802, 24, 2, 66};
 	
 	printArray( "Before Sort :", A, ELEMENTS(A));
 	
-	CountingSort( A, ELEMENTS(A));
+	RadixSort( A, ELEMENTS(A));
 		
 	printArray( "After Sort  :", A, ELEMENTS(A));	
 	
