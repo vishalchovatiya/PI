@@ -1,0 +1,10 @@
+
+1. Power Function in LogN time :- 
+
+				  2^4
+				/	 \
+			2^2		  2^2
+		   /	\	/	 \
+	    2^1	  2^1 2^1    2^1
+
+2. Counting Inversion :- Use Merge Sort and count number of element is in right half which is greater than left half
