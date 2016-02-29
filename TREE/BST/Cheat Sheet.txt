@@ -10,3 +10,5 @@
 2 Check if a binary tree is BST or not:- Set Boundary limits of min and max(initially INT_MIN & INT_MAX), traverse and set limits.
 
 3 Find k-th smallest element in BST:- Modify inorder traversal by using static member count and find node
+
+4 Insert & Deletion from BST- Iterative:- Use goto statement
