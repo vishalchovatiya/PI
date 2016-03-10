@@ -9,6 +9,10 @@ using namespace std;
 
 
 /*
+	Properties:
+		Optimal Sub-structure
+		Overlapping Sub-problems
+	Types:
 		Top-Down, Memoization
 		Bottom-Up, Tabulation
 */
