@@ -5,3 +5,9 @@
 	- The polynomial can be evaluated as ((2x – 6)x + 2)x – 1. 
 	- The idea is to initialize result as coefficient of xn which is 2 in this case, 
 	- repeatedly multiply result with x and add next coefficient to result. Finally return result.
+
+1 Minimum No of Platforms Required for a Railway Station
+
+	- We can solve the above problem in O(nLogn) time. 
+	- The idea is to consider all evens in sorted order. 
+	- Once we have all events in sorted order, we can trace the number of trains at any time keeping track of trains that have arrived, but not departed.					
