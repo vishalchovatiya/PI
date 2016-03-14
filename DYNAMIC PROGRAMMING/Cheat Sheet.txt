@@ -9,3 +9,16 @@ Bottom-Up, Tabulation
 2 Stepping Stones :- Either take one step (n-1) OR skip one stone (n-2)
 
 3 Matrix Chain Multiplication :- M[i,j] = M[i,k] + M[k+1,j] + P[i-1]*P[k]*P[j]
+
+4 Weighted Job Scheduling :- 
+
+	 1) First sort jobs according to finish time in ascending order.
+	 2) Now initialize array of profit with initial profit.
+	   
+	   - Start with 1 job
+	   - if there is only one job then maximum profit would be
+	   - if there is only two(non-overlapping) job then maximum profit would be
+	   - if there is only three(non-overlapping) job then maximum profit would be
+	   - repeat this process & find maximum out of all
+	   
+	 Formula:- Profit[i]  =  Profit[ P[i-1] ] + P[i]
