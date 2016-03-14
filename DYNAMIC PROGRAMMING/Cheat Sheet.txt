@@ -2,4 +2,10 @@
 Top-Down, Memoization
 Bottom-Up, Tabulation
 
-0 Fibonacci 
+0 Fibonacci :- Result of current term is dependent on previous two
+
+1 Factorial :- Factorial formula N! = N x (N-1)!
+
+2 Stepping Stones :- Either take one step (n-1) OR skip one stone (n-2)
+
+3 Matrix Chain Multiplication :- M[i,j] = M[i,k] + M[k+1,j] + P[i-1]*P[k]*P[j]

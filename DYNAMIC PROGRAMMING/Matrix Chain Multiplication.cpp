@@ -24,6 +24,8 @@ using namespace std;
 	- By above different parenthesization, we conclude that (AB)C is best way to parenthesize
 	
 	- This problem has both DP Properties Optimal Sub-structure & Overlapping Sub-problem
+	
+	- M[i,j] = M[i,k] + M[k+1,j] + P[i-1]*P[k]*P[j]
 */
 
 
