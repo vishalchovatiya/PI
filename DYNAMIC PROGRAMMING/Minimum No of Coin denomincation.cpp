@@ -21,18 +21,18 @@ using namespace std;
 		Example:- Coins[] = { 1, 7, 10}  & Amount  = 15
 		
 									15(n)
-								/	  |    \		
-						14(n-1)	  8(n-7)	5(n-10)	
-						/			|			\
-		(n-1) (n-7)	(n-10)			|		(n-1) (n-7)	(n-10)	
+								/	  |          \		
+						         14(n-1)	8(n-7)	    5(n-10)	
+					         	/		|		\
+					(n-1)    (n-7)	(n-10)		|	(n-1)   (n-7)	(n-10)	
 									|
 									|
-						7(n-1)	  1(n-7)	X(n-10)	
+							   7(n-1)    1(n-7)	X(n-10)	
 									|
 									|
 									|
-						0(n-1)   X(n-7)   X(n-10)		Here Final Value Become 0(Zero)																		
-														So, Count height of tree & that would be our answer
+						              0(n-1)   X(n-7)   X(n-10)		Here Final Value Become 0(Zero)																		
+												So, Count height of tree & that would be our answer
 										
 */
 
