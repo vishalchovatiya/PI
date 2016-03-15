@@ -42,3 +42,13 @@ Bottom-Up, Tabulation
 												So, Count height of tree & that would be our answer
 										
 
+
+6 Longest Common Sub-sequence(LCS):-	Examples: Consider the input strings “AGGTAB” and “GXTXAYB”.
+
+	- Base Case: if lenght of either string ends return 0
+
+	- If Last characters match, So length of LCS can be written as:
+		L(“AGGTAB”, “GXTXAYB”) = 1 + L(“AGGTA”, “GXTXAY”), 	Now solve for “AGGTA” & “GXTXAY”			
+
+	- If Last characters do not match, So length of LCS can be written as:
+		L(“AGGTA”, “GXTXAY”) = MAX ( L(“AGGT”, “GXTXAY”), L(“AGGTA”, “GXTXA”) ), 	Now solve for L(“AGGT”, “GXTXAY”) & L(“AGGTA”, “GXTXA”)
