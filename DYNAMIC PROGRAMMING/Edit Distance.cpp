@@ -20,7 +20,7 @@ int min(int x, int y, int z)
 
 /*
 	Question :- Given two strings str1 and str2 and below operations that can performed on str1. 
-				Find minimum number of edits (operations) required to convert ‘str1' into ‘str2'.
+				Find minimum number of edits (operations) required to convert â€˜str1' into â€˜str2'.
 
 					    Insert
 					    Remove
@@ -30,15 +30,15 @@ int min(int x, int y, int z)
 		- Display all the words in a dictionary that are near proximity to a given word\incorrectly spelled word.
 		
 	Examples:
-		LCS for input Sequences “ABD” and “ABE” is require one operation replace.
-		LCS for input Sequences “geek” and “gesek” is require insertion of 's'.
+		LCS for input Sequences â€œABDâ€ and â€œABEâ€ is require one operation replace.
+		LCS for input Sequences â€œgeekâ€ and â€œgesekâ€ is require insertion of 's'.
 		
 	We can use dynamic programming,	Because it has both property 
 	1). Optimal Sub-structure & 2). Over-lapping Subproblem
 	
 	1). Optimal Sub-structure
 	
-		Examples: Consider the input strings “AB” and “AE”.
+		Examples: Consider the input strings â€œABâ€ and â€œAEâ€.
 				
 	   	If last characters match, Ignore last characters and get count for remaining strings. So we recur for lengths m-1 and n-1.
 	    Else If last characters are not match), we consider all operations and take minimum
@@ -50,7 +50,7 @@ int min(int x, int y, int z)
 			
 	2). Overlapping Subproblems
 	
-									lcs("AB", "AE")
+						lcs("AB", "AE")
 		                       /    		 |              \
 		          lcs("AB", "A")     lcs("A", "AE")	   lcs("A", "A")
 		   /          |            \                      	   |
