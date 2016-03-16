@@ -20,33 +20,34 @@ using namespace std;
 		- Version control systems like Git, CVS, etc.
 		
 	Examples:
-		LCS for input Sequences “ABCDGH” and “AEDFHR” is “ADH” of length 3.
-		LCS for input Sequences “AGGTAB” and “GXTXAYB” is “GTAB” of length 4.
+		LCS for input Sequences â€œABCDGHâ€ and â€œAEDFHRâ€ is â€œADHâ€ of length 3.
+		LCS for input Sequences â€œAGGTABâ€ and â€œGXTXAYBâ€ is â€œGTABâ€ of length 4.
 		
 	We can use dynamic programming,	Because it has both property 
 	1). Optimal Sub-structure & 2). Over-lapping Subproblem
 	
 	1). Optimal Sub-structure
 	
-		Examples: Consider the input strings “AGGTAB” and “GXTXAYB”.
+		Examples: Consider the input strings â€œAGGTABâ€ and â€œGXTXAYBâ€.
 		
 			- If Last characters match, So length of LCS can be written as:
-			L(“AGGTAB”, “GXTXAYB”) = 1 + L(“AGGTA”, “GXTXAY”), Now solve for “AGGTA” & “GXTXAY”
+			L(â€œAGGTABâ€, â€œGXTXAYBâ€) = 1 + L(â€œAGGTAâ€, â€œGXTXAYâ€), Now solve for â€œAGGTAâ€ & â€œGXTXAYâ€
 			
 			- If Last characters do not match, So length of LCS can be written as:
-			L(“AGGTA”, “GXTXAY”) = MAX ( L(“AGGT”, “GXTXAY”), L(“AGGTA”, “GXTXA”) ), Now solve for L(“AGGT”, “GXTXAY”) & L(“AGGTA”, “GXTXA”)
+			L(â€œAGGTAâ€, â€œGXTXAYâ€) = MAX ( L(â€œAGGTâ€, â€œGXTXAYâ€), L(â€œAGGTAâ€, â€œGXTXAâ€) ), Now solve for L(â€œAGGTâ€, â€œGXTXAYâ€) & L(â€œAGGTAâ€, â€œGXTXAâ€)
 			
 			So the LCS problem has optimal substructure property as the main problem can be solved using solutions to subproblems.
 			
 	2). Overlapping Subproblems
 	
-								lcs("ABD", "ADE")
+					lcs("ABD", "ADE")
+				    /			  \
 	                       /    		               \
 	         lcs("AB", "ADE")            	 		 lcs("ABD", "AD")
 	         /            \                         	   |
 	lcs("A", "ADE") lcs("AB", "AD")          		1 + lcs("AB", "A") 		
-	 				/            \					/               \
-			lcs("A", "AD")  lcs("AB", "A")	   lcs("A", "A")        lcs("AB", NULL)	
+	 		/            \				/               \
+		lcs("A", "AD")  lcs("AB", "A")	   lcs("A", "A")        lcs("AB", NULL)	
 			
 			
 			In the above partial recursion tree, lcs("AB", "A") is being solved twice, so this forms overlap			
