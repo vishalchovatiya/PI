@@ -148,6 +148,31 @@ long long MaxSumSubarrayKadaneAlgo(int A[], int ArrSize)		// O(N)
 
 /*---------------------------------------------------------------------------------------------------------*/
 
+/*---------------------------------------------Optimal Solution--------------------------------------------*/
+
+
+long long MaxSumSubarrayKadaneAlgo(int input[], int size)		// O(N)
+{
+	int i=0;
+	
+	long long max_so_far = input[0];
+	
+	long long curr_max = input[0];
+	
+	for (i = 1; i < size; i++)
+	{
+		curr_max = ( input[i] > curr_max+input[i] ) ? input[i] : curr_max+input[i];
+		
+		max_so_far =( max_so_far > curr_max ) ? max_so_far : curr_max;
+	}
+	
+	return max_so_far;
+}
+
+/*---------------------------------------------------------------------------------------------------------*/
+
+
+
 int main()
 {
 	int A[] =  {-2, -3, 4, -1, -2, 1, 5, -3};
