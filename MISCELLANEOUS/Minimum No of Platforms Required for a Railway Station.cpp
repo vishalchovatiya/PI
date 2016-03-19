@@ -105,11 +105,11 @@ int main(){
 	Effective:
 	
 		- We can solve the above problem in O(nLogn) time. 
-		- The idea is to consider all evens in sorted order. 
+		- The idea is to consider all events in sorted order. 
 		- Once we have all events in sorted order, we can trace the number of trains at any time keeping track of trains that have arrived, but not departed.					
 
-			arr[]  = {9:00,  9:40, 9:50,  11:00, 15:00, 18:00}
-		    dep[]  = {9:10, 12:00, 11:20, 11:30, 19:00, 20:00}
+		arr[]  = {9:00,  9:40, 9:50,  11:00, 15:00, 18:00}
+		dep[]  = {9:10, 12:00, 11:20, 11:30, 19:00, 20:00}
 		
 		All events sorted by time.
 		Total platforms at any time can be obtained by subtracting total 
