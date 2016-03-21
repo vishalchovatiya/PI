@@ -10,4 +10,18 @@
 
 	- We can solve the above problem in O(nLogn) time. 
 	- The idea is to consider all evens in sorted order. 
-	- Once we have all events in sorted order, we can trace the number of trains at any time keeping track of trains that have arrived, but not departed.					
+	- Once we have all events in sorted order, we can trace the number of trains at any time keeping track of trains that have arrived, but not departed.		
+
+2. Factorial of Large number
+	
+	- Factorial of 100 has 158 digits. It is not possible to store these many digits even if we use long long int. 
+	- So we use array to store the result
+	
+	- How to multiply a number ‘x’ with the number stored in res[]?
+	
+	- The idea is to use simple school mathematics. 
+	- We one by one multiply x with every digit of res[]. 
+	- The important point to note here is digits are multiplied from rightmost digit to leftmost digit. 
+	- If we store digits in same order in res[], then it becomes difficult to update res[] without extra space. 
+	- That is why res[] is maintained in reverse way, i.e., digits from right to left are stored.
+			
