@@ -27,14 +27,14 @@ The above program declares an array with content "hello, world". Next, we replac
     typedef void (*sig_t) (int);
     sig_t signal(int sig, sig_t func);
 
-5.). Short circuiting.
+4). Short circuiting.
 
-    1 int main()
-      2 {
-      3   int i = 0;
-      4   int j = 0;
-      5   if ( j && ++i)
-      6     ;
-      8   }
+     int main()
+     {
+       int i = 0;
+       int j = 0;
+       if ( j && ++i)
+         ;
+     }
 
 Value of i & j will be "0" by the end of the program. "i" won't be incremented because the if condition will be evaluated to be false when it evaluates "j". The compiler won't bother evaluating "++i" because the "if" condition is false irrespective of the value of "i"
