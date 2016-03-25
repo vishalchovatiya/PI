@@ -49,7 +49,7 @@ int segregate0and1(int A[], int Size)
 
 int main()
 {
-    int arr[] = {0, 1, 0, 1, 1, 0};
+    int arr[] = {0, 1, 0, 0, 1, 0};
  
     segregate0and1(arr, 6);
 

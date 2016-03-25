@@ -20,3 +20,10 @@
 		a) if( A[start] == 0 ), increament start index
 		b) else if( A[end] == 1 ), decreament end index
 		c) else swap
+
+4 Segregate 0s, 1s and 2s in an array :- 	use three index
+
+	while mid <= right
+		a) if( A[mid] == 0 ), swap start & mid, increament start & mid index
+		b) else if( A[mid] == 1 ), increament mid index
+		c) else if( A[mid] == 2 ), swap end & mid, decreament end index
