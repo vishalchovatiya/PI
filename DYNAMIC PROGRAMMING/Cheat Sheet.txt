@@ -53,10 +53,15 @@ Bottom-Up, Tabulation
 	- If Last characters do not match, So length of LCS can be written as:
 		L(“AGGTA”, “GXTXAY”) = MAX ( L(“AGGT”, “GXTXAY”), L(“AGGTA”, “GXTXA”) ), 	Now solve for L(“AGGT”, “GXTXAY”) & L(“AGGTA”, “GXTXA”)
 
-7 Edit Distance:- ssame as Longest Common Sub-sequence(LCS)
+7 Edit Distance:- same as Longest Common Sub-sequence(LCS)
 
 	- Base Case: if lenght of either string ends return 0
 
 	- If Last characters match, Solve for m-1 & n-1 chars
 
 	- If Last characters do not match, do all the operations(insert(m & n-1), delete(m-1 & n), replace(m-1 & n-1)) on string1
+
+8 Domino Solitaire:- Use Dynamic programming
+
+	- Start wth single column & go on
+	- use already computed result
