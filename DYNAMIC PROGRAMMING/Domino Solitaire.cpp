@@ -9,21 +9,21 @@ using namespace std;
 	
 	
 	 - In Domino Solitaire, you have a grid with two rows and many columns. Each square in the grid contains an integer. 
-	 - You are given a supply of rectangular 2 × 1 tiles, each of which exactly covers two adjacent squares of the grid. 
+	 - You are given a supply of rectangular 2 Ã— 1 tiles, each of which exactly covers two adjacent squares of the grid. 
 	 - You have to place tiles to cover all the squares in the grid such that each tile covers two squares and no pair of tiles overlap.
 
 	- The score for a tile is the difference between the bigger and the smaller number that are covered by the tile. 
 	- The aim of the game is to maximize the sum of the scores of all the tiles.
 	
 	- Here is an example of a grid, along with two different tilings and their scores.
-							  Tiling 1										Tiling 2
+				      Tiling 1							    Tiling 2
 	--------------		----   -------   ----						------    --------
 	|8 |6 |2 |3 |		|8 |   |6 |2 |   |3 |						|8 |6 |    |2 |3 |
 	--------------		----   -------   ----						------    --------
 	|9 |7 |1 |2 |		|9 |   |7 |1 |   |2 |						|9 |7 |    |1 |2 |
 	--------------		----   -------   ----						------    --------
 	
-	                Tiling 1 is 12 = (9-8)+(6-2)+(7-1)+(3-2) 		Tiling 2 is 6 = (8-6)+(9-7)+(3-2)+(2-1).
+	                Tiling 1 is 12 = (9-8)+(6-2)+(7-1)+(3-2) 		     Tiling 2 is 6 = (8-6)+(9-7)+(3-2)+(2-1).
 	                
 	- There are other tilings possible for this grid, but you can check that Tiling 1 has the maximum score among all tilings.	                
 	- Your task is to read the grid of numbers and compute the maximum score that can be achieved by any tiling of the grid.
