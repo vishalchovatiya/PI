@@ -4,3 +4,12 @@
 	1). Brute Force O(NxNxN) (3 Loop(or 2 Loop), subArraySize Loop, Array traverse loop, sum of sub array loop)
 	2). Divide & conquer ( Modified Quick Sort, while traversing reverse(for left sub array) & forward(for right sub array))
 	3). Kadane's Algo (Assumption: Atleast one positive number, Logic :- sum up elements, record max of all positive sum
+
+1 Find Sum Pair Array:- Use Hash Map, Store difference
+
+2 Sort elements by frequency C++ STL
+
+	- Count Frequency using hash table
+	- Pair it & create vector table
+	- Sort vector table
+	- Rearrange all elements according to its frequency in original list
