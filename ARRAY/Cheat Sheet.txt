@@ -13,3 +13,10 @@
 	- Pair it & create vector table
 	- Sort vector table
 	- Rearrange all elements according to its frequency in original list
+
+3 Segregate 0s and 1s in an array:-	use two index
+
+	while left < right
+		a) if( A[start] == 0 ), increament start index
+		b) else if( A[end] == 1 ), decreament end index
+		c) else swap
