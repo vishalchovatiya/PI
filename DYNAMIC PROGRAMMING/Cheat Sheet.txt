@@ -63,7 +63,7 @@ Bottom-Up, Tabulation
 
 8 Domino Solitaire:- Use Dynamic programming
 
-	- Start wth single column & go on
+	- Start wth single column & go on add colum one by one 
 	- use already computed result
 
 9 Count all possible paths from bottom left to top right of a M x N matrix.:-
