@@ -26,9 +26,9 @@ using namespace std;
 	
 	Algorithm :- 
 	
-	- Add element starting
+	- Keeps Adding elements till total is less than sum
 	- If total is greater than sum, start removing element from back untill total become less than given sum
-	- Look continuos for given sum
+	- Every time check for total = sum 
 	
 */
 
