@@ -61,7 +61,11 @@
 		b). else end = mid - 1
 	- If A[mid] <= A[start]
 		a). IF Element lie in between mid & start, end = mid - 1
-		b). else start = mid + 1	
+		b). else start = mid + 1
+		
+12 Trapping Rain Water :-
+	- Pre-compute highest bar on left and right of every bar in O(n) time. Then use pre-computed values to find the amount of water in every element. 
+	- Time complexity of this solution is O(n).
 
 
 
