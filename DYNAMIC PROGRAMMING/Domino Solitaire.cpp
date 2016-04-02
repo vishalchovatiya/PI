@@ -79,7 +79,7 @@ using namespace std;
 	-------						|9 |  |7 |
 	|9 |7 |						----  ----
 	-------
-	(8-6) + (9-7) = 2 + 2 = 4    (8-9) + (6-7) = 1 + 1 = 2					Answer here is 4
+	(8-6) + (9-7) = 2 + 2 = 4                     (8-9) + (6-7) = 1 + 1 = 2		Answer here is 4
 	
 	3). Add one more Column	
 	
@@ -122,7 +122,7 @@ using namespace std;
 
 int main() 
 {
-	int n, A[2][100001], B[100001], i, j;
+    int n, A[2][100001], B[100001], i, j;
 
     cin>>n;    
     for(i=0;i<2;i++)
@@ -132,16 +132,13 @@ int main()
     }
 
     B[0] = abs(A[0][0] - A[1][0]);
-    
-    //	8 6 2 3
-	// 	9 7 1 2
-    
+
     B[1] = max( B[0] + abs( A[0][1] - A[1][1] ), abs( A[0][0] - A[0][1] ) + abs( A[1][0] - A[1][1] )  );
     
     for(i=2;i<n;i++)
     {
     	B[i] = max( B[i-1] + abs( A[0][i] - A[1][i] ),  
-														B[i-2] + abs( A[0][i-1] - A[0][i] ) + abs( A[1][i-1] - A[1][i] )  );
+							B[i-2] + abs( A[0][i-1] - A[0][i] ) + abs( A[1][i-1] - A[1][i] )  );
     }    
 
     cout<<B[n-1]<<endl;
