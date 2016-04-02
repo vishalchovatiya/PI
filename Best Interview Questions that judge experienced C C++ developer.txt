@@ -38,3 +38,7 @@ The above program declares an array with content "hello, world". Next, we replac
      }
 
 Value of i & j will be "0" by the end of the program. "i" won't be incremented because the if condition will be evaluated to be false when it evaluates "j". The compiler won't bother evaluating "++i" because the "if" condition is false irrespective of the value of "i"
+
+5). Email address validation function(method) e.g. vishalchovatiya@hotmail.com
+
+By this you can understand candidates string manipulation abilities
