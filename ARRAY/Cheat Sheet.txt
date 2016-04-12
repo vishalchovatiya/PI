@@ -106,4 +106,10 @@
 	7) To handle corner cases (all 1s and all 0s), we initialize maxsize as -1. If the maxsize remains -1, then print there is no such subarray.
 
 
+17 Print all distinct permutations of a given string:-
+
+    1. Find the largest index k such that a[k] < a[k + 1]. If no such index exists, the permutation is the last permutation.
+    2. Find the largest index l greater than k such that a[k] < a[l].
+    3. Swap the value of a[k] with that of a[l].
+    4. Reverse the sequence from a[k + 1] up to and including the final element a[n].
 

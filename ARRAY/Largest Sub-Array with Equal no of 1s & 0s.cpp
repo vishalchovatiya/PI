@@ -58,17 +58,16 @@ void subArrayEqual0s1s( int A[], int Size)
 		
 		Max = max( Max, SumLeft[i]);		
 	}
-	
+	cout<<" SumLeft: ";
 	printArray( SumLeft, 0, Size);
 	cout<<"Min = "<<Min<<" Max = "<<Max<<endl;
 	
 	int hash[Max-Min+1];
   
-    // Initialize hash table
-    for (int i=0; i<Max-Min+1; i++)
+    for (int i=0; i<Max-Min+1; i++)	// Initialize hash table
         hash[i] = -1;
         
-	int maxsize = -1, startindex;  // variables to store result values
+	int maxsize = -1, startindex;
 	
 	for (int i=0; i<Size; i++)
     {
@@ -91,6 +90,9 @@ void subArrayEqual0s1s( int A[], int Size)
             }
         }
     }
+    
+    cout<<"    hash: ";
+    printArray( hash, 0, Max-Min+1);
     if ( maxsize == -1 )
         printf("No such subarray");
     else
