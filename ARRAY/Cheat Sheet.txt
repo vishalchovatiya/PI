@@ -113,3 +113,16 @@
     3. Swap the value of a[k] with that of a[l].
     4. Reverse the sequence from a[k + 1] up to and including the final element a[n].
 
+18 Print k Combination of Array size n:-
+
+	Example:- Array = {A,B,C}, Here	n = 3, k = 2
+	
+	A B C
+	0 1 2
+	
+	- Initialize Index sequence array with initial indices
+	- First index sequence will be [0,1] as i said [0, 1, 2, ... , k - 1].
+	- On the second step it switches to [0,2] as i said [0, 1, 2,..., k] increament last index.
+	- The last possible sequence will be [1,2] as i said [n - k - 1, n - k - 2, ..., n - 1] increament last index which exceeds limit of n so we go to index last - 1 & increament on goint index by one.
+	
+
