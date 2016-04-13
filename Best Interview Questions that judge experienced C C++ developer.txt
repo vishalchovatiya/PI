@@ -42,3 +42,7 @@ Value of i & j will be "0" by the end of the program. "i" won't be incremented b
 5). Email address validation function(method) e.g. vishalchovatiya@hotmail.com
 
 By this you can understand candidates string manipulation abilities
+
+6). Memory Layout of C Program
+
+If candidate know answer of this question means he/she knows in & out of C at memory level.
