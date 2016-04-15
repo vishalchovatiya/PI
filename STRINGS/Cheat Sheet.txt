@@ -1,4 +1,9 @@
 0 Check for Anagram Property of Strings:-  Naive Method is to apply merge sort and arrange all characters, 
 					   Effiecient :- Take 2 unsigned (32 bit) integer & set bits in integers according to string char one by one
 
+1 Centralize the phrase for given line capacity:- 
+
+	- Copy string in buffer till line capacity 
+	- Traverse reverse  until space char appear
+
 
