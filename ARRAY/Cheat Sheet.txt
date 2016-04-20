@@ -145,3 +145,10 @@
 	7) Repeat steps 3, 4, 5 and 6 while l < r Implementation
 		
 	Note: when you find value nearest to zero you have to take absolute value	
+
+21 Given an array arr[], find the maximum j – i such that arr[j]  arr[i]:-
+
+	- We construct two auxiliary arrays LMin[] and RMax[] such that LMin[i] holds the smallest element on left side of arr[i] including arr[i], and RMax[j] holds the greatest element on right side of arr[j] including arr[j]. 
+	- We traverse both of these arrays from left to right. 
+	- While traversing LMin[] and RMax[] if we see that LMin[i] is greater than RMax[j], then we must move ahead in LMin[] (or do i++) because all elements on left of LMin[i] are greater than or equal to LMin[i]. 
+	- Otherwise we must move ahead in RMax[j] to look for a greater j – i value.
