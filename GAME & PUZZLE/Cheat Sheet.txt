@@ -19,3 +19,4 @@
 	2________	2___1____		____1___2		________2
 	A   B	C	A   B	C		A   B	C		A   B	C
 	
+2 T-9 KeyBoard:- Use 2D array to Pointer, Use library stdio & timer
