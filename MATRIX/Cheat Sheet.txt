@@ -13,3 +13,6 @@
 1 Print Matrix Spirally
 
 	Use Variable Top-Bottom & Left-Right with Direction
+
+2 Print unique rows in a given boolean matrix:- Using HashTable
+
