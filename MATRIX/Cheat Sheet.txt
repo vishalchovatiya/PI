@@ -16,3 +16,4 @@
 
 2 Print unique rows in a given boolean matrix:- Using HashTable
 
+3 Inplace M x N size matrix transpose:- Using HashTable for transposed location
