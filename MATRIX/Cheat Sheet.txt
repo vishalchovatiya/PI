@@ -19,3 +19,5 @@
 3 Inplace M x N size matrix transpose:- Using HashTable for transposed location
 
 4 Print Matrix Diagonally :- Print upward first & then downward
+
+5 Print all elements in sorted order from row and column wise sorted matrix :- Use Priority Queue
