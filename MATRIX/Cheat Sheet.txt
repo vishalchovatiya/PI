@@ -21,3 +21,5 @@
 4 Print Matrix Diagonally :- Print upward first & then downward
 
 5 Print all elements in sorted order from row and column wise sorted matrix :- Use Priority Queue
+
+6 Count number of islands where every island is row-wise and column-wise separated:- Count all 'X' situated on top-leftmost corners
