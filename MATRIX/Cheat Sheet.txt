@@ -25,3 +25,5 @@
 6 Count number of islands where every island is row-wise and column-wise separated:- Count all 'X' situated on top-leftmost corners
 
 7 Given a matrix of ‘O’ and ‘X’, replace ‘O’ with ‘X’ if surrounded by ‘X’ :- floodFill Algo
+
+8 Find the largest rectangle of 1’s with swapping of columns allowed :-  see the solution
