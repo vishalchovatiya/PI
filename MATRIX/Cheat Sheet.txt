@@ -27,3 +27,5 @@
 7 Given a matrix of ‘O’ and ‘X’, replace ‘O’ with ‘X’ if surrounded by ‘X’ :- floodFill Algo
 
 8 Find the largest rectangle of 1’s with swapping of columns allowed :-  see the solution
+
+9 In Place rotation of Matrix by 90 degree:- Transpose & swap columns
