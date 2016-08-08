@@ -8,7 +8,8 @@ using namespace std;
 /*
 	# Algorithm:
 	
-		-	Use Stack to store breakets & Operators			
+		-	Use Stack to store breakets & Operators	
+		-	4 Possibilies of characters in string 1. (, 2. ), 3. Operators(+,-,*,/,^), 4. Other
 */
 
 bool IsOperator(char Operator)
