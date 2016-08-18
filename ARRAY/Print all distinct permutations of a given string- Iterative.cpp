@@ -15,15 +15,15 @@ using namespace std;
 	
 	Example:- Permutation N * (N-1)
 	
-								(lenght1)
-				    (lenght2)/- MNA
+						(lenght1)
+				(lenght2)     /- MNA
 			     / - - MAN----- MAN
-	(lenght3)	/ 
-	MAN - - - - - - -  AMN----- AMN
-			   \			   ANM	
-			    \
-				 \ - - NMA---- NMA
-				 		    \- NAM
+	(lenght3)	    / 
+	MAN - - - - - - -  AMN---- AMN------ANM	
+			    \			   
+			     \
+			      \ - - NMA---- NMA
+				 	       \- NAM
 		
 	Algorithm:- (Source:https://en.wikipedia.org/wiki/Permutation#Generation_in_lexicographic_order)
     1. Find the largest index k such that a[k] < a[k + 1]. If no such index exists, the permutation is the last permutation.
