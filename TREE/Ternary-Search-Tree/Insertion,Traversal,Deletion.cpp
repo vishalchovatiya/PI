@@ -3,6 +3,14 @@ using namespace std;
 
 
 /*
+  Anatomy:
+  Node ContainS 5 Things
+  1. Data	: Data to be store
+  2. isEnd	: Flag to check is string end
+  3. Left	: Stores lower value sub-tree rooted data as compared to input string data
+  4. Equal	: Stores Same value sub-tree rooted data as compared to input string data
+  5. Right	: Stores higher value sub-tree rooted data as compared to input string data
+
   Advantages Over Trie Tree:
   - Memory Effiecient
   - Ternary Search Trees are better when data share common prefixes like Find all telephone numbers starting with 9342.
