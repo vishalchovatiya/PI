@@ -78,9 +78,9 @@ bool SolveNQueens(char Board[][QUEENS], list<pair<int,int>>	&l, int Row=0){
 
 int main() {
 	char Board[QUEENS][QUEENS] = {  {'0', '0', '0', '0'},
-							        {'0', '0', '0', '0'},
-							        {'0', '0', '0', '0'},
-							        {'0', '0', '0', '0'}};	
+					{'0', '0', '0', '0'},
+					{'0', '0', '0', '0'},
+					{'0', '0', '0', '0'}};	
 	list<pair<int,int>>	l;
 	
 	printBoard( Board);
