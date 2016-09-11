@@ -11,7 +11,9 @@ using namespace std;
 	Step 2: We check if current place is safe to place queen,
 			2.a : If yes then recur for next row to place queen on iterator
 			2.b : Else we return false
-	Step 3: If we unablt to place next queen, then we backtrack last placed queen & find new way		
+	Step 3: If we unablt to place next queen, then we backtrack last placed queen & find new way	
+	
+	Note: Iterative solution of this problem is to generate permutation of of column
 */
 
 #define QUEENS			4
