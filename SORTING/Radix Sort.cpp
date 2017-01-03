@@ -48,7 +48,6 @@ void printArray( const char name[], int A[], int size)
 	
 	- It not work for negative number
 	- It works till max input range is known
-	- Used as a subroutine of radix sort
 
 */
 
