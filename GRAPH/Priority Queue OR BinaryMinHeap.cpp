@@ -4,7 +4,7 @@ using namespace std;
 #define DEBUG(X)	std::cout<<__FILE__":"<<__LINE__<<":"<<#X<<" = "<<X<<std::endl
 
 /*
-  Every API/Interface accept/return pair<Key, Priority>  
+  Note: If you are using Key/Priority other than primitive data types, you need to overload >, <, = operators
 */
 template<
   typename Key,
