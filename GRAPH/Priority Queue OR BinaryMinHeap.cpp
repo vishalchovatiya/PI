@@ -1,216 +1,157 @@
-#include <iostream>
-#include <string>
-#include <limits>
-#include <list>
-#include <map>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
 
+#define DEBUG(X)	std::cout<<__FILE__":"<<__LINE__<<":"<<#X<<" = "<<X<<std::endl
+
 /*
-	Question: Priority Queue OR BinaryMinHeap
-	
-	Contents: 
-		- Priority Queue’s Algo 
-		- Application Priority Queue OR BinaryMinHeap	
-		- Time & Space Complexity
-		- Dependency Algo : - Min & Max Heap Property
+  Every API/Interface accept/return pair<Key, Priority>  
 */
+template<
+  typename Key,
+  typename Priority
+>
+class PriorityQueue{
+  std::vector<std::pair<Key, Priority> >        m_Heap; // Container
+  std::unordered_map<Key, uint32_t>             m_KeyPosMap;
+  
+private:  /*--------------------------------Debugging methods -----------------------------------*/
 
+  void displayHeap() const
+  {
+    auto i = m_Heap.begin();
 
+    while ( i != m_Heap.end() )
+    {
+      std::cout<<" "<<(i)->first<<" "<<(i)->second<<endl;
+      i++;
+    }
+    cout<<endl;
+  }
 
-/*------------------------------------------------BinaryMinHeap-------------------------------------------------------*/
+  void DisplayIndexMapped()
+  {
+    auto i = m_KeyPosMap.begin();
+    std::cout<<endl;
+    while ( i != m_KeyPosMap.end() )
+    {
+      cout<<"  "<<i->first<<"  "<<i->second<<endl;
+      i++;
+    }
+    cout<<endl;
+  }
 
-template<class T>
-class BinaryMinHeap
-{
-	class Node
-	{
-		public:
-			T Key;
-			int Weight;	
-	};
-	
-	vector<Node> Heap;
-	map<T /*KEY*/, int/*INDEX*/>  Table;
-	
-	private:
-		/*--------------------------------Utility Functions-----------------------------------*/
-		inline int RIGHT(int X)
-		{
-			return (X*2+2);	
-		}
-		inline int LEFT(int X)
-		{
-			return (2*X+1);
-		}
-		inline int PARENT(int X)
-		{
-			return ((X-1)/2);
-		}
+private:  /*--------------------------------Utility methods -----------------------------------*/
 		
-		void HeapifyUP( int idx)		
-		{
-			int P = PARENT(idx);
-			
-			if( P >= 0 && Heap[P].Weight > Heap[idx].Weight )
-			{
-				Table[Heap[P].Key] = idx;
-				Table[Heap[idx].Key] = P;
-				swap( Heap[idx], Heap[P]);
-				HeapifyUP( P);
-			}	
-		}
+  inline int RIGHT(int X)const{
+    return (X*2+2);	
+  }
+  inline int LEFT(int X)const{
+    return (2*X+1);
+  }
+  inline int PARENT(int X)const{
+    return ((X-1)/2);
+  }
+  
+  void HeapifyUP( int idx){
+    int P = PARENT(idx);
+    
+    if( P >= 0 && m_Heap[P].second > m_Heap[idx].second )
+    {
+      // Update position in map
+      m_KeyPosMap[m_Heap[P].first] = idx;
+      m_KeyPosMap[m_Heap[idx].first] = P;
 
-		void HeapifyDOWN( int idx)		
-		{			
-			int R = RIGHT(idx), min = LEFT(idx);
-				
-			if( min <= Heap.size() && R <= Heap.size() && Heap[R].Weight < Heap[min].Weight)	
-			{
-				min = R;
-			}
-			if( min <= Heap.size() && Heap[min].Weight < Heap[idx].Weight)
-			{
-				Table[Heap[min].Key] = idx;
-				Table[Heap[idx].Key] = min;
-				swap( Heap[idx], Heap[min]);
-				HeapifyDOWN( min);
-			}
-		}
-		/*-------------------------------------------------------------------------------------*/
-			
-	public:
-		
-		void Insert(T Key, int Weight)
-		{
-			Node node;
-			node.Key = Key;
-			node.Weight = Weight;
-			
-			Table[Key] = Heap.size();
-			Heap.push_back(node);
-			HeapifyUP( Heap.size()-1);		
-		}
-	
-		T ExtractMin()
-		{
-			if( Heap.size() != 0)
-			{
-				Node Min = Heap.front();
-				Table.erase( Min.Key);
+      // Swap position in heap
+      swap( m_Heap[idx], m_Heap[P]);
 
-				Heap[0] = Heap[ Heap.size() - 1 ];
-				Heap.pop_back();
-				
-				Table[Heap[0].Key] = 0;
-				HeapifyDOWN( 0);
-				return Min.Key;
-			}       
-		}
-		
-		void Decrease(T Key, int nWeight)
-		{			
-			if( nWeight < Heap[ Table[Key] ].Weight )
-			{
-				Heap[ Table[Key] ].Weight = nWeight;
-				HeapifyUP( Table[Key]);
-			}
-			else
-			{
-				Heap[ Table[Key] ].Weight = nWeight;
-				HeapifyDOWN( Table[Key]);
-			}
-		}
-		
-		bool Empty()
-		{
-			return (Heap.size() == 0) ? 1 : 0 ;
-		}
-		
-		bool Contain(T Key)
-		{
-			return (Table.find(Key) == Table.end()) ? 0 : 1 ;
-		}
-		
-		int GetWeight(T Key)
-		{
-			return Heap[ Table[Key] ].Weight;
-		}
-		
-		void DisplayHeap()
-		{
-		    typename vector <Node> :: iterator i = Heap.begin();
-		
-		    while ( i != Heap.end() )
-		    {
-		        cout<<" "<<(i)->Key<<" "<<(i)->Weight<<endl;
-		        i++;
-		    }
-		    cout<<endl;
-		}
-		
-		void DisplayIndexMapped()
-		{
-		    typename map <T, int> :: iterator i = Table.begin();
-			cout<<endl;
-		    while ( i != Table.end() )
-		    {
-		        cout<<"  "<<i->first<<"  "<<i->second<<endl;
-		        i++;
-		    }
-		    cout<<endl;
-		}
-		/*
-		# Priority Queue’s Algo :-
-			- Insert every element with Key & Priority
-			- HeapifyUP that Key
-			- Extract element, Copy last vertex to first, mend map table
-			- HeapifyDOWN 	
-			
-		# Application  :-	
-		
-			 - Priority  Queue
-			 - Scheduling algorithms
-			 - Graph algorithms like Prim’s Algorithm and Dijkstra’s algorithm 	
-			 
-		# Time Complexity :-  
-		# Dependency Algo :- Min & Max Heap Property
-		*/
-		void test()
-		{
-			Insert( 0, 0);		
-			Insert( 1, 5);
-			Insert( 2, 12);
-			Insert( 3, 25);
-			
-			Insert( 4, 6);
-			Insert( 5, 22);
+      // Repeat same
+      HeapifyUP( P);
+    }	
+  }
 
-			DisplayHeap();
-			
-			cout<<" ExtractMin = "<<ExtractMin()<<endl;
-			Decrease(2 , 2);
-			DisplayHeap();
-			
-			cout<<" ExtractMin = "<<ExtractMin()<<endl;
-			
-			DisplayHeap();
-			
-			cout<<" ExtractMin = "<<ExtractMin()<<endl;
-			DisplayHeap();
-			DisplayIndexMapped();	
-		}	
+  void HeapifyDOWN( int idx){			
+    int R = RIGHT(idx), min = LEFT(idx);
+      
+    if( min <= m_Heap.size() && R <= m_Heap.size() && m_Heap[R].second < m_Heap[min].second)	{
+      min = R;
+    }
+
+    if( min <= m_Heap.size() && m_Heap[min].second < m_Heap[idx].second)	{
+      // Update position in map
+      m_KeyPosMap[m_Heap[min].first] = idx;
+      m_KeyPosMap[m_Heap[idx].first] = min;
+
+      // Swap position in heap
+      swap( m_Heap[idx], m_Heap[min]);
+
+      // Repeat same
+      HeapifyDOWN( min);
+    }
+  }
+		
+public:/*------------------------------------ Main Interfaces ------------------------------------*/
+
+  void push(std::pair<Key, Priority> val){    
+    m_KeyPosMap[val.first] = m_Heap.size();
+    m_Heap.push_back(val);
+    HeapifyUP( m_Heap.size()-1);
+  }
+
+  std::pair<Key,Priority> top() const{    
+    return m_Heap.front();
+  }
+
+  void pop(){    
+    std::pair<Key,Priority> retVal = m_Heap.front();
+    m_KeyPosMap.erase( retVal.first);
+
+    m_Heap[0] = m_Heap[ m_Heap.size() - 1 ];
+    m_Heap.pop_back();
+    
+    m_KeyPosMap[m_Heap[0].first] = 0;
+    HeapifyDOWN( 0);
+  }
+
+  void update(std::pair<Key,Priority> newVal){
+    if( newVal.second < m_Heap[ m_KeyPosMap[newVal.first] ].second )
+    {
+      m_Heap[ m_KeyPosMap[newVal.first] ].second = newVal.second;
+      HeapifyUP( m_KeyPosMap[newVal.first]);
+    }
+    else
+    {
+      m_Heap[ m_KeyPosMap[newVal.first] ].second = newVal.second;
+      HeapifyDOWN( m_KeyPosMap[newVal.first]);
+    }
+  }
+
+  inline uint32_t size() const{
+    return m_Heap.size();
+  }
+
+  inline bool empty() const{
+    return !m_Heap.size();
+  }
+
+  inline bool isContain(std::pair<Key,Priority> val) const {
+    return !(m_KeyPosMap.find(val.first) == m_KeyPosMap.end());
+  }
 };
 
-/*-----------------------------------------------------------------------------------------------------------------*/
+int main() {
+  PriorityQueue<int, int> pq;
+  pq.push(make_pair(1,1));
+  pq.push(make_pair(2,2));
+  pq.push(make_pair(3,3));
 
+  pq.update(make_pair(3,0));
 
+  // if(pq.isContain(make_pair(3,0))) DEBUG(1);
 
-int main()
-{
-	BinaryMinHeap<int> Bmh;
-	
-	Bmh.test();
-	
-	return 0;
+  while(!pq.empty()){
+    std::pair<int,int> val = pq.top();
+    pq.pop();
+    DEBUG(val.first);
+    DEBUG(val.second);
+  }
 }
