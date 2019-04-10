@@ -136,6 +136,10 @@ public:/*------------------------------------ Main Interfaces ------------------
   inline bool isContain(std::pair<Key,Priority> val) const {
     return !(m_KeyPosMap.find(val.first) == m_KeyPosMap.end());
   }
+  
+  std::pair<Key,Priority> getPriority(Key k){
+    return m_Heap[m_KeyPosMap[k]];
+  }
 };
 
 int main() {
