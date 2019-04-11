@@ -4,6 +4,7 @@ using namespace std;
 #define DEBUG(X)	std::cout<<__FILE__":"<<__LINE__<<":"<<#X<<" = "<<X<<std::endl
 
 /*
+  Every API/Interface accept/return std::pair<Key, Priority>  
   Note: If you are using Key/Priority other than primitive data types, you need to overload >, <, = operators
 */
 template<
@@ -133,12 +134,12 @@ public:/*------------------------------------ Main Interfaces ------------------
     return !m_Heap.size();
   }
 
-  inline bool isContain(std::pair<Key,Priority> val) const {
-    return !(m_KeyPosMap.find(val.first) == m_KeyPosMap.end());
+  inline bool isContain(Key k) const {
+    return !(m_KeyPosMap.find(k) == m_KeyPosMap.end());
   }
-  
+
   std::pair<Key,Priority> getPriority(Key k){
-    return m_Heap[m_KeyPosMap[k]];
+    return (isContain(k)) ? m_Heap[m_KeyPosMap[k]] : std::pair<Key,Priority>();
   }
 };
 
