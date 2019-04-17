@@ -13,7 +13,7 @@ template<
 >
 class PriorityQueue{
   std::vector<std::pair<Key, Priority> >        m_Heap; // Container
-  std::unordered_map<Key, uint32_t>             m_KeyPosMap;
+  std::map<Key, uint32_t>             m_KeyPosMap;
   
 private:  /*--------------------------------Debugging methods -----------------------------------*/
 
@@ -144,6 +144,8 @@ public:/*------------------------------------ Main Interfaces ------------------
 };
 
 int main() {
+
+  ///////////////////////////////////////////////  Example 1
   PriorityQueue<int, int> pq;
   pq.push(make_pair(1,1));
   pq.push(make_pair(2,2));
@@ -158,5 +160,32 @@ int main() {
     pq.pop();
     DEBUG(val.first);
     DEBUG(val.second);
+  }
+  ///////////////////////////////////////////////  Example 2
+
+  struct Key{
+    int m_u;
+    int m_v;
+
+    Key(int u, int v):m_u(u), m_v(v){}
+
+    bool operator <(const Key& rhs) const
+    {
+      return m_u < rhs.m_u;
+    }
+  };
+
+
+  PriorityQueue<Key, int> pq2;
+
+  pq2.push(std::make_pair(Key(0,1), 2));
+  pq2.push(std::make_pair(Key(0,2), 3));
+  pq2.push(std::make_pair(Key(0,3), 4));
+
+  while(!pq2.empty()){
+    std::pair<Key, int> temp = pq2.top();
+    pq2.pop();
+
+    cout<<temp.first.m_u<<" "<<temp.first.m_v<<" -> "<<temp.second<<"\n";
   }
 }
