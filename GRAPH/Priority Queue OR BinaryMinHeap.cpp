@@ -5,34 +5,30 @@ using namespace std;
 
 template<
 typename Key,
-typename Priority
+typename Priority,
+typename Compartor = std::less<Priority>
 >
 class PriorityQueue{
-	std::vector<std::pair<Key, Priority> >        m_Heap;
+	Compartor										m_Comp;
+	std::vector<std::pair<Key, Priority> >        	m_Heap;
 	std::map<Key, uint32_t>             			m_KeyPosMap;
 
     private:  /*--------------------------------Debugging methods -----------------------------------*/
 
 	void displayHeap() const
 	{
-		auto i = m_Heap.begin();
-
-		while ( i != m_Heap.end() )
+		for(auto&& i : m_Heap)
 		{
-			std::cout<<" "<<(i)->first<<" "<<(i)->second<<endl;
-			i++;
+			std::cout<<" "<<(i).first<<" "<<(i).second<<endl;
 		}
 		cout<<endl;
 	}
 
 	void DisplayIndexMapped()
 	{
-		auto i = m_KeyPosMap.begin();
-		std::cout<<endl;
-		while ( i != m_KeyPosMap.end() )
+		for(auto&& i : m_KeyPosMap) 
 		{
-			cout<<"  "<<i->first<<"  "<<i->second<<endl;
-			i++;
+			cout<<"  "<<i.first<<"  "<<i.second<<endl;
 		}
 		cout<<endl;
 	}
@@ -52,7 +48,8 @@ class PriorityQueue{
 	void HeapifyUP( int idx){
 		int P = PARENT(idx);
 
-		if( P >= 0 && m_Heap[P].second > m_Heap[idx].second )
+		if( P >= 0 && m_Comp(m_Heap[idx].second, m_Heap[P].second))
+		// if( P >= 0 && m_Heap[idx].second < m_Heap[P].second)
 		{
           // Update position in map
 			m_KeyPosMap[m_Heap[P].first] = idx;
@@ -69,11 +66,11 @@ class PriorityQueue{
 	void HeapifyDOWN( int idx){			
 		int R = RIGHT(idx), min = LEFT(idx);
 
-		if( min <= m_Heap.size() && R <= m_Heap.size() && m_Heap[R].second < m_Heap[min].second)	{
+		if( min <= m_Heap.size() && R <= m_Heap.size() && m_Comp(m_Heap[R].second, m_Heap[min].second))	{
 			min = R;
 		}
 
-		if( min <= m_Heap.size() && m_Heap[min].second < m_Heap[idx].second)	{
+		if( min <= m_Heap.size() && m_Comp(m_Heap[min].second, m_Heap[idx].second))	{
           // Update position in map
 			m_KeyPosMap[m_Heap[min].first] = idx;
 			m_KeyPosMap[m_Heap[idx].first] = min;
@@ -110,7 +107,7 @@ class PriorityQueue{
 	}
 
 	void update(std::pair<Key,Priority> newVal){
-		if( newVal.second < m_Heap[ m_KeyPosMap[newVal.first] ].second )
+		if( m_Comp(newVal.second, m_Heap[ m_KeyPosMap[newVal.first] ].second) )
 		{
 			m_Heap[ m_KeyPosMap[newVal.first] ].second = newVal.second;
 			HeapifyUP( m_KeyPosMap[newVal.first]);
@@ -143,49 +140,48 @@ class PriorityQueue{
 		return (isContain(k)) ? m_Heap[m_KeyPosMap[k]] : std::pair<Key,Priority>();
 	}
 };
+
 int main() {
+	PriorityQueue<int, int, std::greater<int>> pq;
+	pq.push(make_pair(1,1));
+	pq.push(make_pair(2,2));
+	pq.push(make_pair(3,3));
 
-  ///////////////////////////////////////////////  Example 1
-  PriorityQueue<int, int> pq;
-  pq.push(make_pair(1,1));
-  pq.push(make_pair(2,2));
-  pq.push(make_pair(3,3));
+	pq.update(make_pair(3,0));
 
-  pq.update(make_pair(3,0));
+	// if(pq.isContain(make_pair(3,0))) DEBUG(1);
 
-  // if(pq.isContain(make_pair(3,0))) DEBUG(1);
-
-  while(!pq.empty()){
-    std::pair<int,int> val = pq.top();
-    pq.pop();
-    DEBUG(val.first);
-    DEBUG(val.second);
-  }
+	while(!pq.empty()){
+		std::pair<int,int> val = pq.top();
+		pq.pop();
+		DEBUG(val.first);
+		DEBUG(val.second);
+	}
   ///////////////////////////////////////////////  Example 2
 
-  struct Key{
-    int m_u;
-    int m_v;
+	struct Key{
+		int m_u;
+		int m_v;
 
-    Key(int u, int v):m_u(u), m_v(v){}
+		Key(int u, int v):m_u(u), m_v(v){}
 
-    bool operator <(const Key& rhs) const
-    {
-      return m_u < rhs.m_u;
-    }
-  };
+		bool operator <(const Key& rhs) const
+		{
+			return m_u < rhs.m_u;
+		}
+	};
 
 
-  PriorityQueue<Key, int> pq2;
+	PriorityQueue<Key, int> pq2;
 
-  pq2.push(std::make_pair(Key(0,1), 2));
-  pq2.push(std::make_pair(Key(0,2), 3));
-  pq2.push(std::make_pair(Key(0,3), 4));
+	pq2.push(std::make_pair(Key(0,1), 2));
+	pq2.push(std::make_pair(Key(0,2), 3));
+	pq2.push(std::make_pair(Key(0,3), 4));
 
-  while(!pq2.empty()){
-    std::pair<Key, int> temp = pq2.top();
-    pq2.pop();
+	while(!pq2.empty()){
+		std::pair<Key, int> temp = pq2.top();
+		pq2.pop();
 
-    cout<<temp.first.m_u<<" "<<temp.first.m_v<<" -> "<<temp.second<<"\n";
-  }
+		cout<<temp.first.m_u<<" "<<temp.first.m_v<<" -> "<<temp.second<<"\n";
+	}
 }
