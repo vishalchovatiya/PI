@@ -3,146 +3,146 @@ using namespace std;
 
 #define DEBUG(X)	std::cout<<__FILE__":"<<__LINE__<<":"<<#X<<" = "<<X<<std::endl
 
-/*
-  Every API/Interface accept/return std::pair<Key, Priority>  
-  Note: If you are using Key/Priority other than primitive data types, you need to overload >, <, = operators
-*/
 template<
-  typename Key,
-  typename Priority
+typename Key,
+typename Priority
 >
 class PriorityQueue{
-  std::vector<std::pair<Key, Priority> >        m_Heap; // Container
-  std::map<Key, uint32_t>             m_KeyPosMap;
-  
-private:  /*--------------------------------Debugging methods -----------------------------------*/
+	std::vector<std::pair<Key, Priority> >        m_Heap;
+	std::map<Key, uint32_t>             			m_KeyPosMap;
 
-  void displayHeap() const
-  {
-    auto i = m_Heap.begin();
+    private:  /*--------------------------------Debugging methods -----------------------------------*/
 
-    while ( i != m_Heap.end() )
-    {
-      std::cout<<" "<<(i)->first<<" "<<(i)->second<<endl;
-      i++;
-    }
-    cout<<endl;
-  }
+	void displayHeap() const
+	{
+		auto i = m_Heap.begin();
 
-  void DisplayIndexMapped()
-  {
-    auto i = m_KeyPosMap.begin();
-    std::cout<<endl;
-    while ( i != m_KeyPosMap.end() )
-    {
-      cout<<"  "<<i->first<<"  "<<i->second<<endl;
-      i++;
-    }
-    cout<<endl;
-  }
+		while ( i != m_Heap.end() )
+		{
+			std::cout<<" "<<(i)->first<<" "<<(i)->second<<endl;
+			i++;
+		}
+		cout<<endl;
+	}
 
-private:  /*--------------------------------Utility methods -----------------------------------*/
-		
-  inline int RIGHT(int X)const{
-    return (X*2+2);	
-  }
-  inline int LEFT(int X)const{
-    return (2*X+1);
-  }
-  inline int PARENT(int X)const{
-    return ((X-1)/2);
-  }
-  
-  void HeapifyUP( int idx){
-    int P = PARENT(idx);
-    
-    if( P >= 0 && m_Heap[P].second > m_Heap[idx].second )
-    {
-      // Update position in map
-      m_KeyPosMap[m_Heap[P].first] = idx;
-      m_KeyPosMap[m_Heap[idx].first] = P;
+	void DisplayIndexMapped()
+	{
+		auto i = m_KeyPosMap.begin();
+		std::cout<<endl;
+		while ( i != m_KeyPosMap.end() )
+		{
+			cout<<"  "<<i->first<<"  "<<i->second<<endl;
+			i++;
+		}
+		cout<<endl;
+	}
 
-      // Swap position in heap
-      swap( m_Heap[idx], m_Heap[P]);
+    private:  /*--------------------------------Utility methods -----------------------------------*/
 
-      // Repeat same
-      HeapifyUP( P);
-    }	
-  }
+	inline int RIGHT(int X)const{
+		return (X*2+2);	
+	}
+	inline int LEFT(int X)const{
+		return (2*X+1);
+	}
+	inline int PARENT(int X)const{
+		return ((X-1)/2);
+	}
 
-  void HeapifyDOWN( int idx){			
-    int R = RIGHT(idx), min = LEFT(idx);
-      
-    if( min <= m_Heap.size() && R <= m_Heap.size() && m_Heap[R].second < m_Heap[min].second)	{
-      min = R;
-    }
+	void HeapifyUP( int idx){
+		int P = PARENT(idx);
 
-    if( min <= m_Heap.size() && m_Heap[min].second < m_Heap[idx].second)	{
-      // Update position in map
-      m_KeyPosMap[m_Heap[min].first] = idx;
-      m_KeyPosMap[m_Heap[idx].first] = min;
+		if( P >= 0 && m_Heap[P].second > m_Heap[idx].second )
+		{
+          // Update position in map
+			m_KeyPosMap[m_Heap[P].first] = idx;
+			m_KeyPosMap[m_Heap[idx].first] = P;
 
-      // Swap position in heap
-      swap( m_Heap[idx], m_Heap[min]);
+          // Swap position in heap
+			swap( m_Heap[idx], m_Heap[P]);
 
-      // Repeat same
-      HeapifyDOWN( min);
-    }
-  }
-		
-public:/*------------------------------------ Main Interfaces ------------------------------------*/
+          // Repeat same
+			HeapifyUP( P);
+		}	
+	}
 
-  void push(std::pair<Key, Priority> val){    
-    m_KeyPosMap[val.first] = m_Heap.size();
-    m_Heap.push_back(val);
-    HeapifyUP( m_Heap.size()-1);
-  }
+	void HeapifyDOWN( int idx){			
+		int R = RIGHT(idx), min = LEFT(idx);
 
-  std::pair<Key,Priority> top() const{    
-    return m_Heap.front();
-  }
+		if( min <= m_Heap.size() && R <= m_Heap.size() && m_Heap[R].second < m_Heap[min].second)	{
+			min = R;
+		}
 
-  void pop(){    
-    std::pair<Key,Priority> retVal = m_Heap.front();
-    m_KeyPosMap.erase( retVal.first);
+		if( min <= m_Heap.size() && m_Heap[min].second < m_Heap[idx].second)	{
+          // Update position in map
+			m_KeyPosMap[m_Heap[min].first] = idx;
+			m_KeyPosMap[m_Heap[idx].first] = min;
 
-    m_Heap[0] = m_Heap[ m_Heap.size() - 1 ];
-    m_Heap.pop_back();
-    
-    m_KeyPosMap[m_Heap[0].first] = 0;
-    HeapifyDOWN( 0);
-  }
+          // Swap position in heap
+			swap( m_Heap[idx], m_Heap[min]);
 
-  void update(std::pair<Key,Priority> newVal){
-    if( newVal.second < m_Heap[ m_KeyPosMap[newVal.first] ].second )
-    {
-      m_Heap[ m_KeyPosMap[newVal.first] ].second = newVal.second;
-      HeapifyUP( m_KeyPosMap[newVal.first]);
-    }
-    else
-    {
-      m_Heap[ m_KeyPosMap[newVal.first] ].second = newVal.second;
-      HeapifyDOWN( m_KeyPosMap[newVal.first]);
-    }
-  }
+          // Repeat same
+			HeapifyDOWN( min);
+		}
+	}
 
-  inline uint32_t size() const{
-    return m_Heap.size();
-  }
+    public:/*------------------------------------ Main Interfaces ------------------------------------*/
 
-  inline bool empty() const{
-    return !m_Heap.size();
-  }
+	void push(std::pair<Key, Priority> val){    
+		m_KeyPosMap[val.first] = m_Heap.size();
+		m_Heap.push_back(val);
+		HeapifyUP( m_Heap.size()-1);
+	}
 
-  inline bool isContain(Key k) const {
-    return !(m_KeyPosMap.find(k) == m_KeyPosMap.end());
-  }
+	std::pair<Key,Priority> top() const{    
+		return m_Heap.front();
+	}
 
-  std::pair<Key,Priority> getPriority(Key k){
-    return (isContain(k)) ? m_Heap[m_KeyPosMap[k]] : std::pair<Key,Priority>();
-  }
+	void pop(){    
+		std::pair<Key,Priority> retVal = m_Heap.front();
+		m_KeyPosMap.erase( retVal.first);
+
+		m_Heap[0] = m_Heap[ m_Heap.size() - 1 ];
+		m_Heap.pop_back();
+
+		m_KeyPosMap[m_Heap[0].first] = 0;
+		HeapifyDOWN( 0);
+	}
+
+	void update(std::pair<Key,Priority> newVal){
+		if( newVal.second < m_Heap[ m_KeyPosMap[newVal.first] ].second )
+		{
+			m_Heap[ m_KeyPosMap[newVal.first] ].second = newVal.second;
+			HeapifyUP( m_KeyPosMap[newVal.first]);
+		}
+		else
+		{
+			m_Heap[ m_KeyPosMap[newVal.first] ].second = newVal.second;
+			HeapifyDOWN( m_KeyPosMap[newVal.first]);
+		}
+	}
+
+	void remove(std::pair<Key,Priority> remVal){
+		update(make_pair(remVal.first, INT_MIN));
+		pop();
+	}
+
+	inline uint32_t size() const{
+		return m_Heap.size();
+	}
+
+	inline bool empty() const{
+		return !m_Heap.size();
+	}
+
+	inline bool isContain(Key k) const {
+		return !(m_KeyPosMap.find(k) == m_KeyPosMap.end());
+	}
+
+	std::pair<Key,Priority> getPriority(Key k){
+		return (isContain(k)) ? m_Heap[m_KeyPosMap[k]] : std::pair<Key,Priority>();
+	}
 };
-
 int main() {
 
   ///////////////////////////////////////////////  Example 1
