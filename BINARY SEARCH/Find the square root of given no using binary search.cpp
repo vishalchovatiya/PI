@@ -1,0 +1,3 @@
+/*
+  Binary search can be applied on monotonic functions.
+*/
