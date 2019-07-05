@@ -37,16 +37,5 @@ int main()
 {
     DEBUG(getSetBits(3));
     DEBUG(getSetBits(8));
-    /*  ll Q;
-    cin >> Q;
-
-    for (ll i = 0; i < Q; i++)
-    {
-        ll a;
-        cin >> a;
-        ll b;
-        cin >> b;
-    }
- */
     return 0;
 }
