@@ -1,4 +1,8 @@
-> **Find no of set bits**
+> **Check no is even or odd(EFFICIENT)**
+
+-  Formula:  n & (-n) 
+
+> **Find no of set bits(EFFICIENT)**
 
 -  Formula:  n & (n-1) & count iterations
 
