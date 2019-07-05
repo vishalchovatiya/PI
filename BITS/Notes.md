@@ -1,3 +1,7 @@
+> **Find no of set bits**
+
+-  Formula:  n & (n-1) & count iterations
+
 > **Shift left multiplier**
 
 -  example: a << 2 = a * 2^2
