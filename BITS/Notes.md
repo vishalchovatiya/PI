@@ -1,7 +1,12 @@
-> **shift left multiplier**
+> **Shift left multiplier**
 
 -  example: a << 2 = a * 2^2
  - generalized: a << n = a * 2^n
+
+> **Shift right divider**
+
+-  example: a >> 2 = a / 2^2
+ - generalized: a >> n = a / 2^n
 
 > **Convert given decimal number to binary, hexadecimal, octal**
 
