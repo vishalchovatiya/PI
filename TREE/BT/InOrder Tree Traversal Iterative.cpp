@@ -1,119 +1,72 @@
-#include <iostream>
-#include <string.h>
-#include <list>
-#include <map>
-#include <stack>
-#include <queue>
+#include <bits/stdc++.h>
+
+#define DEBUG(X) std::cout << #X << " = " << X << std::endl;
+#define PRINT(C, WAY)                      \
+    do                                     \
+    {                                      \
+        cout << setw(10) << #C << " : \n"; \
+        for (auto &&i : C)                 \
+        {                                  \
+            WAY;                           \
+        }                                  \
+        cout << endl;                      \
+    } while (0);
+#define ALL(C) (C).begin(), (C).end()
+#define RALL(C) (C).rbegin(), (C).rend()
+#define PRESENT(C, X) ((C).find() != (C).end())
+
+using ll = long long;
 using namespace std;
 
-
-/*
-	InOrder:-   First Left Child, Then Parent, Then Right Child
-
-	Algo:-	
-	
-		- Store all left node in stack
-		- Print node when left child of node is NULL
-		- If right not NULL push it in stack
-				
-		
-*/
-
-class Tree
+struct node
 {
-	class Node
-	{
-		public:
-			int data;
-			Node *left;	
-			Node *right;	
-	};
-	
-	Node *root = NULL;
-	
-	/*-------------------------------Utility Functions----------------------------------*/
-	Node *getNewNode(int data)
-	{
-		Node *temp = new Node;
-		temp->data = data;
-		temp->left = NULL;
-		temp->right = NULL;
-		
-		return temp;
-	}	
+    int data;
+    node *left;
+    node *right;
 
-	/*-----------------------------------------------------------------------------------*/
-
-	public:	
-		void InOrder(Node *Root)
-		{
-			if( Root == NULL)	return;
-						
-			InOrder(Root->left);	
-			cout<<" "<<Root->data;		
-			InOrder(Root->right);			
-		}
-		
-		void InOrderIterative(Node *Root)
-		{
-			stack<Node*>	S;
-			
-			S.push(Root);
-			
-			while( !S.empty())
-			{	
-				Node* temp = S.top();
-							
-				if( temp->left != NULL)
-				{
-					S.push(temp->left);
-				}
-				else
-				{					
-					cout<<" "<<temp->data;
-					S.pop();
-
-					// Handle Case : When right childs are NULL
-					while( temp->right == NULL && !S.empty())
-					{
-						temp = S.top();
-						S.pop();
-						cout<<" "<<temp->data;
-					}
-					
-					if( temp->right != NULL)
-					{
-						S.push(temp->right);
-					}
-				}
-			}
-		}
-
-
-		
-		void test()
-		{			
-			root = getNewNode(1);
-			root->left = getNewNode(2);
-			root->right = getNewNode(3);
-			root->left->left = getNewNode(4);
-			root->left->right = getNewNode(5);
-			root->left->right->right = getNewNode(6);
-
-			InOrderIterative( root);
-			cout<<endl;
-		}
+    node(int x = 0) : data(x), left(NULL), right(NULL) {}
 };
 
+void traversalIterative(node *root)
+{
+    unordered_map<node *, int> cnt;
+    stack<node *> S;
 
+    S.push(root);
 
+    while (!S.empty())
+    {
+        node *curr = S.top();
 
+        if (curr == NULL)
+        {
+            S.pop();
+            continue;
+        }
+
+        if (cnt[curr] == 0)S.push(curr->left);            
+        else if (cnt[curr] == 1)cout << curr->data << " ";            
+        else if (cnt[curr] == 2)S.push(curr->right);
+        else S.pop();
+        cnt[curr]++;
+    }
+    cout << endl;
+}
 
 int main()
 {
-	Tree T;
-	
-	T.test();	
-	
-	return 0;
+    node *root = new node(10);
+
+    root->left = new node(5);
+    root->right = new node(12);
+
+    root->left->left = new node(3);
+    root->left->right = new node(7);
+
+    root->right->left = new node(11);
+    root->right->right = new node(17);
+
+    traversalIterative(root);
+
+    return 0;
 }
