@@ -1,113 +1,73 @@
-#include <iostream>
-#include <string.h>
-#include <list>
-#include <map>
-#include <stack>
-#include <queue>
+    
+#include <bits/stdc++.h>
+
+#define DEBUG(X) std::cout << #X << " = " << X << std::endl;
+#define PRINT(C, WAY)                      \
+    do                                     \
+    {                                      \
+        cout << setw(10) << #C << " : \n"; \
+        for (auto &&i : C)                 \
+        {                                  \
+            WAY;                           \
+        }                                  \
+        cout << endl;                      \
+    } while (0);
+#define ALL(C) (C).begin(), (C).end()
+#define RALL(C) (C).rbegin(), (C).rend()
+#define PRESENT(C, X) ((C).find() != (C).end())
+
+using ll = long long;
 using namespace std;
 
-
-/*
-	PostOrder:-   First Child, Then Parent
-
-	Algo:-	
-		
-	- Push root to first stack.
-	- Loop while first stack is not empty
-	   - Pop a node from first stack and push it to second stack
-	   - Push left and right children of the popped node to first stack
-	- Print contents of second stack
-		
-*/
-
-class Tree
+struct node
 {
-	class Node
-	{
-		public:
-			int data;
-			Node *left;	
-			Node *right;	
-	};
-	
-	Node *root = NULL;
-	
-	/*-------------------------------Utility Functions----------------------------------*/
-	Node *getNewNode(int data)
-	{
-		Node *temp = new Node;
-		temp->data = data;
-		temp->left = NULL;
-		temp->right = NULL;
-		
-		return temp;
-	}	
+    int data;
+    node *left;
+    node *right;
 
-	/*-----------------------------------------------------------------------------------*/
-
-	public:	
-		void PostOrder(Node *Root)
-		{
-			if( Root == NULL)	return;
-			
-			PostOrder(Root->left);				
-			PostOrder(Root->right);			
-			cout<<" "<<Root->data;					
-		}
-		
-		void PostOrderIterative(Node *Root)
-		{
-			stack<Node*>	S1;
-			stack<Node*>	S2;
-			
-			S1.push(Root);
-			
-			while( !S1.empty())
-			{	
-				Node* temp = S1.top();	
-				S1.pop();
-				S2.push(temp);
-				
-				if( temp->left )	S1.push(temp->left);
-				if( temp->right )	S1.push(temp->right);			
-			}
-			
-			while( !S2.empty())
-			{
-				cout<<" "<<S2.top()->data;
-				S2.pop();
-			}
-		}
-
-
-		
-		void test()
-		{			
-			root = getNewNode(1);
-			root->left = getNewNode(2);
-			root->right = getNewNode(3);
-			root->left->left = getNewNode(4);
-			root->left->right = getNewNode(5);
-			root->right->left = getNewNode(6);
-			root->right->right = getNewNode(7);
-//			root->left->right->right = getNewNode(6);
-
-			PostOrder(root);
-			cout<<endl;
-			PostOrderIterative( root);
-			cout<<endl;
-		}
+    node(int x = 0) : data(x), left(NULL), right(NULL) {}
 };
 
+void traversalIterative(node *root)
+{
+    unordered_map<node *, int> cnt;
+    stack<node *> S;
 
+    S.push(root);
 
+    while (!S.empty())
+    {
+        node *curr = S.top();
 
+        if (curr == NULL)
+        {
+            S.pop();
+            continue;
+        }
+
+        if (cnt[curr] == 0)S.push(curr->left);            
+        else if (cnt[curr] == 1)S.push(curr->right);
+        else if (cnt[curr] == 2)cout << curr->data << " ";            
+        else S.pop();
+        cnt[curr]++;
+    }
+    cout << endl;
+}
 
 int main()
 {
-	Tree T;
-	
-	T.test();	
-	
-	return 0;
+    node *root = new node(10);
+
+    root->left = new node(5);
+    root->right = new node(12);
+
+    root->left->left = new node(3);
+    root->left->right = new node(7);
+
+    root->right->left = new node(11);
+    root->right->right = new node(17);
+
+    traversalIterative(root);
+
+    return 0;
 }
