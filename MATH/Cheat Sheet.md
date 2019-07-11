@@ -13,5 +13,7 @@
   
 So, square root is wokring like partition of two factor of given N.
 
-> ****
-- 
+> **Sieve of eratosthenes & Segmented Sieve**
+- Even nos can't be prime except 2.
+- One factor of any no should be less than square root of that no.
+
