@@ -20,3 +20,6 @@ So, square root is wokring like partition of two factor of given N.
 > **Euclid's algo for GCD**
 - GCD(a,b) = GCD(b, a%b)
 - GCD(a,0) = a
+
+> **LCM**
+- GCD(a,b) x LCM(a,b) = a x b
