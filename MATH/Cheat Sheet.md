@@ -1,3 +1,7 @@
+
+
+## Number Theory
+
 > **What is mean by square root of any no?**
 - It means that one of its factor will be less than square root of no & one will be larger.
 - For example: N = 36, square root of N = 6; all the factor of 36 are
