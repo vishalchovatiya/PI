@@ -21,7 +21,7 @@ using namespace std;
 
 // 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
 
-vector<ull> primeNoUptoN(ull n)
+vector<ull> primeNoUpto(ull n)
 {
     vector<ull> res;
 
@@ -54,7 +54,7 @@ vector<ull> primeNoUptoN(ull n)
 
 int main()
 {
-    vector<ull> primes = primeNoUptoN(20);
+    vector<ull> primes = primeNoUpto(20);
     PRINT(primes, cout << i << " ");
     return 0;
 }
