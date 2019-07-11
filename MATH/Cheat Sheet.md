@@ -17,3 +17,6 @@ So, square root is wokring like partition of two factor of given N.
 - Even nos can't be prime except 2.
 - One factor of any no should be less than square root of that no.
 
+> **Euclid's algo for GCD**
+- GCD(a,b) = GCD(b, a%b)
+- GCD(a,0) = a
