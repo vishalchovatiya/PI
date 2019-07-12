@@ -3,8 +3,9 @@
 ## Number Theory
 
 > **Prime number**
-- Its whole number unlike composite number which made up different factors
-- 
+- Its whole number unlike composite number which made up different factors.
+- If you plot the fibonacci numbers in spiral form, all diagonals are prime nos.
+
 
 > **What is mean by square root of any no?**
 - It means that one of its factor will be less than square root of no & one will be larger.
