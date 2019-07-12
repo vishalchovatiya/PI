@@ -35,3 +35,6 @@ So, square root is wokring like partition of two factor of given N.
 
 > **LCM**
 - GCD(a,b) x LCM(a,b) = a x b
+
+> **Misc**
+- coprime = gcd is 1
