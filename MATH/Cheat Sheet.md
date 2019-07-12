@@ -4,6 +4,7 @@
 
 > **Prime number**
 - Its whole number unlike composite number which made up different factors.
+- Even nos can't be prime except 2.
 - If you plot the fibonacci numbers in spiral form, all diagonals are prime nos.
 - Primes are used in cryptography coz you can not generate combination or patterns out of it so wont be decrypted easily.
 
@@ -19,8 +20,9 @@
 So, square root is wokring like partition of two factor of given N.
 
 > **Sieve of eratosthenes & Segmented Sieve**
-- Even nos can't be prime except 2.
-- One factor of any no should be less than square root of that no.
+1. Brute force 
+2. Square root optimization
+3. Square of no optimization
 
 > **Euclid's algo for GCD**
 - GCD(a,b) = GCD(b, a%b)
