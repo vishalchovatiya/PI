@@ -19,10 +19,15 @@
   
 So, square root is wokring like partition of two factor of given N.
 
-> **Sieve of eratosthenes & Segmented Sieve**
+> **Sieve of eratosthenes**
 1. Brute force 
 2. Square root optimization
 3. Square of no optimization
+
+> **Segmented Sieve**
+- For example: All primes b/w 25 to 36
+- Step 1: Find all primes upto square root of ‘n’(upper bound)  
+- Step 2: Cancell all no b/w 25 to 36 which are divisible by prime found in step 1
 
 > **Euclid's algo for GCD**
 - GCD(a,b) = GCD(b, a%b)
