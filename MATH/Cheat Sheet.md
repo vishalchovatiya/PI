@@ -33,7 +33,20 @@ So, square root is wokring like partition of two factor of given N.
 - GCD(a,b) = GCD(b, a%b)
 - GCD(a,0) = a
 
-Note: Euclidean algo generate fibonacci sequence in reverse manner for every remainder.
+> **Euclidean algo generate fibonacci sequence in reverse manner for every remainder**
+- For example: GCD(55,34)
+GCD(55,34)       = GCD(34,55%34)     = GCD(34, 21)
+GCD(34, 21)      = GCD(21,34%21)     = GCD(21, 13)
+GCD(21, 13)      = GCD(13,21%13)     = GCD(13, 8)
+GCD(13, 8)       = GCD(8,13%8)       = GCD(8, 5)
+GCD(8,5)         = GCD(5,8%5)        = GCD(5, 3)
+GCD(5,3)         = GCD(3,5%3)        = GCD(3, 2)
+GCD(3,2)         = GCD(2,3%2)        = GCD(2, 1)
+GCD(2, 1)        = GCD(1,2%1)        = GCD(1, 0)
+
+GCD(55,34) = 1
+
+if you observe all the remainders it generates sequence like 21, 13, 8, 5, 3, 2, 1, 0 whichi is reverse fibonacci
 
 > **LCM**
 - GCD(a,b) x LCM(a,b) = a x b
