@@ -6,6 +6,9 @@
 - `ax % m = 1`, here x is mmi(modular multiplicative inverse)
 - above equation exist if and only if a & m are coprime(`gcd(a,m) = 1`).
 
+> **congruence**
+- a & b when divided by n & produce same remainder then it is said that a & b are congruent.
+
 > **Prime number**
 - Its whole number unlike composite number which made up different factors.
 - Even nos can't be prime except 2.
