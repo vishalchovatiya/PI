@@ -33,6 +33,8 @@ So, square root is wokring like partition of two factor of given N.
 - GCD(a,b) = GCD(b, a%b)
 - GCD(a,0) = a
 
+Note: Euclidean algo generate fibonacci sequence in reverse manner for every remainder.
+
 > **LCM**
 - GCD(a,b) x LCM(a,b) = a x b
 
