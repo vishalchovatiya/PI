@@ -6,10 +6,10 @@
 - `(a + b) % m = ((a % m) + (b % m)) % m`
 - `(a * b) % m = ((a % m) * (b % m)) % m`
 - `(a - b) % m = ((a % m) - (b % m) + m) % m`
-- `(a / b) % m = ((a % m) * (b^-1 % m)) % m`
+- `(a / b) % m = ((a % m) * (b^-1 % m)) % m`, where `b^-1` is MMI
 
 
-> **Modular multiplicative inverse**
+> **Modular multiplicative inverse(MMI)**
 - `ax % m = 1`, here x is mmi(modular multiplicative inverse)
 - above equation exist if and only if a & m are coprime(`gcd(a,m) = 1`).
 
