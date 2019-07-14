@@ -2,6 +2,13 @@
 
 ## Number Theory
 
+> **Modulo Property**
+- (a + b) % m = ((a % m) + (b % m)) % m
+- (a * b) % m = ((a % m) * (b % m)) % m
+- (a - b) % m = ((a % m) - (b % m) + m) % m
+- (a / b) % m = ((a % m) * (b^-1 % m)) % m
+
+
 > **Modular multiplicative inverse**
 - `ax % m = 1`, here x is mmi(modular multiplicative inverse)
 - above equation exist if and only if a & m are coprime(`gcd(a,m) = 1`).
