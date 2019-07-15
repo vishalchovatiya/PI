@@ -47,6 +47,14 @@ So, square root is wokring like partition of two factor of given N.
 - GCD(a,b) = GCD(b, a%b)
 - GCD(a,0) = a
 
+> **Extended Euclid's algo**
+- `ax + by = gcd(a, b)`
+- `gcd(a,b) = gcd(b, a%b)`
+- `bx + (a%b)y = gcd(b, a%b)`
+- `(a%b) = a - ⌊a/b⌋b`
+- `x = y1 - ⌊b/a⌋ * x1`
+- `y = x1`
+
 > **Euclidean algo generate fibonacci sequence in reverse manner for every remainder**
 - For example: `GCD(55,34)`
 ```
