@@ -76,6 +76,9 @@ GCD(55,34) = 1
 - For example: `0,1,1,2,3,5,8,13,21,34,55,89,144,...`
 - `GCD(144,22) = 3` which is position in fibonacci sequence.
 
+> **Linear diophantine equation**
+- `ax + by = c`, has solution if `c` divisible by `g`. 
+
 > **LCM**
 - GCD(a,b) x LCM(a,b) = a x b
 
