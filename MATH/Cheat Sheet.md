@@ -12,6 +12,7 @@
 > **Modular multiplicative inverse(MMI)**
 - `ax % m = 1`, here x is mmi(modular multiplicative inverse)
 - above equation exist if and only if a & m are coprime(`gcd(a,m) = 1`).
+- `a⋅x+m⋅y=1` using extended Euclidean algo.
 
 > **congruence**
 - a & b when divided by n & produce same remainder then it is said that a & b are congruent.
