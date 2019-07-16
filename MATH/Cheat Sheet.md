@@ -2,27 +2,6 @@
 
 ## Number Theory
 
-> **Modulo Property**
-- `(a + b) % m = ((a % m) + (b % m)) % m`
-- `(a * b) % m = ((a % m) * (b % m)) % m`
-- `(a - b) % m = ((a % m) - (b % m) + m) % m`
-- `(a / b) % m = ((a % m) * (b^-1 % m)) % m`, where `b^-1` is MMI
-
-
-> **Modular multiplicative inverse(MMI)**
-- `ax % m = 1`, here x is mmi(modular multiplicative inverse)
-- above equation exist if and only if a & m are coprime(`gcd(a,m) = 1`).
-- `a⋅x+m⋅y=1` using extended Euclidean algo.
-
-> **congruence**
-- a & b when divided by n & produce same remainder then it is said that a & b are congruent.
-
-> **Prime number**
-- Its whole number unlike composite number which made up different factors.
-- Even nos can't be prime except 2.
-- If you plot the fibonacci numbers in spiral form, all diagonals are prime nos.
-- Primes are used in cryptography coz you can not generate combination or patterns out of it so wont be decrypted easily.
-
 > **What is mean by square root of any no?**
 - It means that one of its factor will be less than square root of no & one will be larger.
 - For example: N = 36, square root of N = 6; all the factor of 36 are
@@ -34,6 +13,12 @@
 ```
 So, square root is wokring like partition of two factor of given N.
 
+> **Prime number**
+- Its whole number unlike composite number which made up different factors.
+- Even nos can't be prime except 2.
+- If you plot the fibonacci numbers in spiral form, all diagonals are prime nos.
+- Primes are used in cryptography coz you can not generate combination or patterns out of it so wont be decrypted easily.
+
 > **Sieve of eratosthenes**
 1. Brute force 
 2. Square root optimization
@@ -43,6 +28,19 @@ So, square root is wokring like partition of two factor of given N.
 - For example: All primes b/w 25 to 36
 - Step 1: Find all primes upto square root of ‘n’(upper bound)  
 - Step 2: Cancell all no b/w 25 to 36 which are divisible by prime found in step 1
+
+
+> **Modulo Property**
+- `(a + b) % m = ((a % m) + (b % m)) % m`
+- `(a * b) % m = ((a % m) * (b % m)) % m`
+- `(a - b) % m = ((a % m) - (b % m) + m) % m`
+- `(a / b) % m = ((a % m) * (b^-1 % m)) % m`, where `b^-1` is MMI
+
+
+> **Modular multiplicative inverse(MMI)**
+- `ax % m = 1`, here x is mmi(modular multiplicative inverse)
+- above equation exist if and only if a & m are coprime(`gcd(a,m) = 1`).
+- `a⋅x+m⋅y=1` using extended Euclidean algo.
 
 > **Euclid's algo for GCD**
 - GCD(a,b) = GCD(b, a%b)
@@ -118,4 +116,5 @@ GCD(55,34) = 1
 
 > **Misc**
 - coprime = gcd is 1
-- Modular arithmetic = wall clock
+- congruence = a & b when divided by n & produce same remainder then it is said that a & b are congruent.
+- Modular arithmetic example = wall clock
