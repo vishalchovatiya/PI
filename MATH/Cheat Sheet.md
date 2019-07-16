@@ -26,8 +26,8 @@ So, square root is wokring like partition of two factor of given N.
 
 > **Segmented Sieve**
 - For example: All primes b/w 25 to 36
-- Step 1: Find all primes upto square root of ‘n’(upper bound)  
-- Step 2: Cancell all no b/w 25 to 36 which are divisible by prime found in step 1
+- Step 1: Find list of primes upto square root of ‘n’(upper bound) i.e. 36 which comes out to 6.
+- Step 2: Cancell all no b/w 25 to 36 which are divisible by list of primes found in step 1
 
 
 > **Modulo Property**
