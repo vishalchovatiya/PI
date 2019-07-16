@@ -19,12 +19,6 @@ using ll = long long;
 using ull = unsigned long long;
 using namespace std;
 
-template <typename T>
-inline T is_odd(T n)
-{
-    return (n & 0x1);
-}
-
 /*
     Explanation example 1: 2^3
     3 = 0011 
