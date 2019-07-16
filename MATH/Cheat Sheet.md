@@ -114,6 +114,11 @@ GCD(55,34) = 1
                                                    So here X0 & Y0 is out solution to LDE       
 ```
 
+> **Fermat's Little Theorm**
+-
+
+> **Chinese Remainder Theorm**
+-
 
 > **Misc**
 - coprime = gcd is 1
