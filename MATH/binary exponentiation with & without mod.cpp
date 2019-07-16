@@ -26,8 +26,15 @@ inline T is_odd(T n)
 }
 
 /*
-    2^n = (2^2)^n/2, for all even n
-    2^n = 2 x (2^2)^n/2, for all odd n
+    Explanation example 1: 2^3
+    3 = 0011 
+          42 = 8
+    multiply base with set bit
+    
+    Explanation example 2: 3^3
+    3 = 0011
+          93 = 27
+    where i is bit number
  */
 template <typename T>
 T binary_exponentiation(T x, T n, T m = numeric_limits<T>::max()) // x^n in log(N) time
@@ -35,7 +42,7 @@ T binary_exponentiation(T x, T n, T m = numeric_limits<T>::max()) // x^n in log(
     T res = 1;
     while (n > 0)
     {
-        if (is_odd(n))
+        if (n & 0x1)
         {
             res = (res * x) % m;
         }
