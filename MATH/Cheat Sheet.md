@@ -119,7 +119,7 @@ GCD(55,34) = 1
 - `a^p ≡ a (mod p).`
 - `a^(p-1) ≡ 1 (mod p)` or `a^(p-1) % p = 1`, if a is not divisible by p.
 - where p = prime number
-- Application: MMI if p is prime. multiply 2nd equation both side with 1/a. `a^(p-2) = a^(-1)`, here `a^(-1)` is MMI.
+- Application: MMI if p is prime. multiply 2nd equation both side with 1/a. `a^(p-2) % p= a^(-1)`, here `a^(-1)` is MMI.
 
 > **Chinese Remainder Theorm**
 -
