@@ -98,7 +98,8 @@ GCD(55,34) = 1
                                                                                                           
   MMI: ax % m = 1                                  LDE: ax + by = c                                       
                                                                                                           
-  ax + by = g = 1                                  c % g = 0, c = gk & k = c / g, where k is some constant
+  ax + by = g <= EE                                c % g = 0, c = gk & k = c / g, where k is some constant
+  ax + my = gcd(a,m) = 1
                                                                                                           
   taking modulo both side                          multiply both side with k                              
                                                                                                           
