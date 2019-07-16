@@ -115,8 +115,8 @@ GCD(55,34) = 1
 ```
 
 > **Fermat's Little Theorm**
-- `a^(p-1) ≡ 1 (mod p)` or `a^(p-1) % p = 1`
 - `a^p ≡ a (mod p).`
+- `a^(p-1) ≡ 1 (mod p)` or `a^(p-1) % p = 1`, if a is not divisible by p.
 - where p = prime number
 
 > **Chinese Remainder Theorm**
