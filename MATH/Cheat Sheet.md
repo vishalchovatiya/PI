@@ -79,6 +79,40 @@ GCD(55,34) = 1
 > **Linear diophantine equation**
 - `ax + by = c`, has solution if `c` divisible by `g`. 
 
+> **Application of EE algo**
+```
+                                                                                                          
+                              Extended Euclidean Algo                                                     
+                          ax + by = g, where g = gcd(a,b)                                                 
+                                                                                                          
+                                    --  -\                                                                
+                                ---/      ---\                                                            
+                             --/              ---\                                                        
+                         ---/                     --\                                                     
+                     ---/                            ---\                                                 
+                   -/                                    ---\                                             
+                                                             --                                           
+                MMI                                               LDE                                     
+  condition: gcd(a,m) = 1, coprime                 condition: c % g = 0                                   
+                                                                                                          
+  MMI: ax % m = 1                                  LDE: ax + by = c                                       
+                                                                                                          
+  ax + by = g = 1                                  c % g = 0, c = gk & k = c / g, where k is some constant
+                                                                                                          
+  taking modulo both side                          multiply both side with k                              
+                                                                                                          
+  ax % m + 0 = 1                                   EE: ax + by = g                                        
+                                                                                                          
+  ax % m = 1                                       ax.k + by.k = g.k = c                                  
+                                                                                                          
+  So here if we find x in                          a.x.(c/g) + b.y.(c/g) = c                              
+  ax + by = 1                                                                                             
+  which is our MMI                                 X0 = x.(c/g)                                           
+                                                   Y0 = y.(c/g)                                           
+                                                                                                          
+                                                   So here X0 & Y0 is out solution to LDE       
+```
+
 > **LCM**
 - GCD(a,b) x LCM(a,b) = a x b
 
