@@ -46,7 +46,10 @@ So, square root is wokring like partition of two factor of given N.
 - GCD(a,b) = GCD(b, a%b)
 - GCD(a,0) = a
 
-> **Extended Euclid's algo**
+> **LCM**
+- `GCD(a,b) x LCM(a,b) = a x b`
+
+> **Extended Euclid's algo(EE algo)**
 - `ax + by = gcd(a, b)`
 - `gcd(a,b) = gcd(b, a%b)`
 - `bx + (a%b)y = gcd(b, a%b)`
@@ -74,7 +77,7 @@ GCD(55,34) = 1
 - For example: `0,1,1,2,3,5,8,13,21,34,55,89,144,...`
 - `GCD(144,22) = 3` which is position in fibonacci sequence.
 
-> **Linear diophantine equation**
+> **Linear Diophantine Equation(LDE)**
 - `ax + by = c`, has solution if `c` divisible by `g`. 
 
 > **Application of EE algo**
@@ -111,8 +114,6 @@ GCD(55,34) = 1
                                                    So here X0 & Y0 is out solution to LDE       
 ```
 
-> **LCM**
-- GCD(a,b) x LCM(a,b) = a x b
 
 > **Misc**
 - coprime = gcd is 1
