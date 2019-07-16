@@ -122,7 +122,7 @@ GCD(55,34) = 1
 - Application: MMI if p is prime. multiply 2nd equation both side with 1/a. `a^(p-2) % p= a^(-1)`, here `a^(-1)` is MMI.
 
 > **Chinese Remainder Theorm**
--
+- Application: to solve system of linear congruences. 
 
 > **Misc**
 - coprime = gcd is 1
