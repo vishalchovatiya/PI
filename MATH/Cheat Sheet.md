@@ -166,6 +166,7 @@ Let us take below example to understand the solution
 - Euler’s Totient Function for an input n is count of numbers in {1, 2, 3, …, n} that are coprime to n.
 - `f(n) = n * (1 – 1 / pi) * (1 – 1 / pj) * (1 – 1 / pk) * ... * (1 – 1 / pn)`, where pi, pj, pk... pn are prime factors of n.
 - `f(6) = 6 * (1 - 1 / 2) * (1 – 1 / 3) = 2`.
+- If you observe `f(n) = n * (1 – 1 / pi) = n - n/pi` we are basically subtracting all numbers that are divisible by pi from n.
 
 > **Misc**
 - coprime = gcd is 1
