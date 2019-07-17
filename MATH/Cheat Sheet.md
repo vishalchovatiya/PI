@@ -18,6 +18,7 @@ So, square root is wokring like partition of two factor of given N.
 - Even nos can't be prime except 2.
 - If you plot the fibonacci numbers in spiral form, all diagonals are prime nos.
 - Primes are used in cryptography coz you can not generate combination or patterns out of it so wont be decrypted easily.
+- Prime with three unique factors = square of prime numbers
 
 > **Sieve of eratosthenes**
 1. Brute force 
