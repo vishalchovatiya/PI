@@ -16,10 +16,15 @@
 #define PRESENT(C, X) ((C).find() != (C).end())
 
 using ll = long long;
-using ull = unsigned long long;
 using namespace std;
 
-ll extended_euclid(ll a, ll b, ll &x, ll &y)
+/*
+    extended euclid's algo
+    mmi only possible if gcd(a,b) = 1
+ */
+
+template <typename T>
+T mmi(T a, T b, T &x, T &y)
 {
     if (b == 0)
     {
@@ -27,28 +32,35 @@ ll extended_euclid(ll a, ll b, ll &x, ll &y)
         y = 0;
         return a;
     }
-    ll gcd = extended_euclid(b, a % b, x, y);
-    ll old_x = x;
+
+    T gcd = mmi(b, a % b, x, y);
+
+    T old_x = x;
     x = y;
-    y = old_x - (a / b) * y;
+    y = old_x - (a / b) * x;
+
     return gcd;
 }
 
 int main()
 {
-    ll x;
-    ll y;
-    ll gcd = extended_euclid(30, 20, x, y); // 30(1) + 20(-1) = 10
+    ll Q;
+    cin >> Q;
 
-    DEBUG(gcd);
-    DEBUG(x);
-    DEBUG(y);
+    ll a = Q;
+    ll b = 1000000007;
+    ll x = 0;
+    ll y = 0;
 
+    // DEBUG(mmi(a, b, x, y));
+    ll gcd = mmi(a, b, x, y);
+
+    cout << x << endl;
+    // DEBUG(x);
+    // DEBUG(y);
     return 0;
 }
 
-/* OUTPUT
-gcd = 10
-x = 1
-y = -1
+/* OUTPUT:
+333333336
  */
