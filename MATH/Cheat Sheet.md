@@ -162,6 +162,11 @@ Let us take below example to understand the solution
 ```
 - Application: to solve system of linear congruences. 
 
+> **Euler’s Totient Function**
+- Euler’s Totient Function for an input n is count of numbers in {1, 2, 3, …, n} that are coprime to n.
+- `f(n) = n * (1 – 1 / pi) * (1 – 1 / pj) * (1 – 1 / pk) * ... * (1 – 1 / pn)`, where pi, pj, pk... pn are prime factors of n.
+- `f(6) = 6 * (1 - 1 / 2) * (1 – 1 / 3) = 2`.
+
 > **Misc**
 - coprime = gcd is 1
 - congruence = a & b when divided by n & produce same remainder then it is said that a & b are congruent.
