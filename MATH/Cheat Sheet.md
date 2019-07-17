@@ -129,19 +129,9 @@ GCD(55,34) = 1
      .......................
      x % num[k-1]  =  rem[k-1] 
 ```
-- Example:
-```
-Input:  num[] = {3, 4, 5}, rem[] = {2, 3, 1}
-Output: 11
-Explanation: 
-11 is the smallest number such that:
-  (1) When we divide it by 3, we get remainder 2. 
-  (2) When we divide it by 4, we get remainder 3.
-  (3) When we divide it by 5, we get remainder 1. 
-```
 - Formula
 ```
-x =  ( (rem[i]*pp[i]*inv[i]) + (rem[i+1]*pp[i+1]*inv[i+1]) + .... upto n-1) % prod
+x =  ( (rem[i]*pp[i]*inv[i]) + .... upto n-1) % prod
    Where 0 <= i <= n-1
 
 rem[i] is given array of remainders
