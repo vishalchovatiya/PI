@@ -119,7 +119,17 @@ GCD(55,34) = 1
 - `a^p ≡ a (mod p).`
 - `a^(p-1) ≡ 1 (mod p)` or `a^(p-1) % p = 1`, if a is not divisible by p.
 - where p = prime number
-- Application: MMI if p is prime. multiply 2nd equation both side with 1/a. `a^(p-2) % p= a^(-1)`, here `a^(-1)` is MMI.
+- Application: 
+  1. To find MMI, if p is prime. multiply 2nd equation both side with 1/a. `a^(p-2) % p= a^(-1)`, here `a^(-1)` is MMI.
+  2. Primality test: The theorem states that, given a prime number `p`, and any number `a` (where 0 < a < p), then `a^(p-1) % p ≡ 1`. we will select `a` randomly for `x` times, if the statement of Fermat's Little Theorem is accepted for all x time, then `p` is said as a probable prime.
+
+function: FermatPrimalityTesting(int N):
+    pick a random integer k     //not too less. not too high.
+    LOOP: repeat k times:
+        pick a random integer X in range (1,N-1)
+        if(X^(N-1)%N != 1):
+            return composite
+    return probably prime
 
 > **Chinese Remainder Theorm**
 - We are given two arrays `num[0..k-1]` and `rem[0..k-1]`. In `num[0..k-1]`, every pair is coprime (gcd for every pair is 1). We need to find minimum positive number x such that:
