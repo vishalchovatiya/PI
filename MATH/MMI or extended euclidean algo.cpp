@@ -44,10 +44,7 @@ T mmi(T a, T b, T &x, T &y)
 
 int main()
 {
-    ll Q;
-    cin >> Q;
-
-    ll a = Q;
+    ll a = 3;
     ll b = 1000000007;
     ll x = 0;
     ll y = 0;
