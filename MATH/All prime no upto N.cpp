@@ -21,33 +21,34 @@ using namespace std;
 
 // 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
 
-vector<ull> primeNoUpto(ull n)
+template <typename T>
+set<T> primeNoUpto(T n)
 {
-    vector<ull> res;
+    set<T> res;
 
     bool isPrime[n + 1]{0};
 
     isPrime[2] = true;
 
-    for (ull num = 3; num <= n; num = num + 2)
+    for (T num = 3; num <= n; num = num + 2)
     {
         isPrime[num] = true;
     }
 
-    for (ull num = 3; num <= n; num = num + 2)
+    for (T num = 3; num <= n; num = num + 2)
     {
         if (isPrime[num])
         {
-            for (ull i = num * num; i <= n; i += num)
+            for (T i = num * num; i <= n; i += num)
             {
                 isPrime[i] = false;
             }
         }
     }
 
-    for (ull num = 0; num <= n; num++)
+    for (T num = 0; num <= n; num++)
         if (isPrime[num])
-            res.push_back(num);
+            res.insert(num);
 
     return res;
 }
