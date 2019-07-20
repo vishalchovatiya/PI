@@ -26,29 +26,21 @@ set<T> primeNoUpto(T n)
 {
     set<T> res;
 
-    bool isPrime[n + 1]{0};
+    bool is_prime[n + 1]{0};
+    memset(is_prime, true, sizeof(is_prime));
+    is_prime[0] = is_prime[1] = false;
 
-    isPrime[2] = true;
-
-    for (T num = 3; num <= n; num = num + 2)
+    for (T num = 2; num <= n; num++)
     {
-        isPrime[num] = true;
-    }
-
-    for (T num = 3; num <= n; num = num + 2)
-    {
-        if (isPrime[num])
+        if (is_prime[num])
         {
+            res.insert(num);
             for (T i = num * num; i <= n; i += num)
             {
-                isPrime[i] = false;
+                is_prime[i] = false;
             }
         }
     }
-
-    for (T num = 0; num <= n; num++)
-        if (isPrime[num])
-            res.insert(num);
 
     return res;
 }
