@@ -4,19 +4,15 @@ NUMBER OF DIVISORS
 Little Bob and Mary once got into a fight over rating on codeforces. Bob asked Mary to share her ice-cream with him if she couldn't answer the question. Mary agreed as she was so confident of herself. Bob asked you are given a number n find its number of divisors. Mary answered it in a flash and started laughing. Bob said the question isn't over yet. Since n can be as large as having 50 digits you are only given some numbers <= 1000000 whose product is n. Mary got a bit surprised and started working on the question. Now you have to help Mary find the number of divisors of (a1* a2* a3 ….an) where you are given a1 a2 a3.. an. Since the answer can be large output it modulo 10^9+7.
 
 Input Format:
-
 first line consist of number of test cases. First line of every text case consists of integer n. the second line consists of n integers.
 
 Constraints:
-
 1 <= n <= 15 1 <= ai <= 1000000 1 <= test cases <= 10
 
-Output Format
-
+Output Format:
 the number of divisors modulo 10^9 + 7.
 
-Sample Input
-
+Sample Input:
 3
 3
 13 50 70
@@ -25,8 +21,7 @@ Sample Input
 2
 5 5
 
-Sample Output
-
+Sample Output:
 48
 64
 3
