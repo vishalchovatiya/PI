@@ -1,87 +1,149 @@
+#include <iostream>
+#include <sstream>
+#include <cstdio>
+#include <cmath>
+#include <cstring>
+#include <cctype>
+#include <string>
+#include <chrono>
+#include <iomanip>
+#include <vector>
+#include <list>
+#include <set>
+#include <unordered_set>
+#include <map>
+#include <unordered_map>
+#include <queue>
+#include <stack>
+#include <algorithm>
+#include <functional>
+using namespace std;
 
-#include <bits/stdc++.h>
-
+/* ------------------------- HELPERS DEFINE -------------------------- */
 #define DEBUG(X) cout << #X << " = " << X << endl;
-#define PRINT(C, WAY)                      \
+#define PRINT(C)                           \
     do                                     \
     {                                      \
         cout << setw(10) << #C << " : \n"; \
         for (auto &&i : C)                 \
         {                                  \
-            WAY;                           \
+            cout << i << " ";              \
         }                                  \
         cout << endl;                      \
     } while (0);
 #define ALL(C) (C).begin(), (C).end()
-#define RALL(C) (C).rbegin(), (C).rend()
 #define PRESENT(C, X) ((C).find() != (C).end())
+#define BENCHMARK(f)         \
+    do                       \
+    {                        \
+        cout << #f << " = "; \
+        benchmark(f);        \
+    } while (0);
 
-using ll = long long;
-using ull = unsigned long long;
-using namespace std;
+const auto benchmark = [](function<void(void)> f) {
+    chrono::steady_clock::time_point start = chrono::steady_clock::now();
+    f();
+    cout << chrono::duration_cast<chrono::microseconds>(chrono::steady_clock::now() - start).count() << " microseconds\n";
+};
 
-// 0, 1, 2, 3, 4, 5, 6
-// 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36
+using ll = unsigned long long;
 
-vector<ull> primeNoUpto(ull n)
+ll get_no_of_query();
+
+template <typename T>
+vector<T> get_array(T Q);
+
+/* ----------------------------- MAIN CODE ----------------------------- */
+
+template <typename T>
+set<T> primes_upto(T n)
 {
-    vector<ull> res;
+    set<T> res;
 
-    bool isPrime[n + 1]{0};
+    bool is_prime[n + 1];
+    memset(is_prime, true, sizeof(is_prime));
+    is_prime[0] = is_prime[1] = false;
 
-    isPrime[2] = true;
-
-    for (ull num = 3; num <= n; num = num + 2)
+    for (T num = 2; num <= n; num++)
     {
-        isPrime[num] = true;
-    }
-
-    for (ull num = 3; num <= n; num = num + 2)
-    {
-        if (isPrime[num])
+        if (is_prime[num])
         {
-            for (ull i = num * num; i <= n; i += num)
+            res.insert(num);
+            for (T i = num * num; i <= n; i += num)
             {
-                isPrime[i] = false;
+                is_prime[i] = false;
             }
         }
     }
 
-    for (ull num = 0; num <= n; num++)
-        if (isPrime[num])
-            res.push_back(num);
-
     return res;
 }
 
-vector<ull> primeNoBetween(ull x, ull y)
+void segmented_sieve(ll S, ll E)
 {
-    vector<ull> res;
+    if (S < 2)
+        S = 2;
 
-    ull rangeSize = y - x;
-    bool isPrime[rangeSize]{0};
+    ll range_size = E - S + 1;
+    bool is_prime[range_size] = {0};
+    ll sqrt_E = sqrt(E);
+    auto primes = primes_upto(sqrt_E);
 
-    memset(isPrime, true, sizeof(isPrime));
+    // PRINT(primes);
 
-    for (auto &&div : primeNoUpto(sqrt(y)))
+    for (ll n = S; n <= E; n++)
     {
-        for (ull num = x; num <= y; num++)
+        is_prime[n - S] = true;
+        for (auto &&prime_no : primes)
         {
-            if ((num % div) == 0)
-                isPrime[num - x] = false;
+            if (n == prime_no)
+                break;
+
+            if ((n % prime_no) == 0)
+            {
+                is_prime[n - S] = false;
+                break;
+            }
         }
+        if (is_prime[n - S])
+            cout << (n) << endl;
     }
-
-    for (ull num = 0; num <= (rangeSize); num++)
-        if (isPrime[num])
-            res.push_back(num + x);
-
-    return res;
 }
 
 int main()
 {
-    vector<ull> primes = primeNoBetween(25, 36);
-    PRINT(primes, cout << i << " ");
+    auto Q = get_no_of_query();
+
+    for (ll i = 0; i < Q; i++)
+    {
+        auto arr = get_array(2);
+        segmented_sieve(arr[0], arr[1]);
+        if (i != (Q - 1))
+            cout << endl;
+    }
+
     return 0;
+}
+
+/* -------------------- HELPERS IMPLEMENTATION ------------------------ */
+ll get_no_of_query()
+{
+    ll Q;
+    cin >> Q;
+    return Q;
+}
+
+template <typename T>
+vector<T> get_array(T Q)
+{
+    vector<T> res(Q);
+
+    for (T i = 0; i < Q; i++)
+    {
+        T temp;
+        cin >> temp;
+        res[i] = temp;
+    }
+
+    return res;
 }
