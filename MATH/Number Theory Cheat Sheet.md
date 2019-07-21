@@ -14,6 +14,7 @@ Begin by forming the prime factorization of 144:
 So any divisor of 144 must be a product of some number of 2's (between 0 and 4) and some number of 3's (between 0 and 2). So here's a table of the possibilities:
 
 |2^0 |	2^1 |	2^2 |	2^3|	2^4|
+|----|------|------|------|----|
 |3^0 |	1 |	2	  |  4	|8	|16|
 |3^1 |	3 |	6	  |  12|	24|	48|
 |3^2 |	9 |	18  |	36	|72	|144|
