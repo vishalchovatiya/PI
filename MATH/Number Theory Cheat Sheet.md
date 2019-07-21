@@ -3,13 +3,15 @@
 ## Number Theory
 > **Divisors**
 - **Number divisible by**: Numbers less than 1000 that is divisible by 5 = 1000/5.
-- **Number of divisor(prime factorization & power multiply)**:for example, no of divisor of 24 = 1,2,3,4,6,8,12,24 = 8. Prime factorization 2 x 2 x 2 x 3 = 2^(3) x 3^(1) = (3+1) x (1+1) <multiply powers> = 8.
+- **Number of divisor(prime factorization & power multiply)**:
 
-For example, suppose we want to count (or find all of) the divisors of n = 144.
+Example 1, no of divisor of 24 = 1,2,3,4,6,8,12,24 = 8. Prime factorization 2 x 2 x 2 x 3 = 2^(3) x 3^(1) = (3+1) x (1+1) <multiply powers> = 8.
+
+Example 2, suppose we want to count (or find all of) the divisors of n = 144.
 
 Begin by forming the prime factorization of 144:
 
-144 = 24 . 32.
+144 = 2^4 . 3^2.
 
 So any divisor of 144 must be a product of some number of 2's (between 0 and 4) and some number of 3's (between 0 and 2). So here's a table of the possibilities:
 
