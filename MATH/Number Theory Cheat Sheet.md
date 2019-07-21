@@ -5,6 +5,21 @@
 - **Number divisible by**: Numbers less than 1000 that is divisible by 5 = 1000/5.
 - **Number of divisor(prime factorization & power multiply)**:for example, no of divisor of 24 = 1,2,3,4,6,8,12,24 = 8. Prime factorization 2 x 2 x 2 x 3 = 2^(3) x 3^(1) = (3+1) x (1+1) <multiply powers> = 8.
 
+For example, suppose we want to count (or find all of) the divisors of n = 144.
+
+Begin by forming the prime factorization of 144:
+
+144 = 24 . 32.
+
+So any divisor of 144 must be a product of some number of 2's (between 0 and 4) and some number of 3's (between 0 and 2). So here's a table of the possibilities:
+
+2^0 |	2^1 |	2^2 |	2^3|	2^4
+3^0 |	1 |	2	  |  4	|8	|16
+3^1 |	3 |	6	  |  12|	24|	48
+3^2 |	9 |	18  |	36	|72	|144
+
+From the table, it's easy to see that there are 5 x 3 = 15 divisors of 144.
+
 > **What is mean by square root of any no?**
 - It means that one of its factor will be less than square root of no & one will be larger.
 - For example: N = 36, square root of N = 6; all the factor of 36 are
