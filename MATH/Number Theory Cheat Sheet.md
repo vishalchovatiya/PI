@@ -2,8 +2,8 @@
 
 ## Number Theory
 > **Divisors**
-- Number divisible by: Numbers less than 1000 that is divisible by 5 = 1000/5.
-- Number of divisor(prime factorization):for example, no of divisor of 24 = 1,2,3,4,6,8,12,24 = 8. Prime factorization 2 x 2 x 2 x 3 = 2^(3) x 3^(1) = (3+1) x (1+1) <multiply powers> = 8.
+- **Number divisible by**: Numbers less than 1000 that is divisible by 5 = 1000/5.
+- **Number of divisor(prime factorization & power multiply)**:for example, no of divisor of 24 = 1,2,3,4,6,8,12,24 = 8. Prime factorization 2 x 2 x 2 x 3 = 2^(3) x 3^(1) = (3+1) x (1+1) <multiply powers> = 8.
 
 > **What is mean by square root of any no?**
 - It means that one of its factor will be less than square root of no & one will be larger.
