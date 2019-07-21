@@ -119,7 +119,7 @@ set<T> primes_upto(T n)
     return res;
 }
 
-void no_of_divisors(ll N, map<ll, ll> &factor_cnt, ll mod = numeric_limits<ll>::max(), ll precomp_primes_upto = 1000000)
+void no_of_prime_divisors(ll N, map<ll, ll> &factor_cnt, ll mod = numeric_limits<ll>::max(), ll precomp_primes_upto = 1000000)
 {
     ll res = 1;
 
@@ -145,14 +145,14 @@ void no_of_divisors(ll N, map<ll, ll> &factor_cnt, ll mod = numeric_limits<ll>::
     }
 }
 
-ll no_of_divisors(vector<ll> &arr, ll mod = numeric_limits<ll>::max())
+ll no_of_prime_divisors(vector<ll> &arr, ll mod = numeric_limits<ll>::max())
 {
     ll res = 1;
     map<ll, ll> factor_cnt;
 
     for (auto &&no : arr)
     {
-        no_of_divisors(no, factor_cnt, mod);
+        no_of_prime_divisors(no, factor_cnt, mod);
     }
 
     for (auto &&factor : factor_cnt)
@@ -175,7 +175,7 @@ int main()
         auto nos = get_no_of_query();
 
         auto arr = get_array(nos);
-        cout << no_of_divisors(arr, mod) << endl;
+        cout << no_of_prime_divisors(arr, mod) << endl;
     }
     return 0;
 }
