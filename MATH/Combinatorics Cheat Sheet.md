@@ -3,7 +3,9 @@
 - Combination = Selection
 
 ## Permutation
-
+```
+nCr = n! / (n-r)!
+```
 #### Permutation cheats
 - Create blank boxes as many as no of digit of outputs
 - Start filling boxes from most significant digits upon selecting no of choices.
@@ -28,7 +30,9 @@
 11. In how many different ways word "ASSASINATION" can be arranged so that all 'S' are together ?
 
 ## Combination
-
+```
+nCr = n! / (r! . (n-r)!)
+```
 #### Combination cheats
 - 
 
