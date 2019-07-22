@@ -116,7 +116,11 @@ T nCr(T n, T r, T mod = numeric_limits<T>::max()) //time complexity O(N^2), spac
     T C = 1;
     for (T i = 1; i <= r; i++)
     {
-        // C = C * (line - i + 1) /i; // operation broke in to two pieces for taking mode
+        /*
+        C = C * (line - i + 1) / i;
+        This operation broke in to two pieces for taking mode of multiplier & divisor(i.e. i)
+        As for i we need modular multiplicative inverse, we can use Fermat's little theorem as mod = 1000000007 is prime
+        */
         C = (C * (line - i + 1)) % mod;
         C = (C * mmi(i, mod)) % mod;
     }
@@ -126,11 +130,8 @@ T nCr(T n, T r, T mod = numeric_limits<T>::max()) //time complexity O(N^2), spac
 int main()
 {
     ll mod = 1000000007;
-    ll n = 0;
-    ll r = 0;
-    cin >> n;
-    cin >> r;
-    cout << nCr(n, r, mod) << endl;
-    // DEBUG(nCr(n, r, mod));
+    ll n = 3;
+    ll r = 2;
+    DEBUG(nCr(n, r, mod));
     return 0;
 }
