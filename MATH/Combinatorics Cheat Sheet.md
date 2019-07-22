@@ -1,7 +1,6 @@
 ## General pointers
-- Permutation = Arrangement
-- Combination = Selection
-
+- Permutation = Arrangement, order does not matter
+- Combination = Selection, order matters
 ## Permutation
 ```
 nCr = n! / (n-r)!
@@ -33,6 +32,7 @@ nCr = n! / (n-r)!
 ```
 nCr = n! / (r! . (n-r)!)
 ```
+Note: why there is `r!` in combination formula & rest is same as permutation.
 #### Combination cheats
 - 
 
