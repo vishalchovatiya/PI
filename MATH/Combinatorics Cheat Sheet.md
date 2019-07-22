@@ -75,6 +75,7 @@ Note: Why there is `r!` in combination formula & rest is same as permutation?
 5|  1 5 10 10 5 1 
 ```
 - As you can see, in the line number `line` there are `line + 1` elements.
+- Each cell value represent number of ways you can reach to that cell from line 0, row 0.
 - If you observe the value, then `i`th entry in a line number `line` is Binomial Coefficient(i.e. nCr) `(line)C(i)` . Technically pascal's triangle is
 ```
 0|  0C0 
