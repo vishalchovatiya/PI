@@ -65,6 +65,7 @@ Note: Why there is `r!` in combination formula & rest is same as permutation?
  5|  01  05  10  10  05  01   = 2^(5)       o                                                                                      
 ```
 #### 2D array arragement
+
 ```
 0|  1 
 1|  1 1 
@@ -83,7 +84,11 @@ Note: Why there is `r!` in combination formula & rest is same as permutation?
 4|  4C0 4C1 4C2 4C3 4C4 
 5|  5C0 5C1 5C2 5C3 5C4 5C5
 ```
-
+- Formula:
+```
+f(0,0) = 1
+f(line,i) = f(line-1,i-1) + f(line-1,i)
+```
 
 Note: Diagonal summation of no in pascal triangle also generate fibonacci sequence
 
