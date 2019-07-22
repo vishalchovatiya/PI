@@ -32,7 +32,7 @@ nCr = n! / (n-r)!
 ```
 nCr = n! / (r! . (n-r)!)
 ```
-Note: why there is `r!` in combination formula & rest is same as permutation.
+Note: Why there is `r!` in combination formula & rest is same as permutation?
 #### Combination cheats
 - 
 
