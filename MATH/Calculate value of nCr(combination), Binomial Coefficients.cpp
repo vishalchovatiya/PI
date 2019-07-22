@@ -1,3 +1,7 @@
+/*
+nCr = n! / (r! . (n-r)!)
+*/
+
 #include <bits/stdc++.h>
 
 #define DEBUG(X) cout << #X << " = " << X << endl;
