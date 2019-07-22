@@ -53,7 +53,7 @@ Note: Why there is `r!` in combination formula & rest is same as permutation?
 #### Combination questions(Difficulty in incremental order)
 - 
 
-## Pascal's Triangle
+## Pascal's Triangle = triangular array of the binomial coefficients
 
 ```
  0|            01             = 2^(0)     (x+y)^0 = 1.x^0.y^0 = 1                                                                  
