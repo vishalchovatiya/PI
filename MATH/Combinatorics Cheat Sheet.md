@@ -89,6 +89,17 @@ Note: Why there is `r!` in combination formula & rest is same as permutation?
 f(0,0) = 1
 f(line,i) = f(line-1,i-1) + f(line-1,i)
 ```
+- 
+```
+C(line, i)   = line! / ( (line-i)! * i! )
+C(line, i-1) = line! / ( (line - i + 1)! * (i-1)! )
+We can derive following expression from above two expressions.
+Just substitute value of line! from expression 2 to expression 1
+
+C(line, i) = C(line, i-1) * (line - i + 1) / i
+
+So C(line, i) can be calculated from C(line, i-1) in O(1) time
+```
 
 Note: Diagonal summation of no in pascal triangle also generate fibonacci sequence
 
