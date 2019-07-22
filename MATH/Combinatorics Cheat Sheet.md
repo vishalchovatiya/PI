@@ -52,3 +52,17 @@ Note: Why there is `r!` in combination formula & rest is same as permutation?
 - 
 #### Combination questions(Difficulty in incremental order)
 - 
+
+## Pascal's Triangle
+```
+0             01                = 2^(0)
+1           01  01              = 2^(1)
+2         01  02  01            = 2^(2)
+3       01  03  03  01          = 2^(3)
+4     01  04  06  04  01        = 2^(4)
+5   01  05  10  10  05  01      = 2^(5)
+
+```
+Note: Diagonal summation of no in pascal triangle also generate fibonacci sequence
+- 
+
