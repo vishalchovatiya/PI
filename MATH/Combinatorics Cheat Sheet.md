@@ -63,7 +63,7 @@ Note: Why there is `r!` in combination formula & rest is same as permutation?
  4|    01  04  06  04  01     = 2^(4)       o                                                                                      
  5|  01  05  10  10  05  01   = 2^(5)       o                                                                                      
 ```
-
+- As you can be see, in the `i`th row there are `i + 1` elements.
 Note: Diagonal summation of no in pascal triangle also generate fibonacci sequence
 
 #### nCr is binomial coefficient of polynomial equations like
