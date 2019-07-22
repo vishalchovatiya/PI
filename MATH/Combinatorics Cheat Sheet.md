@@ -1,6 +1,6 @@
 ## General pointers
 - Permutation = Arrangement, order does not matter
-- Combination = Selection, order matters
+- Combination = Selection, order matters(that's why permutation formula is divided by r!)
 ## Permutation
 ```
 nPr = n! / (n-r)!
