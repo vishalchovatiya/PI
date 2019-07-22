@@ -25,9 +25,13 @@ using namespace std;
 template <typename T>
 T get_factorial_of(T n, T max_upto = 10000)
 {
-    bool is_precomp = false;
-    T *factorial = new T[max_upto];
-    is_precomp = false;
+    static bool is_precomp = false;
+    static T *factorial = new T[max_upto];
+
+    if (is_precomp)
+        return factorial[n];
+
+    is_precomp = true;
 
     factorial[0] = factorial[1] = 1;
 
