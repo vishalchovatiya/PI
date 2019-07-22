@@ -55,13 +55,14 @@ Note: Why there is `r!` in combination formula & rest is same as permutation?
 
 ## Pascal's Triangle
 ```
-0             01                = 2^(0)
-1           01  01              = 2^(1)
-2         01  02  01            = 2^(2)
-3       01  03  03  01          = 2^(3)
-4     01  04  06  04  01        = 2^(4)
-5   01  05  10  10  05  01      = 2^(5)
-
+ 0|            01                = 2^(0)           (x+y)^0 = 1.x^0.y^0 = 1                                                                  
+ 1|          01  01              = 2^(1)             o                                                                                      
+ 2|        01  02  01            = 2^(2)           (x+y)^2 = 1.x^2.y^0 + 2.x^1.y^1 + 1.x^0.y^2 = x^2 + 2xy + y^2                            
+ 3|      01  03  03  01          = 2^(3)           (x+y)^3 = 1.x^3.y^0 + 3.x^2.y^1 + 3.x^1.y^2 + 1.x^0.y^3 = = x^3 + 3.x^2.y + 3.x.y^2 + y^3
+ 4|    01  04  06  04  01        = 2^(4)             o                                                                                      
+ 5|  01  05  10  10  05  01      = 2^(5)             o                                                                                      
+                                                                                                                                            
+      
 ```
 Note: Diagonal summation of no in pascal triangle also generate fibonacci sequence
 - 
