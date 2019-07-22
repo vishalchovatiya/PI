@@ -55,6 +55,7 @@ Note: Why there is `r!` in combination formula & rest is same as permutation?
 
 ## Pascal's Triangle = triangular array of the binomial coefficients
 
+#### Concept
 ```
  0|            01             = 2^(0)     (x+y)^0 = 1.x^0.y^0 = 1                                                                  
  1|          01  01           = 2^(1)       o                                                                                      
@@ -63,7 +64,27 @@ Note: Why there is `r!` in combination formula & rest is same as permutation?
  4|    01  04  06  04  01     = 2^(4)       o                                                                                      
  5|  01  05  10  10  05  01   = 2^(5)       o                                                                                      
 ```
-- As you can be see, in the `i`th row there are `i + 1` elements.
+#### 2D array arragement
+```
+0|  1 
+1|  1 1 
+2|  1 2 1 
+3|  1 3 3 1 
+4|  1 4 6 4 1 
+5|  1 5 10 10 5 1 
+```
+- As you can see, in the line number `line` there are `line + 1` elements.
+- If you observe the value, then `i`th entry in a line number `line` is Binomial Coefficient(i.e. nCr) `(line)C(i)` . Technically pascal's triangle is
+```
+0|  0C0 
+1|  1C0 1C1 
+2|  2C0 2C1 2C2 
+3|  3C0 3C1 3C2 3C3 
+4|  4C0 4C1 4C2 4C3 4C4 
+5|  5C0 5C1 5C2 5C3 5C4 5C5
+```
+
+
 Note: Diagonal summation of no in pascal triangle also generate fibonacci sequence
 
 #### nCr is binomial coefficient of polynomial equations like
