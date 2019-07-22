@@ -3,16 +3,16 @@
 - Combination = Selection, order matters
 ## Permutation
 ```
-nCr = n! / (n-r)!
+nPr = n! / (n-r)!
 ```
 #### Permutation cheats
 - Create blank boxes as many as no of digit of outputs
 - Start filling boxes from most significant digits upon selecting no of choices.
 
 #### Permutation with repetitions
-- If we have N objects out of which N1 objects are of type 1, N2  objects are of type 2, ... Nk objects are of type k , then number of ways of arrangement of these  objects are given by:
+- If we have `N` objects out of which `N1` objects are of type `1`, `N2`  objects are of type `2`, ... `Nk` objects are of type `k` , then number of ways of arrangement of these `N` objects are given by:
 ```
-P = N! / (N1! x N2! x N3! x ... Nk!)
+(n)P(r) = N! / (N1! x N2! x N3! x ... Nk!)
 ```
 
 #### Example 
@@ -41,6 +41,12 @@ nCr = n! / (r! . (n-r)!)
 Note: Why there is `r!` in combination formula & rest is same as permutation?
 #### Combination cheats
 - 
+#### Combinations with repetition:
+- If we have `N` elements out of which we want to choose `K` elements and it is allowed to choose one element more than once, then number of ways are given by:
+```
+(n+k-1)C(k) = (n+k-1)! / (k)!(n-1)!
+```
+
 
 #### Example 
 - 
