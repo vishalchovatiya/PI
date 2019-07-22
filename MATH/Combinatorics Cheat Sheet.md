@@ -9,6 +9,12 @@ nCr = n! / (n-r)!
 - Create blank boxes as many as no of digit of outputs
 - Start filling boxes from most significant digits upon selecting no of choices.
 
+#### Permutation with repetitions
+- If we have N objects out of which N1 objects are of type 1, N2  objects are of type 2, ... Nk objects are of type k , then number of ways of arrangement of these  objects are given by:
+```
+P = N! / (N1! x N2! x N3! x ... Nk!)
+```
+
 #### Example 
 
 #### Permutation questions(Difficulty in incremental order)
