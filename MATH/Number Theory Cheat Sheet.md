@@ -1,7 +1,4 @@
-
-
-## Number Theory
-> **Divisors**
+## Divisors
 - **Number divisible by**: Numbers less than 1000 that is divisible by 5 = 1000/5.
 - **Number of divisor(prime factorization & power multiply)**:
 
@@ -24,7 +21,7 @@ So any divisor of 144 must be a product of some number of 2's (between 0 and 4) 
 
 From the table, it's easy to see that there are 5 x 3 = 15 divisors of 144.
 
-> **What is mean by square root of any no?**
+## What is mean by square root of any no?
 - It means that one of its factor will be less than square root of no & one will be larger.
 - For example: N = 36, square root of N = 6; all the factor of 36 are
 ```
@@ -35,44 +32,44 @@ From the table, it's easy to see that there are 5 x 3 = 15 divisors of 144.
 ```
 So, square root is wokring like partition of two factor of given N.
 
-> **Prime number**
+## Prime number
 - Its whole number unlike composite number which made up different factors.
 - Even nos can't be prime except 2.
 - If you plot the fibonacci numbers in spiral form, all diagonals are prime nos.
 - Primes are used in cryptography coz you can not generate combination or patterns out of it so wont be decrypted easily.
 - Prime with three unique factors = square of prime numbers, for example: 4(1,2,4), 9(1,3,9), 25(1,5,25)
 
-> **Sieve of eratosthenes**
+## Sieve of eratosthenes
 1. Brute force 
 2. Square root optimization
 3. Square of no optimization
 
-> **Segmented Sieve**
+## Segmented Sieve
 - For example: All primes b/w 25 to 36
 - Step 1: Find list of primes upto square root of ‘n’(upper bound) i.e. 36 which comes out to 6.
 - Step 2: Cancell all no b/w 25 to 36 which are divisible by list of primes found in step 1
 
 
-> **Modulo Property**
+## Modulo Property
 - `(a + b) % m = ((a % m) + (b % m)) % m`
 - `(a * b) % m = ((a % m) * (b % m)) % m`
 - `(a - b) % m = ((a % m) - (b % m) + m) % m`
 - `(a / b) % m = ((a % m) * (b^-1 % m)) % m`, where `b^-1` is MMI
 
 
-> **Modular multiplicative inverse(MMI)**
+## Modular multiplicative inverse(MMI)
 - `ax % m = 1`, here x is mmi(modular multiplicative inverse)
 - above equation exist if and only if a & m are coprime(`gcd(a,m) = 1`).
 - `a⋅x+m⋅y=1` using extended Euclidean algo.
 
-> **Euclid's algo for GCD**
+## Euclid's algo for GCD
 - GCD(a,b) = GCD(b, a%b)
 - GCD(a,0) = a
 
-> **LCM**
+## LCM
 - `GCD(a,b) x LCM(a,b) = a x b`
 
-> **Extended Euclid's algo(EE algo)**
+## Extended Euclid's algo(EE algo)
 - `ax + by = gcd(a, b)`
 - `gcd(a,b) = gcd(b, a%b)`
 - `bx + (a%b)y = gcd(b, a%b)`
@@ -80,7 +77,7 @@ So, square root is wokring like partition of two factor of given N.
 - `x = y1 - ⌊b/a⌋ * x1`
 - `y = x1`
 
-> **Euclidean algo generate fibonacci sequence in reverse manner for every remainder**
+## Euclidean algo generate fibonacci sequence in reverse manner for every remainder
 - For example: `GCD(55,34)`
 ```
 GCD(55,34)       = GCD(34,55%34)     = GCD(34, 21)
@@ -100,10 +97,10 @@ GCD(55,34) = 1
 - For example: `0,1,1,2,3,5,8,13,21,34,55,89,144,...`
 - `GCD(144,22) = 3` which is position in fibonacci sequence.
 
-> **Linear Diophantine Equation(LDE)**
+## Linear Diophantine Equation(LDE)
 - `ax + by = c`, has solution if `c` divisible by `g`. 
 
-> **Application of EE algo**
+## Application of EE algo
 ```
                                                                                                           
                               Extended Euclidean Algo                                                     
@@ -138,7 +135,7 @@ GCD(55,34) = 1
                                                    So here X0 & Y0 is out solution to LDE       
 ```
 
-> **Fermat's Little Theorm**
+## Fermat's Little Theorm
 - `a^p ≡ a (mod p).`
 - `a^(p-1) ≡ 1 (mod p)` or `a^(p-1) % p = 1`, if a is not divisible by p.
 - where p = prime number
@@ -154,7 +151,7 @@ function: FermatPrimalityTesting(int N):
             return composite
     return probably prime
 
-> **Chinese Remainder Theorm**
+## Chinese Remainder Theorm
 - We are given two arrays `num[0..k-1]` and `rem[0..k-1]`. In `num[0..k-1]`, every pair is coprime (gcd for every pair is 1). We need to find minimum positive number x such that:
 ```
      x % num[0]    =  rem[0], 
@@ -195,13 +192,13 @@ Let us take below example to understand the solution
 ```
 - Application: to solve system of linear congruences. 
 
-> **Euler’s Totient Function**
+## Euler’s Totient Function
 - Euler’s Totient Function for an input n is count of numbers in {1, 2, 3, …, n} that are coprime to n.
 - `ϕ(n) = n * (1 – 1 / pi) * (1 – 1 / pj) * (1 – 1 / pk) * ... * (1 – 1 / pn)`, where pi, pj, pk... pn are prime factors of n.
 - `ϕ(6) = 6 * (1 - 1 / 2) * (1 – 1 / 3) = 2`.
 - If you observe `ϕ(n) = n * (1 – 1 / pi) = n - n/pi` we are basically subtracting all numbers that are divisible by pi from n.
 
-> **Misc**
+## Misc
 - coprime = gcd is 1
 - congruence = a & b when divided by n & produce same remainder then it is said that a & b are congruent.
 - Modular arithmetic example = wall clock
