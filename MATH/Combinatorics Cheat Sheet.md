@@ -102,7 +102,9 @@ C(line, i) = C(line, i-1) * (line - i + 1) / i
 So C(line, i) can be calculated from C(line, i-1) in O(1) time
 ```
 
-Note: Diagonal summation of no in pascal triangle also generate fibonacci sequence
+- Facts:
+  - Diagonal summation of no in pascal triangle also generate fibonacci sequence
+  - Hocky Stick Rule of pascal's triangle
 
 #### nCr is binomial coefficient of polynomial equations like
 - If you pick any equation from above like as `(x+y)^2`:
