@@ -50,7 +50,7 @@ So, square root is wokring like partition of two factor of given N.
 - Step 2: Cancell all no b/w 25 to 36 which are divisible by list of primes found in step 1
 
 
-## Modulo Property
+## Modulo Arithmetic Property
 - `(a + b) % m = ((a % m) + (b % m)) % m`
 - `(a * b) % m = ((a % m) * (b % m)) % m`
 - `(a - b) % m = ((a % m) - (b % m) + m) % m`
