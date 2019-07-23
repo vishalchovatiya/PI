@@ -59,8 +59,17 @@ So, square root is wokring like partition of two factor of given N.
 
 ## Modular multiplicative inverse(MMI)
 - `ax % m = 1`, here x is mmi(modular multiplicative inverse)
+```
+Let say x is modular inverse of number 17 with mod 43.
+So,
+
+    (17)^-1 (mod 43) = x
+    
+    1/17 (mod 43) = x
+    17.x (mod 43) = 1,            which is same as above
+```
 - above equation exist if and only if a & m are coprime(`gcd(a,m) = 1`).
-- `a⋅x+m⋅y=1` using extended Euclidean algo.
+- solve this `a⋅x+m⋅y=1`(using extended Euclidean algo) equation by taking mod with m on both side.
 
 ## Euclid's algo for GCD
 - GCD(a,b) = GCD(b, a%b)
