@@ -1,28 +1,64 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <sstream>
+#include <cstdio>
+#include <cmath>
+#include <cstring>
+#include <cctype>
+#include <string>
+#include <chrono>
+#include <iomanip>
+#include <vector>
+#include <list>
+#include <set>
+#include <unordered_set>
+#include <map>
+#include <unordered_map>
+#include <queue>
+#include <numeric>
+#include <stack>
+#include <algorithm>
+#include <functional>
+using namespace std;
+
+/* ------------------------- HELPERS DEFINE -------------------------- */
+template <typename T>
+ostream &operator<<(ostream &o, pair<T, T> &pair) // To print map in PRINT
+{
+    o << pair.first << " " << pair.second << endl;
+    return o;
+}
 
 #define DEBUG(X) cout << #X << " = " << X << endl;
-#define PRINT(C, WAY)                      \
+#define PRINT(C)                           \
     do                                     \
     {                                      \
         cout << setw(10) << #C << " : \n"; \
         for (auto &&i : C)                 \
         {                                  \
-            WAY;                           \
+            cout << i << " ";              \
         }                                  \
         cout << endl;                      \
     } while (0);
 #define ALL(C) (C).begin(), (C).end()
-#define RALL(C) (C).rbegin(), (C).rend()
-#define PRESENT(C, X) ((C).find() != (C).end())
+#define PRESENT(C, X) ((C).find(X) != (C).end())
+#define BENCHMARK(f)         \
+    do                       \
+    {                        \
+        cout << #f << " = "; \
+        benchmark(f);        \
+    } while (0);
+
+const auto benchmark = [](function<void(void)> f) {
+    chrono::steady_clock::time_point start = chrono::steady_clock::now();
+    f();
+    cout << chrono::duration_cast<chrono::microseconds>(chrono::steady_clock::now() - start).count() << " microseconds\n";
+};
 
 using ll = long long;
 using namespace std;
 
-/*
-    extended euclid's algo
-    mmi only possible if gcd(a,b) = 1
- */
-
+/* MMI recursive
+*/
 template <typename T>
 T mmi(T a, T b, T &x, T &y)
 {
@@ -42,22 +78,67 @@ T mmi(T a, T b, T &x, T &y)
     return gcd;
 }
 
-int main()
+/* MMI iterative
+
+Euclid's algo ---------------------------------------------------------
+gcd(a,b) = gcd(b, a%b)
+gcd(a,0) = a    ------- base case
+
+Extended Euclid's algo -----------------------------------------------
+
+ax + by = gcd(a, b)
+bx + (a%b)y = gcd(b, a%b)
+.
+.
+.
+ax + 0y = a   ------- base case
+
+x = 1
+y = 0
+
+Value of x & y ------------------------------------------------------
+bx + (a%b)y = gcd(b, a%b)
+(a%b) = a - ⌊a/b⌋b
+x = y1 - ⌊a/b⌋ * x1
+y = x1
+
+We basically start with base condition & do bottom-up approach
+
+*/
+ll mmi(ll a, ll b)
 {
-    ll a = 3;
-    ll b = 1000000007;
-    ll x = 0;
+    stack<pair<ll, ll>> ab;
+
+    // GCD Euclid's algo
+    while (b != 0)
+    {
+        ab.push(make_pair(a, b));
+        ll old_a = a;
+        a = b;
+        b = old_a % b;
+    }
+
+    // Calculating coefficient
+    ll x = 1;
     ll y = 0;
+    while (!ab.empty())
+    {
+        auto pair = ab.top();
 
-    // DEBUG(mmi(a, b, x, y));
-    ll gcd = mmi(a, b, x, y);
+        ll old_x = x;
+        x = y;
+        y = (old_x - ((pair.first / pair.second) * y));
 
-    cout << x << endl;
-    // DEBUG(x);
-    // DEBUG(y);
-    return 0;
+        ab.pop();
+    }
+
+    return x;
 }
 
-/* OUTPUT:
-333333336
- */
+int main()
+{
+    // DEBUG(mmi(3, 1000000007));
+    DEBUG(mmi(3, 11));
+    // DEBUG(mmi(11, 3));
+    return 0;
+}
