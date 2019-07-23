@@ -78,6 +78,11 @@ So,
 ## LCM
 - `GCD(a,b) x LCM(a,b) = a x b`
 
+### GCD & Fibonacci
+```
+GCD(F(m),F(n)) = F(GCD(m,n))
+```
+
 ## Extended Euclid's algo(EE algo)
 - `ax + by = gcd(a, b)`
 - `gcd(a,b) = gcd(b, a%b)`
@@ -101,8 +106,6 @@ GCD(2, 1)        = GCD(1,2%1)        = GCD(1, 0)
 GCD(55,34) = 1
 ```
 - If you observe all the remainders it generates sequence like 21, 13, 8, 5, 3, 2, 1, 0 whichi is reverse fibonacci
-
-- Relation : GCD(F(m),F(n))=F(GCD(m,n))
 - For example: `0,1,1,2,3,5,8,13,21,34,55,89,144,...`
 - `GCD(144,22) = 3` which is position in fibonacci sequence.
 
