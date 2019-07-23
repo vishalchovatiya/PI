@@ -105,32 +105,38 @@ y = x1
 We basically start with base condition & do bottom-up approach
 
 */
-ll mmi(ll a, ll b)
+template <typename T>
+T mmi(T a, T m)
 {
-    stack<pair<ll, ll>> ab;
+    T old_m = m;
+    stack<pair<T, T>> ab;
 
     // GCD Euclid's algo
-    while (b != 0)
+    while (m != 0)
     {
-        ab.push(make_pair(a, b));
-        ll old_a = a;
-        a = b;
-        b = old_a % b;
+        ab.push(make_pair(a, m));
+        T old_a = a;
+        a = m;
+        m = old_a % m;
     }
 
     // Calculating coefficient
-    ll x = 1;
-    ll y = 0;
+    T x = 1;
+    T y = 0;
     while (!ab.empty())
     {
         auto pair = ab.top();
 
-        ll old_x = x;
+        T old_x = x;
         x = y;
         y = (old_x - ((pair.first / pair.second) * y));
 
         ab.pop();
     }
+
+    // Make x positive
+    if (x < 0)
+        x += old_m;
 
     return x;
 }
