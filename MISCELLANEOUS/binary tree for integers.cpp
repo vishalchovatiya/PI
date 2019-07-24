@@ -75,14 +75,11 @@ struct bt
         - data not needed, coz leaf node represent value
         - edge represent binary value
         - store binary of integers in reverse matter i.e. 0,1,5, 0xF will be store as
-
                         0/  \1
                        0/  0/\1
                       0/   1\ \1
                      0/\1  0/  \1
-
         integers     0  1  5   0xF
-
     */
     struct node
     {
@@ -90,15 +87,15 @@ struct bt
         node *right = NULL; // mean 1
     };
 
-    node *root = NULL;
-    uint8_t bits = 4; // depth of tree
+    node *m_root = NULL;
+    uint8_t m_bits = 4; // depth of tree
 
-    bt() : root(new node) {}
+    bt(uint8_t bits = 4) : m_root(new node), m_bits(bits) {}
 
     void add(ll value)
     {
-        ll idx = (bits - 1);
-        node *traverse = root;
+        ll idx = (m_bits - 1);
+        node *traverse = m_root;
 
         while (idx >= 0)
         {
@@ -119,10 +116,51 @@ struct bt
         }
     }
 
+    ll max_xor(ll xor_val)
+    {
+        ll res = 0;
+        ll idx = (m_bits - 1);
+        node *traverse = m_root;
+
+        while (idx >= 0)
+        {
+            // if xor_val has zero goto right
+            // else left
+
+            if (xor_val & (1 << idx)) // 1
+            {
+                if (traverse->left != NULL)
+                {
+                    traverse = traverse->left;
+                }
+                else
+                {
+                    traverse = traverse->right;
+                    res |= (1 << idx);
+                }
+            }
+            else // 0
+            {
+                if (traverse->right != NULL)
+                {
+                    traverse = traverse->right;
+                    res |= (1 << idx);
+                }
+                else
+                {
+                    traverse = traverse->left;
+                }
+            }
+
+            idx--;
+        }
+        return res;
+    }
+
     bool is_present(ll value)
     {
-        ll idx = (bits - 1);
-        node *traverse = root;
+        ll idx = (m_bits - 1);
+        node *traverse = m_root;
 
         while (idx >= 0)
         {
@@ -148,7 +186,7 @@ struct bt
     {
         if (root->left == NULL && root->right == NULL)
         {
-            if (cnt == (bits))
+            if (cnt == (m_bits))
                 cout << value << endl;
             return;
         }
@@ -157,25 +195,23 @@ struct bt
             preorder_traversal(root->left, value, (cnt + 1));
 
         if (root->right != NULL)
-            preorder_traversal(root->right, value | (1 << ((bits - 1) - cnt)), (cnt + 1));
+            preorder_traversal(root->right, value | (1 << ((m_bits - 1) - cnt)), (cnt + 1));
     }
 
     void print()
     {
-        preorder_traversal(root);
+        preorder_traversal(m_root);
     }
 };
 
 int main()
 {
     bt tree;
-    tree.add(0);
-    tree.add(1);
-    tree.add(2);
-    tree.add(5);
-    DEBUG(tree.is_present(2));
-    DEBUG(tree.is_present(4));
-    DEBUG(tree.is_present(5));
+    tree.add(4); // 1
+    tree.add(5); // 2
+    tree.add(7); // 3
+    // DEBUG(tree.is_present(2));
     tree.print();
+    DEBUG(tree.max_xor(4^5^7));
     return 0;
 }
