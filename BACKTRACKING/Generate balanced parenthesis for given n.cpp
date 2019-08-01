@@ -87,37 +87,23 @@ using ll = long long;
 using namespace std;
 
 /* --------------------------------------------------------------------- */
-char arr[100] = {0};
 
-void no_of_pairs(ll l_cnt, ll r_cnt, char *str)
-{
-    if (l_cnt == 0 && r_cnt == 0)
-    {
-        *str = '\0';
-        cout << arr << endl;
+void generateParenthesis(int n, int openB, int closeB, string str) {
+    if(closeB == n) {
+        cout<<str<<endl;
         return;
     }
-
-    if (r_cnt != 0)
-    {
-        *str = ')';
-        if (l_cnt < r_cnt)
-            no_of_pairs(l_cnt, r_cnt - 1, str + 1);
+    if(openB > closeB) {
+        generateParenthesis(n, openB, closeB+1, str+')');
     }
-
-    if (l_cnt != 0)
-    {
-        *str = '(';
-        no_of_pairs(l_cnt - 1, r_cnt, str + 1);
+    if(openB < n) {
+        generateParenthesis(n, openB+1, closeB, str+'(');
     }
 }
 
-int main()
+int main(int argc, char const *argv[])
 {
-    ll n;
-    cin >> n;
-
-    *arr = '(';
-    no_of_pairs(n - 1, n, arr + 1);
+    generateParenthesis(3, 0, 0, "");
     return 0;
 }
+
