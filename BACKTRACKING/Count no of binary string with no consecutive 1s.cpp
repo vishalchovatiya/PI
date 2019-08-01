@@ -90,6 +90,27 @@ using ll = long long;
 using namespace std;
 
 /* --------------------------------------------------------------------- */
+/* Print all combinations
+
+void no_of_ways(ll n, string str = "", ll curr = 0)
+{
+    if (n == 0)
+    {
+        cout << str << endl;
+        return;
+    }
+
+    str.push_back(to_char(curr));
+
+    no_of_ways(n - 1, str, 0);
+
+    if (curr != 1)
+    {
+        if (n > 1)
+            no_of_ways(n - 1, str, 1);
+    }
+} */
+
 ll arr[100] = {0};
 
 ll no_of_ways(ll n, ll curr = 0)
