@@ -123,6 +123,8 @@ public:
     inline ll get_node_no(ll r, ll c) const;
     inline auto get_row_column(ll node_no) const -> tuple<ll, ll>;
     void print() const;
+    inline ll get_row_count() const { return m_r; };
+    inline ll get_column_count() const { return m_c; };
 };
 
 grid::grid(ll r, ll c) : m_r(r), m_c(c), m_arr(r, vector<ll>(c))
