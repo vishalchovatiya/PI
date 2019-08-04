@@ -87,16 +87,17 @@ class grid
 {
     /* Typedefs -------------------------------------------------------------------------*/
     using ll = long long;
-    using cell_no = ll;
+    using ull = unsigned long long;
+    using cell_no = ull;
 
     /* Data Members ---------------------------------------------------------------------*/
-    ll m_r;
-    ll m_c;
-    vector<vector<ll>> m_arr;
+    ull m_r;
+    ull m_c;
+    ll **m_arr;
 
 public:
     /* Constructors ---------------------------------------------------------------------*/
-    grid(ll r, ll c);
+    grid(ull r, ull c);
     grid(initializer_list<initializer_list<ll>> const &arr);
     ~grid();
 
@@ -104,65 +105,76 @@ public:
     class proxy
     {
     public:
-        proxy(vector<ll> &m_array) : m_array(m_array) {}
+        proxy(ll *m_array) : m_array(m_array) {}
 
-        ll &operator[](ll index)
+        ll &operator[](ull idx)
         {
-            return m_array[index];
+            return m_array[idx];
         }
 
     private:
-        vector<ll> &m_array;
+        ll *m_array;
     };
 
-    proxy operator[](const ll idx)
+    proxy operator[](const ull idx)
     {
         return proxy(m_arr[idx]);
     }
 
     /* APIs ---------------------------------------------------------------------------*/
-    inline cell_no get_cell_no(ll r, ll c) const;
-    inline auto get_row_column(cell_no no) const -> tuple<ll, ll>;
+    inline cell_no get_cell_no(ull r, ull c) const;
+    inline auto get_row_column(cell_no no) const -> tuple<ull, ull>;
     void print() const;
-    inline ll get_row_count() const { return m_r; };
-    inline ll get_column_count() const { return m_c; };
+    inline ull get_row_count() const { return m_r; };
+    inline ull get_column_count() const { return m_c; };
     set<cell_no> get_neighbours(cell_no no);
-    set<tuple<ll, ll>> get_neighbours(ll r, ll c);
+    set<tuple<ull, ull>> get_neighbours(ull r, ull c);
 };
 
-grid::grid(ll r, ll c) : m_r(r), m_c(c), m_arr(r, vector<ll>(c))
+grid::grid(ull r, ull c) : m_r(r), m_c(c)
 {
+    m_arr = new ll *[r + 10];
+    for (ll i = 0; i < r; i++)
+    {
+        m_arr[i] = new ll[c + 10];
+    }
 }
 
-grid::grid(initializer_list<initializer_list<ll>> const &arr) : grid(arr.size(), (*arr.begin()).size())
+grid::grid(initializer_list<initializer_list<ll>> const &arr) : grid(arr.size(), arr.begin()->size())
 {
-    auto it = m_arr.begin();
-    for_each(ALL(arr), [&](auto &l) {
-        *it++ = l;
-    });
+    ull r = 0;
+    for (auto &&list : arr)
+    {
+        ull c = 0;
+        for (auto &&ele : list)
+        {
+            m_arr[r][c++] = ele;
+        }
+        r++;
+    }
 }
 
 grid::~grid()
 {
 }
 
-inline typename grid::cell_no grid::get_cell_no(ll r, ll c) const
+inline typename grid::cell_no grid::get_cell_no(ull r, ull c) const
 {
     return r * m_c + c;
 }
 
-inline auto grid::get_row_column(typename grid::cell_no no) const -> tuple<ll, ll>
+inline auto grid::get_row_column(typename grid::cell_no no) const -> tuple<ull, ull>
 {
-    ll r = (no / m_c);
-    ll c = (no % m_c);
+    ull r = (no / m_c);
+    ull c = (no % m_c);
     return make_tuple(r, c);
 }
 
 void grid::print() const
 {
-    for (ll r = 0; r < m_r; r++)
+    for (ull r = 0; r < m_r; r++)
     {
-        for (ll c = 0; c < m_c; c++)
+        for (ull c = 0; c < m_c; c++)
         {
             cout << setw(3) << m_arr[r][c];
         }
@@ -184,11 +196,11 @@ set<typename grid::cell_no> grid::get_neighbours(typename grid::cell_no no)
     return res;
 }
 
-set<tuple<ll, ll>> grid::get_neighbours(ll r, ll c)
+set<tuple<ull, ull>> grid::get_neighbours(ull r, ull c)
 {
-    set<tuple<ll, ll>> res;
+    set<tuple<ull, ull>> res;
     // L
-    if (((c - 1) >= 0) && (c < m_c) && (r >= 0) && (r < m_r))
+    if ((c > 0) && (c < m_c) && (r >= 0) && (r < m_r))
     {
         res.emplace(r, c - 1);
     }
@@ -200,7 +212,7 @@ set<tuple<ll, ll>> grid::get_neighbours(ll r, ll c)
     }
 
     // U
-    if ((c >= 0) && (c < m_c) && ((r - 1) >= 0) && (r < m_r))
+    if ((c >= 0) && (c < m_c) && (r > 0) && (r < m_r))
     {
         res.emplace(r - 1, c);
     }
