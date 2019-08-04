@@ -77,10 +77,11 @@ using mmll = multimap<ll, ll>;
 using namespace std;
 
 /* Example ----------------------------------------------------------------------------
-3 x 3           2 x 4
-0 1 1           0 0 0 0
-0 0 1           0 0 1 1
-0 1 0           1 1 0 0
+3 x 3           3 x 4
+0 1 1           0,  1,  2,  3
+0 0 1           4,  5,  6,  7
+0 1 0           8,  9, 10, 11
+
 */
 
 class grid
@@ -123,16 +124,11 @@ grid::~grid()
 
 inline ll grid::get_node_no(ll r, ll c) const
 {
-    return m_r / r;
+    return r * m_c + c;
 }
 
 inline auto grid::get_row_column(ll node_no) const -> tuple<ll, ll>
 {
-    /*  3 x 4
-        0,  1,  2,  3
-        4,  5,  6,  7
-        8,  9, 10, 11
-    */
     ll r = (node_no / m_c);
     ll c = (node_no % m_c);
     return make_tuple(r, c);
@@ -163,6 +159,10 @@ int main()
     auto ij = arr.get_row_column(11);
     DEBUG(get<0>(ij));
     DEBUG(get<1>(ij));
+
+    DEBUG(arr.get_node_no(0, 0));
+    DEBUG(arr.get_node_no(1, 1));
+    DEBUG(arr.get_node_no(2, 3));
 
     return 0;
 }
