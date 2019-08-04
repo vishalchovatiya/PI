@@ -107,7 +107,8 @@ public:
     node_ptr find_parent(node_ptr nd);
     T make_set(T data);
     T make_union(T data_1, T data_2);
-    ll set_size(T set_id) const;
+    ll set_size(T data) const;
+    map<T, set<T>> set_list() const;
 };
 
 template <typename T>
@@ -172,14 +173,20 @@ T disjoint_set<T>::make_union(T data_1, T data_2)
 }
 
 template <typename T>
-void disjoint_set<T>::print_sets() const
+map<T, set<T>> disjoint_set<T>::set_list() const
 {
     map<T, set<T>> setid_to_set;
 
     for (auto &&nd : m_dt_to_nd_ptr)
         setid_to_set[nd.second->m_parent->m_data].insert(nd.first);
 
-    for (auto &&id_set : setid_to_set)
+    return setid_to_set;
+}
+
+template <typename T>
+void disjoint_set<T>::print_sets() const
+{
+    for (auto &&id_set : set_list())
     {
         cout << id_set.first << " -> ";
         for (auto &&val : id_set.second)
