@@ -130,8 +130,8 @@ public:
     inline ull get_column_count() const { return m_c; };
     set<cell_no> get_neighbours(cell_no no);
     set<tuple<ull, ull>> get_neighbours(ll r, ll c);
-    void flood_fill(ll r, ll c, ll prev_r, ll prev_c, ll val);
-    void flood_fill(ll r, ll c, ll val);
+    ull flood_fill(ll r, ll c, ll val);
+    ull flood_fill(ll r, ll c, ll prev_r, ll prev_c, ll val);
 };
 
 grid::grid(ull r, ull c) : m_r(r), m_c(c)
@@ -218,12 +218,14 @@ set<tuple<ull, ull>> grid::get_neighbours(ll r, ll c)
     return res;
 }
 
-void grid::flood_fill(ll r, ll c, ll val)
+ull grid::flood_fill(ll r, ll c, ll val)
 {
-    flood_fill(r, c, r, c, val);
+    return flood_fill(r, c, r, c, val);
 }
-void grid::flood_fill(ll r, ll c, ll prev_r, ll prev_c, const ll val)
+ull grid::flood_fill(ll r, ll c, ll prev_r, ll prev_c, ll val)
 {
+    ull recur_cnt = 1;
+
     m_arr[r][c] = val;
 
     for (auto &&tuple_ij : get_neighbours(r, c))
@@ -235,10 +237,11 @@ void grid::flood_fill(ll r, ll c, ll prev_r, ll prev_c, const ll val)
         {
             if (m_arr[i][j] == 1)
             {
-                flood_fill(i, j, r, c, val);
+                recur_cnt += flood_fill(i, j, r, c, val);
             }
         }
     }
+    return recur_cnt;
 }
 
 int main()
@@ -251,10 +254,10 @@ int main()
     grid arr = {
         {1, 1, 0},
         {0, 1, 1},
-        {1, 0, 0},
+        {1, 0, 1},
     };
 
-    arr.flood_fill(0, 0, 2);
+    DEBUG(arr.flood_fill(0, 0, 2));
 
     arr.print();
 
