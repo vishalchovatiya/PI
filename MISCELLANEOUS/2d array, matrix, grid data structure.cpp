@@ -129,7 +129,7 @@ public:
     inline ull get_row_count() const { return m_r; };
     inline ull get_column_count() const { return m_c; };
     set<cell_no> get_neighbours(cell_no no);
-    set<tuple<ull, ull>> get_neighbours(ull r, ull c);
+    set<tuple<ull, ull>> get_neighbours(ll r, ll c);
     void flood_fill(ll r, ll c, ll prev_r, ll prev_c, ll val);
     void flood_fill(ll r, ll c, ll val);
 };
@@ -199,31 +199,20 @@ set<typename grid::cell_no> grid::get_neighbours(typename grid::cell_no no)
     return res;
 }
 
-set<tuple<ull, ull>> grid::get_neighbours(ull r, ull c)
+set<tuple<ull, ull>> grid::get_neighbours(ll r, ll c)
 {
+    static constexpr int d_r[] = {0, 0, -1, +1}; // direction row
+    static constexpr int d_c[] = {-1, +1, 0, 0}; // direction column
     set<tuple<ull, ull>> res;
-    // L
-    if ((c > 0) && (c < m_c) && (r >= 0) && (r < m_r))
-    {
-        res.emplace(r, c - 1);
-    }
 
-    // R
-    if ((c >= 0) && ((c + 1) < m_c) && (r >= 0) && (r < m_r))
+    for (size_t i = 0; i < 4; i++)
     {
-        res.emplace(r, c + 1);
-    }
+        auto new_row = r + d_r[i];
+        auto new_column = c + d_c[i];
 
-    // U
-    if ((c >= 0) && (c < m_c) && (r > 0) && (r < m_r))
-    {
-        res.emplace(r - 1, c);
-    }
-
-    // D
-    if ((c >= 0) && (c < m_c) && (r >= 0) && ((r + 1) < m_r))
-    {
-        res.emplace(r + 1, c);
+        if ((new_row >= 0) && (new_row < m_r))
+            if ((new_column >= 0) && (new_column < m_c))
+                res.emplace(new_row, new_column);
     }
 
     return res;
@@ -235,32 +224,29 @@ void grid::flood_fill(ll r, ll c, ll val)
 }
 void grid::flood_fill(ll r, ll c, ll prev_r, ll prev_c, const ll val)
 {
-    static const int d_r[] = {0, 0, -1, +1}; // direction row
-    static const int d_c[] = {-1, +1, 0, 0}; // direction column
-
     m_arr[r][c] = val;
 
-    for (size_t i = 0; i < 4; i++)
+    for (auto &&tuple_ij : get_neighbours(r, c))
     {
-        auto new_row = r + d_r[i];
-        auto new_column = c + d_c[i];
+        auto &i = get<0>(tuple_ij);
+        auto &j = get<1>(tuple_ij);
 
-        if ((new_row >= 0) && (new_row < m_r))
-            if ((new_column >= 0) && (new_column < m_c))
-                if (!((new_row == prev_r) && (new_column == prev_c)))
-                    if (m_arr[new_row][new_column] == 1)
-                    {
-                        flood_fill(new_row, new_column, r, c, val);
-                    }
+        if (!((i == prev_r) && (j == prev_c)))
+        {
+            if (m_arr[i][j] == 1)
+            {
+                flood_fill(i, j, r, c, val);
+            }
+        }
     }
 }
 
 int main()
 {
     // grid arr = {
-    //     {0, 1, 2, 3},
-    //     {4, 5, 6, 7},
-    //     {8, 9, 10, 11},
+    // {0, 1, 2, 3},
+    // {4, 5, 6, 7},
+    // {8, 9, 10, 11},
     // };
     grid arr = {
         {1, 1, 0},
@@ -271,7 +257,12 @@ int main()
     arr.flood_fill(0, 0, 2);
 
     arr.print();
+
     /*
+    for (auto &&tup : arr.get_neighbours(5))
+    {
+        cout << tup << endl;
+    }
     auto ij = arr.get_row_column(11);
     DEBUG(get<0>(ij));
     DEBUG(get<1>(ij));
@@ -279,11 +270,6 @@ int main()
     DEBUG(arr.get_cell_no(0, 0));
     DEBUG(arr.get_cell_no(1, 1));
     DEBUG(arr.get_cell_no(2, 3));
-
-    for (auto &&tup : arr.get_neighbours(11))
-    {
-        cout << tup << endl;
-    }
  */
     return 0;
 }
