@@ -105,8 +105,8 @@ public:
     /* APIs --------------------------------------------------------------------------*/
     T find_id(T data);
     node_ptr find_parent(node_ptr nd);
-    void make_set(T data);
-    void make_union(T data_1, T data_2);
+    T make_set(T data);
+    T make_union(T data_1, T data_2);
     ll set_size(T set_id) const;
 };
 
@@ -116,11 +116,12 @@ template <typename T>
 disjoint_set<T>::~disjoint_set() {}
 
 template <typename T>
-void disjoint_set<T>::make_set(T data)
+T disjoint_set<T>::make_set(T data)
 {
     auto temp = new node(data);
     temp->m_parent = temp;
     m_dt_to_nd_ptr[data] = temp;
+    return temp->m_data;
 }
 
 template <typename T>
@@ -149,22 +150,24 @@ T disjoint_set<T>::find_id(T data)
 }
 
 template <typename T>
-void disjoint_set<T>::make_union(T data_1, T data_2)
+T disjoint_set<T>::make_union(T data_1, T data_2)
 {
     auto parent_1 = find_parent(m_dt_to_nd_ptr[data_1]);
     auto parent_2 = find_parent(m_dt_to_nd_ptr[data_2]);
 
     if (parent_1 == parent_2) // is of same union already
-        return;
+        return parent_1->m_data;
 
     if (parent_1->m_rank >= parent_2->m_rank)
     {
         parent_1->m_rank += (parent_1->m_rank == parent_2->m_rank) ? 1 : 0;
         parent_2->m_parent = parent_1;
+        return parent_1->m_data;
     }
     else
     {
         parent_1->m_parent = parent_2;
+        return parent_2->m_data;
     }
 }
 
