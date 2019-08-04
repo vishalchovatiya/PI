@@ -81,7 +81,6 @@ using namespace std;
 0 1 1           0,  1,  2,  3
 0 0 1           4,  5,  6,  7
 0 1 0           8,  9, 10, 11
-
 */
 
 class grid
@@ -99,6 +98,26 @@ public:
     grid(ll r, ll c);
     grid(initializer_list<initializer_list<ll>> const &arr);
     ~grid();
+
+    /* Operator [][] ---------------------------------------------------------------------*/
+    class proxy
+    {
+    public:
+        proxy(vector<ll> &m_array) : m_array(m_array) {}
+
+        ll &operator[](ll index)
+        {
+            return m_array[index];
+        }
+
+    private:
+        vector<ll> &m_array;
+    };
+
+    proxy operator[](const ll idx)
+    {
+        return proxy(m_arr[idx]);
+    }
 
     /* APIs ---------------------------------------------------------------------------*/
     inline ll get_node_no(ll r, ll c) const;
@@ -153,6 +172,8 @@ int main()
         {4, 5, 6, 7},
         {8, 9, 10, 11},
     };
+
+    arr[2][3] = 11;
 
     arr.print();
 
