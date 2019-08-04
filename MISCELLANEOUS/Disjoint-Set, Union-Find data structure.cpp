@@ -75,16 +75,18 @@ using mll = map<ll, ll>;
 using mmll = multimap<ll, ll>;
 using namespace std;
 
-template <typename T = ll>
+
+template <typename T = ull>
 class disjoint_set
 {
     using ll = long long;
+    using ull = unsigned long long;
 
     /* Data Members ---------------------------------------------------------------------*/
     struct node
     {
         T m_data;
-        ll m_rank = 0;
+        ull m_rank = 0;
         node *m_parent = nullptr;
 
         node(T data) : m_data(data) {}
@@ -92,7 +94,7 @@ class disjoint_set
 
     using node_ptr = node *;
 
-    map<T, node_ptr> m_dt_to_nd_ptr; // data to node pointers
+    unordered_map<T, node_ptr> m_dt_to_nd_ptr; // data to node pointers
 
 public:
     /* Constructors ---------------------------------------------------------------------*/
@@ -107,8 +109,8 @@ public:
     node_ptr find_parent(node_ptr nd);
     T make_set(T data);
     T make_union(T data_1, T data_2);
-    ll set_size(T data) const;
-    map<T, set<T>> set_list() const;
+    ull set_size(T data) const;
+    unordered_map<T, unordered_set<T>> set_list() const;
 };
 
 template <typename T>
@@ -119,10 +121,14 @@ disjoint_set<T>::~disjoint_set() {}
 template <typename T>
 T disjoint_set<T>::make_set(T data)
 {
-    auto temp = new node(data);
-    temp->m_parent = temp;
-    m_dt_to_nd_ptr[data] = temp;
-    return temp->m_data;
+    if (m_dt_to_nd_ptr.find(data) == m_dt_to_nd_ptr.end())
+    {
+        auto temp = new node(data);
+        temp->m_parent = temp;
+        m_dt_to_nd_ptr[data] = temp;
+        return temp->m_data;
+    }
+    return data;
 }
 
 template <typename T>
@@ -147,14 +153,14 @@ auto disjoint_set<T>::find_parent(typename disjoint_set<T>::node_ptr nd) -> type
 template <typename T>
 T disjoint_set<T>::find_id(T data)
 {
-    return find_parent(m_dt_to_nd_ptr[data])->m_data;
+    return find_parent(m_dt_to_nd_ptr[make_set(data)])->m_data;
 }
 
 template <typename T>
 T disjoint_set<T>::make_union(T data_1, T data_2)
 {
-    auto parent_1 = find_parent(m_dt_to_nd_ptr[data_1]);
-    auto parent_2 = find_parent(m_dt_to_nd_ptr[data_2]);
+    auto parent_1 = find_parent(m_dt_to_nd_ptr[make_set(data_1)]);
+    auto parent_2 = find_parent(m_dt_to_nd_ptr[make_set(data_2)]);
 
     if (parent_1 == parent_2) // is of same union already
         return parent_1->m_data;
@@ -173,9 +179,9 @@ T disjoint_set<T>::make_union(T data_1, T data_2)
 }
 
 template <typename T>
-map<T, set<T>> disjoint_set<T>::set_list() const
+unordered_map<T, unordered_set<T>> disjoint_set<T>::set_list() const
 {
-    map<T, set<T>> setid_to_set;
+    unordered_map<T, unordered_set<T>> setid_to_set;
 
     for (auto &&nd : m_dt_to_nd_ptr)
         setid_to_set[nd.second->m_parent->m_data].insert(nd.first);
@@ -198,7 +204,7 @@ void disjoint_set<T>::print_sets() const
 }
 
 template <typename T>
-ll disjoint_set<T>::set_size(T data) const
+ull disjoint_set<T>::set_size(T data) const
 {
     map<T, set<T>> setid_to_set;
 
