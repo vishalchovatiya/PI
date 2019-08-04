@@ -75,13 +75,9 @@ using msll = multiset<ll>;
 using mll = map<ll, ll>;
 using mmll = multimap<ll, ll>;
 using namespace std;
-
 template <typename T = ll>
 class disjoint_set
 {
-    /* Typedefs ---------------------------------------------------------------------*/
-    using ll = long long;
-
     /* Data Members ---------------------------------------------------------------------*/
     struct node
     {
@@ -92,80 +88,101 @@ class disjoint_set
         node(T data) : m_data(data) {}
     };
 
-    map<T, node *> m_dt_to_nd_ptr; // data to node pointers
+    /* Typedefs ----------------------------------------------------------------------*/
+    using ll = long long;
+    using node_ptr = node *;
+
+    map<T, node_ptr> m_dt_to_nd_ptr; // data to node pointers
 
 public:
     /* Constructors ---------------------------------------------------------------------*/
-    disjoint_set() {}
-    ~disjoint_set() {}
+    disjoint_set();
+    ~disjoint_set();
 
-    void make_set(T data)
-    {
-        node *temp = new node(data);
-        temp->m_parent = temp;
-        m_dt_to_nd_ptr[data] = temp;
-    }
-
-    node *find_parent(node *nd)
-    {
-        node *traverse = nd;
-
-        while (nd != nd->m_parent) // Find parent
-        {
-            nd = nd->m_parent;
-        }
-
-        while (traverse != traverse->m_parent) // Set all node directly under parent
-        {
-            traverse->m_parent = nd;
-            traverse = traverse->m_parent;
-        }
-
-        return traverse;
-    }
-
-    T find_id(T data)
-    {
-        return find_parent(m_dt_to_nd_ptr[data])->m_data;
-    }
-
-    void make_union(T data_1, T data_2)
-    {
-        node *parent_1 = find_parent(m_dt_to_nd_ptr[data_1]);
-        node *parent_2 = find_parent(m_dt_to_nd_ptr[data_2]);
-
-        if (parent_1 == parent_2) // is of same union already
-            return;
-
-        if (parent_1->m_rank >= parent_2->m_rank)
-        {
-            parent_1->m_rank += (parent_1->m_rank == parent_2->m_rank) ? 1 : 0;
-            parent_2->m_parent = parent_1;
-        }
-        else
-        {
-            parent_1->m_parent = parent_2;
-        }
-    }
-
-    void print_sets() const
-    {
-        map<T, vector<T>> setid_to_vec;
-
-        for (auto &&nd : m_dt_to_nd_ptr)
-            setid_to_vec[nd.second->m_parent->m_data].push_back(nd.first);
-
-        for (auto &&id_vec : setid_to_vec)
-        {
-            cout << id_vec.first << " -> ";
-            for (auto &&val : id_vec.second)
-                cout << val << " ";
-            cout << endl;
-        }
-
-        // cout << "Total sets = " << setid_to_vec.size() << endl;
-    }
+    /* APIs ---------------------------------------------------------------------*/
+    void make_set(T data);
+    node_ptr find_parent(node_ptr nd);
+    T find_id(T data);
+    void make_union(T data_1, T data_2);
+    void print_sets() const;
 };
+
+template <typename T>
+disjoint_set<T>::disjoint_set() {}
+template <typename T>
+disjoint_set<T>::~disjoint_set() {}
+
+template <typename T>
+void disjoint_set<T>::make_set(T data)
+{
+    auto temp = new node(data);
+    temp->m_parent = temp;
+    m_dt_to_nd_ptr[data] = temp;
+}
+
+template <typename T>
+auto disjoint_set<T>::find_parent(typename disjoint_set<T>::node_ptr nd) -> typename disjoint_set<T>::node_ptr
+{
+    auto traverse = nd;
+
+    while (nd != nd->m_parent) // Find parent
+    {
+        nd = nd->m_parent;
+    }
+
+    while (traverse != traverse->m_parent) // Set all node directly under parent
+    {
+        traverse->m_parent = nd;
+        traverse = traverse->m_parent;
+    }
+
+    return traverse;
+}
+
+template <typename T>
+T disjoint_set<T>::find_id(T data)
+{
+    return find_parent(m_dt_to_nd_ptr[data])->m_data;
+}
+
+template <typename T>
+void disjoint_set<T>::make_union(T data_1, T data_2)
+{
+    auto parent_1 = find_parent(m_dt_to_nd_ptr[data_1]);
+    auto parent_2 = find_parent(m_dt_to_nd_ptr[data_2]);
+
+    if (parent_1 == parent_2) // is of same union already
+        return;
+
+    if (parent_1->m_rank >= parent_2->m_rank)
+    {
+        parent_1->m_rank += (parent_1->m_rank == parent_2->m_rank) ? 1 : 0;
+        parent_2->m_parent = parent_1;
+    }
+    else
+    {
+        parent_1->m_parent = parent_2;
+    }
+}
+
+template <typename T>
+void disjoint_set<T>::print_sets() const
+{
+    map<T, vector<T>> setid_to_vec;
+
+    for (auto &&nd : m_dt_to_nd_ptr)
+        setid_to_vec[nd.second->m_parent->m_data].push_back(nd.first);
+
+    for (auto &&id_vec : setid_to_vec)
+    {
+        cout << id_vec.first << " -> ";
+        for (auto &&val : id_vec.second)
+            cout << val << " ";
+        cout << endl;
+    }
+
+    // cout << "Total sets = " << setid_to_vec.size() << endl;
+}
 
 int main()
 {
