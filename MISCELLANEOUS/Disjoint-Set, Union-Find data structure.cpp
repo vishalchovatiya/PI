@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <sstream>
 #include <cstdio>
@@ -75,9 +74,12 @@ using msll = multiset<ll>;
 using mll = map<ll, ll>;
 using mmll = multimap<ll, ll>;
 using namespace std;
+
 template <typename T = ll>
 class disjoint_set
 {
+    using ll = long long;
+
     /* Data Members ---------------------------------------------------------------------*/
     struct node
     {
@@ -88,8 +90,6 @@ class disjoint_set
         node(T data) : m_data(data) {}
     };
 
-    /* Typedefs ----------------------------------------------------------------------*/
-    using ll = long long;
     using node_ptr = node *;
 
     map<T, node_ptr> m_dt_to_nd_ptr; // data to node pointers
@@ -99,12 +99,15 @@ public:
     disjoint_set();
     ~disjoint_set();
 
-    /* APIs ---------------------------------------------------------------------*/
-    void make_set(T data);
-    node_ptr find_parent(node_ptr nd);
-    T find_id(T data);
-    void make_union(T data_1, T data_2);
+    /* Utility Methods ---------------------------------------------------------------------*/
     void print_sets() const;
+
+    /* APIs --------------------------------------------------------------------------*/
+    T find_id(T data);
+    node_ptr find_parent(node_ptr nd);
+    void make_set(T data);
+    void make_union(T data_1, T data_2);
+    ll set_size(T set_id) const;
 };
 
 template <typename T>
@@ -168,20 +171,31 @@ void disjoint_set<T>::make_union(T data_1, T data_2)
 template <typename T>
 void disjoint_set<T>::print_sets() const
 {
-    map<T, vector<T>> setid_to_vec;
+    map<T, set<T>> setid_to_set;
 
     for (auto &&nd : m_dt_to_nd_ptr)
-        setid_to_vec[nd.second->m_parent->m_data].push_back(nd.first);
+        setid_to_set[nd.second->m_parent->m_data].insert(nd.first);
 
-    for (auto &&id_vec : setid_to_vec)
+    for (auto &&id_set : setid_to_set)
     {
-        cout << id_vec.first << " -> ";
-        for (auto &&val : id_vec.second)
+        cout << id_set.first << " -> ";
+        for (auto &&val : id_set.second)
             cout << val << " ";
         cout << endl;
     }
 
     // cout << "Total sets = " << setid_to_vec.size() << endl;
+}
+
+template <typename T>
+ll disjoint_set<T>::set_size(T data) const
+{
+    map<T, set<T>> setid_to_set;
+
+    for (auto &&nd : m_dt_to_nd_ptr)
+        setid_to_set[nd.second->m_parent->m_data].insert(nd.first);
+
+    return setid_to_set[data].size();
 }
 
 int main()
@@ -193,15 +207,18 @@ int main()
     ds.make_set(12);
     ds.make_set(13);
 
-    // DEBUG(ds.find_id(10));
-    // DEBUG(ds.find_id(11));
-    // DEBUG(ds.find_id(12));
-    // DEBUG(ds.find_id(13));
-
     ds.make_union(10, 11);
+    ds.make_union(10, 12);
+
+    DEBUG(ds.find_id(10));
+    DEBUG(ds.find_id(11));
+    DEBUG(ds.find_id(12));
+    DEBUG(ds.find_id(13));
+
     // ds.make_union(10, 12);
 
     ds.print_sets();
+    DEBUG(ds.set_size(10));
 
     return 0;
 }
