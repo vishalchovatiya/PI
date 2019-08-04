@@ -69,6 +69,7 @@ const auto benchmark = [](function<void(void)> f) {
 };
 
 using ll = long long;
+using ull = unsigned long long;
 using vll = vector<ll>;
 using sll = set<ll>;
 using msll = multiset<ll>;
@@ -129,6 +130,8 @@ public:
     inline ull get_column_count() const { return m_c; };
     set<cell_no> get_neighbours(cell_no no);
     set<tuple<ull, ull>> get_neighbours(ull r, ull c);
+    void flood_fill(ll r, ll c, ll prev_r, ll prev_c, ll val);
+    void flood_fill(ll r, ll c, ll val);
 };
 
 grid::grid(ull r, ull c) : m_r(r), m_c(c)
@@ -226,18 +229,49 @@ set<tuple<ull, ull>> grid::get_neighbours(ull r, ull c)
     return res;
 }
 
+void grid::flood_fill(ll r, ll c, ll val)
+{
+    flood_fill(r, c, r, c, val);
+}
+void grid::flood_fill(ll r, ll c, ll prev_r, ll prev_c, const ll val)
+{
+    static const int d_r[] = {0, 0, -1, +1}; // direction row
+    static const int d_c[] = {-1, +1, 0, 0}; // direction column
+
+    m_arr[r][c] = val;
+
+    for (size_t i = 0; i < 4; i++)
+    {
+        auto new_row = r + d_r[i];
+        auto new_column = c + d_c[i];
+
+        if ((new_row >= 0) && (new_row < m_r))
+            if ((new_column >= 0) && (new_column < m_c))
+                if (!((new_row == prev_r) && (new_column == prev_c)))
+                    if (m_arr[new_row][new_column] == 1)
+                    {
+                        flood_fill(new_row, new_column, r, c, val);
+                    }
+    }
+}
+
 int main()
 {
+    // grid arr = {
+    //     {0, 1, 2, 3},
+    //     {4, 5, 6, 7},
+    //     {8, 9, 10, 11},
+    // };
     grid arr = {
-        {0, 1, 2, 3},
-        {4, 5, 6, 7},
-        {8, 9, 10, 11},
+        {1, 1, 0},
+        {0, 1, 1},
+        {1, 0, 0},
     };
 
-    arr[2][3] = 11;
+    arr.flood_fill(0, 0, 2);
 
     arr.print();
-
+    /*
     auto ij = arr.get_row_column(11);
     DEBUG(get<0>(ij));
     DEBUG(get<1>(ij));
@@ -250,6 +284,6 @@ int main()
     {
         cout << tup << endl;
     }
-
+ */
     return 0;
 }
