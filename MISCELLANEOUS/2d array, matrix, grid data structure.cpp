@@ -140,6 +140,7 @@ grid::grid(ull r, ull c) : m_r(r), m_c(c)
     for (ll i = 0; i < r; i++)
     {
         m_arr[i] = new ll[c + 10];
+        memset(m_arr[i], 0, sizeof(ll) * c + 10);
     }
 }
 
