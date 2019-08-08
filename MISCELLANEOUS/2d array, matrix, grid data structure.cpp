@@ -53,6 +53,7 @@ void write(T... args)
         cout << endl;                      \
     } while (0);
 
+#define SIZE_OF(ARR) (sizeof(ARR) / sizeof(ARR[0]))
 #define ALL(C) (C).begin(), (C).end()
 #define PRESENT(C, X) ((C).find(X) != (C).end())
 #define BENCHMARK(f)         \
@@ -74,6 +75,7 @@ using vll = vector<ll>;
 using sll = set<ll>;
 using msll = multiset<ll>;
 using mll = map<ll, ll>;
+using umll = unordered_map<ll, ll>;
 using mmll = multimap<ll, ll>;
 using namespace std;
 
@@ -84,42 +86,41 @@ using namespace std;
 0 1 0           8,  9, 10, 11
 */
 
+template <typename T = ll>
 class grid
 {
     /* Typedefs -------------------------------------------------------------------------*/
-    using ll = long long;
-    using ull = unsigned long long;
     using cell_no = ull;
 
     /* Data Members ---------------------------------------------------------------------*/
     ull m_r;
     ull m_c;
-    ll **m_arr;
+    T **m_arr;
 
 public:
     /* Constructors ---------------------------------------------------------------------*/
     grid(ull r, ull c);
-    grid(initializer_list<initializer_list<ll>> const &arr);
+    grid(initializer_list<initializer_list<T>> const &arr);
     ~grid();
 
     /* Operator [][] ---------------------------------------------------------------------*/
     class proxy
     {
     public:
-        proxy(ll *m_array) : m_array(m_array) {}
+        proxy(T *m_array) : m_array(m_array) {}
 
-        ll &operator[](ull idx)
+        T &operator[](ull c)
         {
-            return m_array[idx];
+            return m_array[c];
         }
 
     private:
-        ll *m_array;
+        T *m_array;
     };
 
-    proxy operator[](const ull idx)
+    proxy operator[](const ull r)
     {
-        return proxy(m_arr[idx]);
+        return proxy(m_arr[r]);
     }
 
     /* APIs ---------------------------------------------------------------------------*/
@@ -128,23 +129,27 @@ public:
     void print() const;
     inline ull get_row_count() const { return m_r; };
     inline ull get_column_count() const { return m_c; };
+    tuple<set<tuple<ull, ull>>, set<cell_no>> get_neighbours_row_col(ull r, ull c);
     set<cell_no> get_neighbours(cell_no no);
-    set<tuple<ull, ull>> get_neighbours(ll r, ll c);
-    ull flood_fill(ll r, ll c, ll val);
-    ull flood_fill(ll r, ll c, ll prev_r, ll prev_c, ll val);
+    set<tuple<ull, ull>> get_neighbours(ull r, ull c);
+
+    ull flood_fill(cell_no no, T pattern = 0, T replace = 0);
+    ull flood_fill(cell_no no, T pattern, T replace, umll &explored);
 };
 
-grid::grid(ull r, ull c) : m_r(r), m_c(c)
+template <typename T>
+grid<T>::grid(ull r, ull c) : m_r(r), m_c(c)
 {
-    m_arr = new ll *[r + 10];
-    for (ll i = 0; i < r; i++)
+    m_arr = new T *[r];
+    for (ull i = 0; i < r; i++)
     {
-        m_arr[i] = new ll[c + 10];
-        memset(m_arr[i], 0, sizeof(ll) * c + 10);
+        m_arr[i] = new T[c];
+        memset(m_arr[i], 0, sizeof(T) * c);
     }
 }
 
-grid::grid(initializer_list<initializer_list<ll>> const &arr) : grid(arr.size(), arr.begin()->size())
+template <typename T>
+grid<T>::grid(initializer_list<initializer_list<T>> const &arr) : grid(arr.size(), arr.begin()->size())
 {
     ull r = 0;
     for (auto &&list : arr)
@@ -158,23 +163,27 @@ grid::grid(initializer_list<initializer_list<ll>> const &arr) : grid(arr.size(),
     }
 }
 
-grid::~grid()
+template <typename T>
+grid<T>::~grid()
 {
 }
 
-inline typename grid::cell_no grid::get_cell_no(ull r, ull c) const
+template <typename T>
+inline typename grid<T>::cell_no grid<T>::get_cell_no(ull r, ull c) const
 {
     return r * m_c + c;
 }
 
-inline auto grid::get_row_column(typename grid::cell_no no) const -> tuple<ull, ull>
+template <typename T>
+inline auto grid<T>::get_row_column(typename grid<T>::cell_no no) const -> tuple<ull, ull>
 {
     ull r = (no / m_c);
     ull c = (no % m_c);
     return make_tuple(r, c);
 }
 
-void grid::print() const
+template <typename T>
+void grid<T>::print() const
 {
     for (ull r = 0; r < m_r; r++)
     {
@@ -186,44 +195,49 @@ void grid::print() const
     }
 }
 
-set<typename grid::cell_no> grid::get_neighbours(typename grid::cell_no no)
+template <typename T>
+set<typename grid<T>::cell_no> grid<T>::get_neighbours(typename grid<T>::cell_no no)
 {
     auto ij = get_row_column(no);
 
-    set<typename grid::cell_no> res;
-
-    for (auto &&neighbour : get_neighbours(get<0>(ij), get<1>(ij)))
-    {
-        res.emplace(get_cell_no(get<0>(neighbour), get<1>(neighbour)));
-    }
-
-    return res;
+    return get<1>(get_neighbours_row_col(get<0>(ij), get<1>(ij)));
 }
 
-set<tuple<ull, ull>> grid::get_neighbours(ll r, ll c)
+template <typename T>
+set<tuple<ull, ull>> grid<T>::get_neighbours(ull r, ull c)
 {
-    static constexpr int d_r[] = {0, 0, -1, +1}; // direction row
-    static constexpr int d_c[] = {-1, +1, 0, 0}; // direction column
-    set<tuple<ull, ull>> res;
+    return get<0>(get_neighbours_row_col(r, c));
+}
 
-    for (size_t i = 0; i < 4; i++)
+template <typename T>
+tuple<set<tuple<ull, ull>>, set<typename grid<T>::cell_no>> grid<T>::get_neighbours_row_col(ull r, ull c)
+{
+    static constexpr int d_r[] = {0, 0, -1, +1, /* diagonals */ -1, -1, +1, +1}; // direction row
+    static constexpr int d_c[] = {-1, +1, 0, 0, /* diagonals */ -1, +1, +1, -1}; // direction column
+    set<tuple<ull, ull>> res_ij;
+
+    set<typename grid<T>::cell_no> res_cell_no;
+
+    for (size_t i = 0; i < (sizeof(d_r) / sizeof(d_r[0])); i++)
     {
         auto new_row = r + d_r[i];
         auto new_column = c + d_c[i];
 
         if ((new_row >= 0) && (new_row < m_r))
+        {
             if ((new_column >= 0) && (new_column < m_c))
-                res.emplace(new_row, new_column);
+            {
+                res_ij.emplace(new_row, new_column);
+                res_cell_no.emplace(get_cell_no(new_row, new_column));
+            }
+        }
     }
 
-    return res;
+    return make_tuple(res_ij, res_cell_no);
 }
-
-ull grid::flood_fill(ll r, ll c, ll val)
-{
-    return flood_fill(r, c, r, c, val);
-}
-ull grid::flood_fill(ll r, ll c, ll prev_r, ll prev_c, ll val)
+/*
+template <typename T>
+ull grid<T>::flood_fill(ll r, ll c, , ll val, unordered_map<ll, ll> &&explored_r = unordered_map<ll, ll>(), unordered_map<ll, ll> &&explored_c = unordered_map<ll, ll>())
 {
     ull recur_cnt = 1;
 
@@ -244,25 +258,60 @@ ull grid::flood_fill(ll r, ll c, ll prev_r, ll prev_c, ll val)
     }
     return recur_cnt;
 }
+ */
+template <typename T>
+ull grid<T>::flood_fill(cell_no no, T pattern, T replace)
+{
+    umll explored;
+    return flood_fill(no, pattern, replace, explored);
+}
+
+template <typename T>
+ull grid<T>::flood_fill(cell_no no, T pattern, T replace, umll &explored)
+{
+    ull recur_cnt = 1;
+
+    for (auto &&cell : get_neighbours(no))
+    {
+        if (!explored[cell])
+        {
+            explored[cell] = 1;
+
+            auto ij = get_row_column(cell);
+            auto &r = get<0>(ij);
+            auto &c = get<1>(ij);
+
+            if (m_arr[r][c] == pattern)
+            {
+                m_arr[r][c] = replace;
+                flood_fill(cell, pattern, replace, explored);
+            }
+        }
+    }
+    return recur_cnt;
+}
 
 int main()
 {
-    // grid arr = {
-    // {0, 1, 2, 3},
-    // {4, 5, 6, 7},
-    // {8, 9, 10, 11},
+    // grid<char> arr = {
+    // {0, 1, 2},
+    // {3, 4, 5},
+    // {6, 7, 8},
     // };
-    grid arr = {
-        {1, 1, 0},
-        {0, 1, 1},
-        {1, 0, 1},
-    };
 
-    DEBUG(arr.flood_fill(0, 0, 2));
+    grid<char> arr = {
+        {'X', 'O', 'X'},
+        {'X', 'O', 'X'},
+        {'X', 'O', 'X'},
+    };
+    arr.print();
+
+    DEBUG(arr.flood_fill(4, 'X', 'O'));
 
     arr.print();
 
     /*
+
     for (auto &&tup : arr.get_neighbours(5))
     {
         cout << tup << endl;
@@ -270,7 +319,6 @@ int main()
     auto ij = arr.get_row_column(11);
     DEBUG(get<0>(ij));
     DEBUG(get<1>(ij));
-
     DEBUG(arr.get_cell_no(0, 0));
     DEBUG(arr.get_cell_no(1, 1));
     DEBUG(arr.get_cell_no(2, 3));
