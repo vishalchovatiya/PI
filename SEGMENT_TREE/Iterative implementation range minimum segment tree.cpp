@@ -117,18 +117,21 @@ void build_segment_tree(ll arr[], ll N, ll seg[])
 
 ll query(ll seg[], ll N, ll l, ll r)
 {
-    ll res = seg[r + N];
+    l = l + N;
+    r = r + N;
+    ll res = seg[l];
 
-    for (l += N, r += N; l != r; l = PARENT(l), r = PARENT(r))
+    while (l < r)
     {
-        if (l & 1) // is right child
-            res = min(res, seg[l++]);
-
-        // if (r & 1) // is right child
-        // res = min(res, seg[r--]);
+        if (l & 1)
+            res = min(res, seg[l]);
+        if (r & 1)
+            res = min(res, seg[r]);
+        l = PARENT(l);
+        r = PARENT(r);
     }
 
-    return min(res, seg[l]);
+    return res = min(res, seg[r]);
 }
 
 void update(ll seg[], ll N, ll i, ll val)
