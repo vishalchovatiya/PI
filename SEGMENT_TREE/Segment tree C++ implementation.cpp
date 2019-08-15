@@ -100,25 +100,10 @@ class segment_tree
 
     /* Utility methods ---------------------------------------------------------- */
 
-    inline ull LEFT(ull root_idx) const
-    {
-        return (root_idx << 1);
-    }
-
-    inline ull RIGHT(ull root_idx) const
-    {
-        return (root_idx << 1) | 1;
-    }
-
-    inline ull PARENT(ull child_idx) const
-    {
-        return (child_idx >> 1);
-    }
-
-    inline ull SIBLING(ull child_idx) const
-    {
-        return (child_idx ^ 1);
-    }
+    inline ull LEFT(ull root_idx) const { return (root_idx << 1); }
+    inline ull RIGHT(ull root_idx) const { return (root_idx << 1) | 1; }
+    inline ull PARENT(ull child_idx) const { return (child_idx >> 1); }
+    inline ull SIBLING(ull child_idx) const { return (child_idx ^ 1); }
 
 public:
     /* Life --------------------------------------------------------------------- */
