@@ -1,4 +1,5 @@
 /*
+https://codeforces.com/blog/entry/18051
 Build:
 - Element at index i in original array will be at index (i + N) in the segment tree array.
 - Now to calculate the parents, we will start from index (N – 1) and move upward
