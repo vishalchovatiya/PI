@@ -4,20 +4,18 @@ Build:
 - Element at index i in original array will be at index (i + N) in the segment tree array.
 - Now to calculate the parents, we will start from index (N – 1) and move upward.
 - We will take total of 2*N memory for segment tree(without lay propagation)
-
 Query: [x,y)
 - If l, the left interval border, is odd (which is equivalent to l&1) then l is the right child of its parent. Then our interval includes node l but doesn't include it's parent.
 - So we add seg[l] and move to the right of l's parent by setting l = (l + 1) / 2.
 - If l is even, it is the left child, and the interval includes its parent as well (unless the right border interferes), so we just move to it by setting l = l / 2.
 - Similar argumentation is applied to the right border. We stop once borders meet.
-
 Lazy/Delay Propagation:
 - We store update on segment(internal nodes which represent segment) rather than leaf nodes.
 - Push down update on necessary nodes on query
 - Need one more array(let say d[N]) of size N to store delayed operation results for leaves. This leads us to a total of 3 * N memory use for complete segment tree.
 - Previously we could say that seg[i] is a value corresponding to it's segment. Now it's not entirely true — first we need to apply all the delayed operations on the route from node i to the root of the tree (parents of node i). We assume that seg[i] already includes d[i], so that route starts not with i but with its direct parent.
 
-
+Note: This code configured for sum. For min, max you have to change code
 */
 #include <iostream>
 #include <sstream>
@@ -120,7 +118,7 @@ class segment_tree
     inline bool IS_RIGHT(ull root_idx) const { return (root_idx & 1); }
     inline bool IS_LEFT(ull root_idx) const { return !IS_RIGHT(root_idx); }
 
-    void apply(ull p, T val);
+    void apply(ull p, ll val, ll k = 1);
 #ifdef LAZY
     void push(ull p);
 #endif
@@ -158,35 +156,40 @@ segment_tree<T, operation>::segment_tree(const initializer_list<T> &arr) : m_ele
 }
 
 template <typename T, typename operation>
-void segment_tree<T, operation>::apply(ull p, T val)
+void segment_tree<T, operation>::apply(ull p, ll val, ll k)
 {
-    m_seg[p] += val;
-#ifdef LAZY
+    m_seg[p] += (val * k);
     if (p < m_elements)
         m_delay[p] += val;
-#endif
 }
 
 #ifdef LAZY
+
 template <typename T, typename operation>
 void segment_tree<T, operation>::update(ull l, ull r, T val)
 {
     l += m_elements, r += m_elements;
     auto old_l = l;
     auto old_r = r;
+    ull k = 1; // NOT HARDCODED, this is fine as we going up
 
     for (; l < r; l = PARENT(l), r = PARENT(r))
     {
         if (IS_RIGHT(l))
-            apply(l++, val);
+            apply(l++, val, k);
         if (IS_RIGHT(r))
-            apply(--r, val);
+            apply(--r, val, k);
+        k >>= 1;
     }
 
     // Update all the parents of a given node
     static auto build = [this](ull p) {
+        ull k = 2; // NOT HARDCODED, this is fine as we going up
         while (p > 1)
-            p = PARENT(p), m_seg[p] = op(m_seg[LEFT(p)], m_seg[RIGHT(p)]) + m_delay[p];
+        {
+            p = PARENT(p), m_seg[p] = op(m_seg[LEFT(p)], m_seg[RIGHT(p)]) + (m_delay[p] * k);
+            k <<= 1;
+        }
     };
 
     build(old_l);
@@ -218,6 +221,7 @@ template <typename T, typename operation>
 void segment_tree<T, operation>::push(ull p)
 {
     ull h = log2(m_elements);
+    ull k = 1 << (h - 1);
 
     for (ull s = h; s > 0; --s)
     {
@@ -225,10 +229,11 @@ void segment_tree<T, operation>::push(ull p)
         // DEBUG(i)
         if (m_delay[i] != 0)
         {
-            apply(LEFT(i), m_delay[i]);
-            apply(RIGHT(i), m_delay[i]);
+            apply(LEFT(i), m_delay[i], k);
+            apply(RIGHT(i), m_delay[i], k);
             m_delay[i] = 0;
         }
+        k >>= 1;
     }
 }
 #endif
@@ -241,7 +246,8 @@ T segment_tree<T, operation>::query(ull l, ull r)
     push(l);
     push(r - 1);
 #endif
-    T res = numeric_limits<T>::max();
+    T res = 0;
+    // T res = numeric_limits<T>::max();
 
     for (; l < r; l = PARENT(l), r = PARENT(r))
     {
@@ -280,21 +286,20 @@ struct compare
 {
     T operator()(T &l, T &r)
     {
-        return min(l, r);
-        // return l + r;
+        // return min(l, r);
+        return l + r;
     }
 };
 
 int main()
 {
-    segment_tree<ll, compare<ll>> sg_t{1, 8, 3, 7};
+    segment_tree<ll, compare<ll>> sg_t{1, 1, 1, 1};
     // sg_t.print();
-    // DEBUG(sg_t.query(0, 4));
-    sg_t.update(2, 3, 10);
-    sg_t.print();
-
-    // DEBUG("=====================")
+    sg_t.update(0, 4, 1);
+    sg_t.update(0, 2, 1);
+    sg_t.update(2, 4, 1);
     DEBUG(sg_t.query(0, 4));
+
     sg_t.print();
 
     return 0;
