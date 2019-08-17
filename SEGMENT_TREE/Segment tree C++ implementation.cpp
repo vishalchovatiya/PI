@@ -12,6 +12,8 @@ Query: [x,y)
 - Similar argumentation is applied to the right border. We stop once borders meet.
 
 Lazy/Delay Propagation:
+- We store update on segment(internal nodes which represent segment) rather than leaf nodes.
+- Push down update on necessary nodes on query
 - Need one more array(let say d[N]) of size N to store delayed operation results for leaves. This leads us to a total of 3 * N memory use for complete segment tree.
 - Previously we could say that seg[i] is a value corresponding to it's segment. Now it's not entirely true — first we need to apply all the delayed operations on the route from node i to the root of the tree (parents of node i). We assume that seg[i] already includes d[i], so that route starts not with i but with its direct parent.
 
