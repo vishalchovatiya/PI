@@ -14,7 +14,6 @@ Lazy/Delay Propagation:
 - Push down update on necessary nodes on query
 - Need one more array(let say d[N]) of size N to store delayed operation results for leaves. This leads us to a total of 3 * N memory use for complete segment tree.
 - Previously we could say that seg[i] is a value corresponding to it's segment. Now it's not entirely true — first we need to apply all the delayed operations on the route from node i to the root of the tree (parents of node i). We assume that seg[i] already includes d[i], so that route starts not with i but with its direct parent.
-
 Note: This code configured for sum. For min, max you have to change code
 */
 #include <iostream>
@@ -96,7 +95,7 @@ using mll = map<ll, ll>;
 using mmll = multimap<ll, ll>;
 using namespace std;
 
-#define LAZY
+// #define LAZY
 
 template <
     typename T,        /* Element types */
@@ -118,6 +117,7 @@ class segment_tree
     inline bool IS_RIGHT(ull root_idx) const { return (root_idx & 1); }
     inline bool IS_LEFT(ull root_idx) const { return !IS_RIGHT(root_idx); }
 
+    void build(ull p);
     void apply(ull p, ll val, ll k = 1);
 #ifdef LAZY
     void push(ull p);
@@ -134,7 +134,7 @@ public:
 };
 
 template <typename T, typename operation>
-segment_tree<T, operation>::segment_tree(const vector<T> &arr) : m_elements(arr.size()), m_seg(arr.size() * 2), m_delay(arr.size(), 0)
+segment_tree<T, operation>::segment_tree(const vector<T> &arr) : m_elements(arr.size()), m_seg(arr.size() * 2, T()), m_delay(arr.size(), T())
 {
     // Set original array in leaf nodes
     copy(ALL(arr), m_seg.begin() + arr.size());
@@ -145,7 +145,7 @@ segment_tree<T, operation>::segment_tree(const vector<T> &arr) : m_elements(arr.
 }
 
 template <typename T, typename operation>
-segment_tree<T, operation>::segment_tree(const initializer_list<T> &arr) : m_elements(arr.size()), m_seg(arr.size() * 2), m_delay(arr.size(), 0)
+segment_tree<T, operation>::segment_tree(const initializer_list<T> &arr) : m_elements(arr.size()), m_seg(arr.size() * 2, T()), m_delay(arr.size(), T())
 {
     // Set original array in leaf nodes
     copy(ALL(arr), m_seg.begin() + arr.size());
@@ -154,6 +154,18 @@ segment_tree<T, operation>::segment_tree(const initializer_list<T> &arr) : m_ele
     for (ull idx = arr.size() - 1; idx > 0; --idx)
         m_seg[idx] = op(m_seg[LEFT(idx)], m_seg[RIGHT(idx)]);
 }
+
+template <typename T, typename operation>
+void segment_tree<T, operation>::build(ull p)
+{
+    // ull k = 2; // NOT HARDCODED, this is fine as we going up
+    while (p > 1)
+    {
+        p = PARENT(p), m_seg[p] = op(m_seg[LEFT(p)], m_seg[RIGHT(p)]);
+        // p = PARENT(p), m_seg[p] = op(m_seg[LEFT(p)], m_seg[RIGHT(p)]) + (m_delay[p] * k);
+        // k <<= 1;
+    }
+};
 
 template <typename T, typename operation>
 void segment_tree<T, operation>::apply(ull p, ll val, ll k)
@@ -183,14 +195,6 @@ void segment_tree<T, operation>::update(ull l, ull r, T val)
     }
 
     // Update all the parents of a given node
-    static auto build = [this](ull p) {
-        ull k = 2; // NOT HARDCODED, this is fine as we going up
-        while (p > 1)
-        {
-            p = PARENT(p), m_seg[p] = op(m_seg[LEFT(p)], m_seg[RIGHT(p)]) + (m_delay[p] * k);
-            k <<= 1;
-        }
-    };
 
     build(old_l);
     build(old_r - 1);
@@ -204,11 +208,13 @@ void segment_tree<T, operation>::update(ull l, ull r, T val)
     l += m_elements, r += m_elements;
 
     for (ll i = l; i < r; ++i)
-        m_seg[i] += val;
+        m_seg[i] = val;
 
     for (ull i = l; i < r; ++i)
-        for (ull idx = i; idx > 1; idx = PARENT(idx))
-            m_seg[PARENT(idx)] = op(m_seg[idx], m_seg[SIBLING(idx)]);
+    {
+        auto p = i;
+        build(p);
+    }
 }
 
 #endif
@@ -246,18 +252,19 @@ T segment_tree<T, operation>::query(ull l, ull r)
     push(l);
     push(r - 1);
 #endif
-    T res = 0;
+    T res_l;
+    T res_r;
     // T res = numeric_limits<T>::max();
 
     for (; l < r; l = PARENT(l), r = PARENT(r))
     {
         if (IS_RIGHT(l))
-            res = op(res, m_seg[l++]);
+            res_l = op(res_l, m_seg[l++]);
         if (IS_RIGHT(r))
-            res = op(res, m_seg[--r]);
+            res_r = op(m_seg[--r], res_r);
     }
 
-    return res;
+    return res_l + res_r;
 }
 
 template <typename T, typename operation>
@@ -293,14 +300,13 @@ struct compare
 
 int main()
 {
-    segment_tree<ll, compare<ll>> sg_t{1, 1, 1, 1};
-    // sg_t.print();
-    sg_t.update(0, 4, 1);
-    sg_t.update(0, 2, 1);
-    sg_t.update(2, 4, 1);
-    DEBUG(sg_t.query(0, 4));
-
+    segment_tree<string, compare<string>> sg_t{"0", "0", "0"};
+    sg_t.update(0, 2, "1");
     sg_t.print();
+    DEBUG(sg_t.query(0, 3));
+    sg_t.update(1, 2, "0");
+    sg_t.update(2, 3, "1");
+    DEBUG(sg_t.query(0, 3));
 
     return 0;
 }
