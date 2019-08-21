@@ -155,6 +155,22 @@ void segment_tree<T, operation>::update(const ull l, const ull r, T val, ull s, 
     {
         return;
     }
+    
+    // Push down the updates
+    if (m_lazy[idx] != T())
+    {
+        if (e != s)
+        {
+            m_seg[LEFT(idx)] += m_lazy[idx];
+            m_seg[RIGHT(idx)] += m_lazy[idx];
+            if ((e - s) != 1)
+            {
+                m_lazy[LEFT(idx)] += m_lazy[idx];
+                m_lazy[RIGHT(idx)] += m_lazy[idx];
+            }
+        }
+        m_lazy[idx] = T();
+    }
 
     // Individual node update
     if (s == e)
