@@ -197,15 +197,15 @@ T segment_tree<T, operation>::query(const ull l, const ull r, ull s, ull e, ull 
     // Push down the updates
     if (m_lazy[idx] != T())
     {
-        if ((e - s) == 1)
+        if (e != s)
         {
             m_seg[LEFT(idx)] += m_lazy[idx];
             m_seg[RIGHT(idx)] += m_lazy[idx];
-        }
-        else
-        {
-            m_lazy[LEFT(idx)] += m_lazy[idx];
-            m_lazy[RIGHT(idx)] += m_lazy[idx];
+            if ((e - s) != 1)
+            {
+                m_lazy[LEFT(idx)] += m_lazy[idx];
+                m_lazy[RIGHT(idx)] += m_lazy[idx];
+            }
         }
         m_lazy[idx] = T();
     }
