@@ -110,7 +110,7 @@ public:
 };
 
 template <typename T, typename operation>
-segment_tree<T, operation>::segment_tree(const ull &&N) : m_elements(N), m_seg(4 * N + 1, 0), m_lazy(4 * N + 1, 0) {}
+segment_tree<T, operation>::segment_tree(const ull &&N) : m_elements(N), m_seg(4 * N + 1, T()), m_lazy(4 * N + 1, T()) {}
 
 template <typename T, typename operation>
 segment_tree<T, operation>::segment_tree(const vector<T> &arr) : m_elements(arr.size()), m_seg(arr.size() * 4 + 1, T()), m_lazy(arr.size() * 4 + 1, T())
@@ -195,7 +195,7 @@ T segment_tree<T, operation>::query(const ull l, const ull r, ull s, ull e, ull 
     }
 
     // Push down the updates
-    if (m_lazy[idx] != 0)
+    if (m_lazy[idx] != T())
     {
         if ((e - s) == 1)
         {
@@ -207,7 +207,7 @@ T segment_tree<T, operation>::query(const ull l, const ull r, ull s, ull e, ull 
             m_lazy[LEFT(idx)] += m_lazy[idx];
             m_lazy[RIGHT(idx)] += m_lazy[idx];
         }
-        m_lazy[idx] = 0;
+        m_lazy[idx] = T();
     }
 
     // Complete overlap
@@ -242,36 +242,32 @@ void segment_tree<T, operation>::print() const
             ele++;
         }
         cout << endl;
-        if ((*ele) == 0 && (*(ele + 1)) == 0)
+        if ((*ele) == T() && (*(ele + 1)) == T())
             break;
     }
 }
 
 /* ------------------------------------------------------------------------------------- */
 
+constexpr ll mod = 1e9 + 7;
+
 template <typename T>
 struct compare
 {
     inline T operator()(T &l, T &r)
     {
-        return max(l, r);
-        // return l + r;
+        return l + r;
     }
 };
 
 int main()
 {
-    segment_tree<ll, compare<ll>> sg_t{1, 4, 7, 45};
-    sg_t.update(0, 0, 1);
-    sg_t.update(0, 0, 1);
-    sg_t.update(0, 0, 1);
-    sg_t.update(0, 0, 1);
-    sg_t.update(0, 0, 1);
+    // // segment_tree<ll, compare<ll>> sg_t{1, 1, 0, 0};
+    segment_tree<string, compare<string>> sg_t{"0", "0", "0", "0"};
+    sg_t.update(0, 1, "1");
+    sg_t.update(3, 3, "1");
     sg_t.print();
-    DEBUG(sg_t.query(0, 3));
-    DEBUG(sg_t.query(1, 2));
-    DEBUG(sg_t.query(0, 2));
-    DEBUG(sg_t.query(3, 3));
-    sg_t.print();
+    DEBUG(sg_t.query(2, 3));
+    // sg_t.print();
     return 0;
 }
