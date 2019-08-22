@@ -150,40 +150,33 @@ void segment_tree<T, operation>::update(const ull l, const ull r, T val)
 template <typename T, typename operation>
 void segment_tree<T, operation>::update(const ull l, const ull r, T val, ull s, ull e, const ull idx)
 {
-    // Out of range
-    if (e < l || s > r)
-    {
-        return;
-    }
-    
     // Push down the updates
     if (m_lazy[idx] != T())
     {
-        if (e != s)
+        m_seg[idx] += val;
+        if (s != e)
         {
-            m_seg[LEFT(idx)] += m_lazy[idx];
-            m_seg[RIGHT(idx)] += m_lazy[idx];
-            if ((e - s) != 1)
-            {
-                m_lazy[LEFT(idx)] += m_lazy[idx];
-                m_lazy[RIGHT(idx)] += m_lazy[idx];
-            }
+            m_lazy[LEFT(idx)] += val;
+            m_lazy[RIGHT(idx)] += val;
         }
         m_lazy[idx] = T();
     }
 
-    // Individual node update
-    if (s == e)
+    // Out of range
+    if (s > r || e < l)
     {
-        m_seg[idx] += val;
         return;
     }
 
-    // Range update
-    if (s == l && e == r)
+    // Complete overlap
+    if (s >= l && e <= r)
     {
         m_seg[idx] += val;
-        m_lazy[idx] += val;
+        if (s != e)
+        {
+            m_lazy[LEFT(idx)] += val;
+            m_lazy[RIGHT(idx)] += val;
+        }
         return;
     }
 
@@ -204,30 +197,26 @@ T segment_tree<T, operation>::query(const ull l, const ull r)
 template <typename T, typename operation>
 T segment_tree<T, operation>::query(const ull l, const ull r, ull s, ull e, ull idx)
 {
-    // No overlap
-    if (e < l || s > r)
-    {
-        return numeric_limits<T>::min();
-    }
-
     // Push down the updates
     if (m_lazy[idx] != T())
     {
-        if (e != s)
+        m_seg[idx] += m_lazy[idx];
+        if (s != e)
         {
-            m_seg[LEFT(idx)] += m_lazy[idx];
-            m_seg[RIGHT(idx)] += m_lazy[idx];
-            if ((e - s) != 1)
-            {
-                m_lazy[LEFT(idx)] += m_lazy[idx];
-                m_lazy[RIGHT(idx)] += m_lazy[idx];
-            }
+            m_lazy[LEFT(idx)] += m_lazy[idx];
+            m_lazy[RIGHT(idx)] += m_lazy[idx];
         }
         m_lazy[idx] = T();
     }
 
+    // No overlap
+    if (s > r || e < l)
+    {
+        return numeric_limits<T>::max();
+    }
+
     // Complete overlap
-    if ((l == s && r == e) || (s == e))
+    if (s >= l && e <= r)
     {
         return m_seg[idx];
     }
@@ -272,18 +261,21 @@ struct compare
 {
     inline T operator()(T &l, T &r)
     {
-        return l + r;
+        // return l + r;
+        return min(l, r);
     }
 };
 
 int main()
 {
-    // // segment_tree<ll, compare<ll>> sg_t{1, 1, 0, 0};
-    segment_tree<string, compare<string>> sg_t{"0", "0", "0", "0"};
-    sg_t.update(0, 1, "1");
-    sg_t.update(3, 3, "1");
+    segment_tree<ll, compare<ll>> sg_t{1, 4, 7, 0};
+    sg_t.update(0, 3, 1);
     sg_t.print();
+    sg_t.update(0, 1, 1);
+    sg_t.print();
+    DEBUG(sg_t.query(0, 0));
+    DEBUG(sg_t.query(1, 1));
     DEBUG(sg_t.query(2, 3));
-    // sg_t.print();
+    sg_t.print();
     return 0;
 }
