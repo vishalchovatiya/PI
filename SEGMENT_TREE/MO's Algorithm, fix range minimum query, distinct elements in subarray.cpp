@@ -1,3 +1,4 @@
+// https://blog.anudeep2011.com/mos-algorithm/
 #include <iostream>
 #include <sstream>
 #include <cstdio>
