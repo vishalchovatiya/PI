@@ -87,6 +87,7 @@ struct Query
 void queryResults(int a[], int n, Query q[], int m)
 {
     ll block = (int)sqrt(n);
+    // DEBUG(block)
 
     sort(q, q + m, [&](Query &x, Query &y) {
         return (x.L / block < y.L / block) || (x.R < y.R);
@@ -99,38 +100,51 @@ void queryResults(int a[], int n, Query q[], int m)
     {
         int L = q[i].L, R = q[i].R;
 
+        // Remove extra elements of previous range. For
+        // example if previous range is [0, 3] and current
+        // range is [2, 5], then a[0] and a[1] are subtracted
         while (currL < L)
         {
             currSum -= a[currL]; // remove
             currL++;
         }
 
+        // DEBUG(currSum)
+        // DEBUG(currL)
+        // DEBUG(currR)
+        // DEBUG("=======================")
+
+        // Add Elements of current Range
         while (currL > L)
         {
             currSum += a[currL - 1]; // add
             currL--;
         }
+
         while (currR <= R)
         {
             currSum += a[currR]; // add
             currR++;
         }
 
+        // Remove elements of previous range.  For example
+        // when previous range is [0, 10] and current range
+        // is [3, 8], then a[9] and a[10] are subtracted
         while (currR > R + 1)
         {
             currSum -= a[currR - 1]; // remove
             currR--;
         }
 
-        cout << "[" << L << ", " << R << "] = " << currSum << endl;
+        cout << "Sum of [" << L << ", " << R << "] is " << currSum << endl;
     }
 }
 
 int main()
 {
-    int a[] = {1, 2, 3, 4};
+    int a[] = {1, 1, 2, 1, 3, 4, 5, 2, 8};
     int n = sizeof(a) / sizeof(a[0]);
-    Query q[] = {{1, 2}};
+    Query q[] = {{0, 4}, {1, 3}, {2, 4}};
     int m = sizeof(q) / sizeof(q[0]);
     queryResults(a, n, q, m);
     return 0;
