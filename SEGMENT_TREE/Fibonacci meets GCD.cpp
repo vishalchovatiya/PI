@@ -1,4 +1,47 @@
+/*
 
+https://www.hackerearth.com/practice/data-structures/advanced-data-structures/segment-trees/practice-problems/algorithm/fibonacci-with-gcd-16/
+
+FIBONACCI MEETS GCD
+Let Fib(x) denote the value of fibonacci of x. For example F(1) =1 , F(2) = 1, F(3) = 2 and so on for all x. 
+Let GCD(a,b) denote the greatest common divisor of two numbers a and b.
+You are given an array A of N integers.
+You will be given Q queries of the form L R.
+For each query you have to find out the value of GCD ( F(A[L] , FA[L+1]….. FA[R] ) % mod. 
+mod = 10^9+7.
+
+Input Format:
+First line : Two integers N and Q. Second line : N space separated integers denoting array A. Next Q lines : Two space separated integers L and R.
+
+Constraints:
+1 <= N,Q <= 10^5 1 <= A[i] <= 10^9 1 <= L , R <= N
+
+Output Format
+Output the result of each query in a separate line.
+
+Sample Input
+3 2
+2 4 8
+1 3
+2 3
+Sample Output
+1
+3
+
+You are now working in Collaboration Mode  Learn More
+Normal Mode
+Collaborate Mode
+C++
+  Download Testcases
+Unlock Editorial
+Submit Code
+Custom Input
+
+Run Code
+Output :
+
+
+*/
 #include <iostream>
 #include <sstream>
 #include <cstdio>
