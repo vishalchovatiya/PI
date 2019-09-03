@@ -1,5 +1,7 @@
 /*
 https://www.hackerearth.com/practice/data-structures/advanced-data-structures/fenwick-binary-indexed-trees/tutorial/
+Fenwick Tree or Binary Indexed Tree by Tushar Roy on YouTube
+Why it is called Binary Indexed Tree
 */
 #include <iostream>
 #include <sstream>
