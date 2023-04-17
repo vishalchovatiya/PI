@@ -1,116 +1,116 @@
 #include <iostream>
-#include <string.h>
-#include <stdlib.h>
-#include <list>
 #include <algorithm>
-#include <map>
-#include <stack>
-#include <queue>
+#include <vector>
+
 using namespace std;
 
+#define DEBUG(X) cout << #X << " = " << X << endl;
+#define ALL(X) begin(X), end(X)
 
-#define SIZE(A) 	sizeof(A)/sizeof(A[0])
+using sequence_t = vector<uint64_t>;
+
+
+
+// longest common subsequence using dynamic programming - recursive approach (top down - memoization)
+sequence_t longest_common_subsequence_memoization(const sequence_t& s1, const sequence_t& s2, uint64_t n1, uint64_t n2, vector<vector<sequence_t>>& memo) {
+    if (n1 == 0 || n2 == 0) { return {}; }
+
+    if (memo[n1][n2].size() != 0) { return memo[n1][n2]; }
+
+    if (s1[n1 - 1] == s2[n2 - 1]) {
+        auto lcs = longest_common_subsequence_memoization(s1, s2, n1 - 1, n2 - 1, memo);
+        lcs.push_back(s1[n1 - 1]);
+        memo[n1][n2] = lcs;
+        return lcs;
+    }
+
+    auto lcs1 = longest_common_subsequence_memoization(s1, s2, n1 - 1, n2, memo);
+    auto lcs2 = longest_common_subsequence_memoization(s1, s2, n1, n2 - 1, memo);
+    memo[n1][n2] = lcs1.size() > lcs2.size() ? lcs1 : lcs2;
+    return memo[n1][n2];
+}
+
+int main() {
+    uint64_t n1;
+    cin >> n1;
+    sequence_t s1(n1);
+    for (auto& n : s1) { cin >> n; }
+
+    uint64_t n2;
+    cin >> n2;
+    sequence_t s2(n2);
+    for (auto& n : s2) { cin >> n; }
+
+    // recursive approach (top down - memoization)
+    vector<vector<sequence_t>>      memoization(n1 + 1, vector<sequence_t>(n2 + 1)) ;
+    auto lcs = longest_common_subsequence_memoization(s1, s2, n1, n2, memoization);
+
+    // print the longest common subsequence
+    cout << lcs.size() << endl;
+    for (auto& n : lcs) { cout << n << " "; }
+
+    return 0;
+}
 
 /*
-	Qyuestion :- Longest Common Sub-sequence(LCS)
-	
-	Application:- 
-		- UNIX diff command give you difference between two text files
-		- DNA genes comparison analysis of ATGS proteins structures,
-		- Version control systems like Git, CVS, etc.
-		
-	Examples:
-		LCS for input Sequences “ABCDGH” and “AEDFHR” is “ADH” of length 3.
-		LCS for input Sequences “AGGTAB” and “GXTXAYB” is “GTAB” of length 4.
-		
-	We can use dynamic programming,	Because it has both property 
-	1). Optimal Sub-structure & 2). Over-lapping Subproblem
-	
-	1). Optimal Sub-structure
-	
-		Examples: Consider the input strings “AGGTAB” and “GXTXAYB”.
-		
-			- If Last characters match, So length of LCS can be written as:
-			L(“AGGTAB”, “GXTXAYB”) = 1 + L(“AGGTA”, “GXTXAY”), Now solve for “AGGTA” & “GXTXAY”
-			
-			- If Last characters do not match, So length of LCS can be written as:
-			L(“AGGTA”, “GXTXAY”) = MAX ( L(“AGGT”, “GXTXAY”), L(“AGGTA”, “GXTXA”) ), Now solve for L(“AGGT”, “GXTXAY”) & L(“AGGTA”, “GXTXA”)
-			
-			So the LCS problem has optimal substructure property as the main problem can be solved using solutions to subproblems.
-			
-	2). Overlapping Subproblems
-	
-					lcs("ABD", "ADE")
-				    /			  \
-	                       /    		               \
-	         lcs("AB", "ADE")            	 		 lcs("ABD", "AD")
-	         /            \                         	   |
-	lcs("A", "ADE") lcs("AB", "AD")          		1 + lcs("AB", "A") 		
-	 		/            \				/               \
-		lcs("A", "AD")  lcs("AB", "A")	   lcs("A", "A")        lcs("AB", NULL)	
-			
-			
-			In the above partial recursion tree, lcs("AB", "A") is being solved twice, so this forms overlap			
-	
-*/
+/CP/build/main < ../input.txt > ../output.txt
+
+Test Case 1:
+5
+0 1 5 3 4
+4
+1 5 3 8
+
+3
+1 5 3
+
+Test Case 2:
+
+4
+1 2 3 4
+4
+2 4 6 8
+
+2
+2 4
+
+Test Case 3:
+
+5
+1 2 3 4 5
+3
+3 2 1
+
+1
+3 
+
+Test Case 4:
+
+3
+1 2 3
+3
+3 2 1
+
+1
+3 
 
 
-int LongestCommonSubsequenceMemoization(char *Str1, char *Str2, int Str1Len, int Str2Len, int **Table)		// Memoization
-{
-	if( Str1Len == 0 || Str2Len == 0 )
-		return 0;
+Test Case 5:
 
-	if( Table[Str1Len-1][Str2Len-1] == 0)
-	{
-		if( Str1[Str1Len-1] == Str2[Str2Len-1] )	
-			Table[Str1Len-1][Str2Len-1] = 1 + LongestCommonSubsequenceMemoization( Str1,  Str2, Str1Len-1, Str2Len-1, Table);
-		else
-			Table[Str1Len-1][Str2Len-1] = max( LongestCommonSubsequenceMemoization( Str1,  Str2, Str1Len-1, Str2Len, Table), 
-												LongestCommonSubsequenceMemoization( Str1,  Str2, Str1Len, Str2Len-1, Table));		
-	}
+6
+1 2 3 4 5 6
+4
+4 5 6 7
 
-	return 	Table[Str1Len-1][Str2Len-1];
-} 
+3
+4 5 6 
 
+Test Case 6:
 
-int LongestCommonSubsequenceTabulation(char *Str1, char *Str2, int Str1Len, int Str2Len, int **Table)		// Tabulation
-{
-	for(int i=0; i<=Str1Len; i++)
-	{
-		for(int j=0; j<=Str2Len; j++)
-		{
-			if( i==0 || j==0 )
-				Table[i][j] = 0;
-			else if( Str1[i-1] == Str2[j-1] )	
-				Table[i][j] = Table[i-1][j-1] + 1;
-			else
-				Table[i][j] = max( Table[i-1][j], Table[i][j-1]);
-		}
-	}
-	
-	return Table[Str1Len][Str2Len];
-}
+5
+1 3 5 7 9
+6
+2 4 6 8 10 12
 
-
-int main()
-{
-	char Str1[] = "ABD";
-	char Str2[] = "ADE";
-	
-	int Str1Len = strlen(Str1);
-	int Str2Len = strlen(Str2);
-	
-	int **Table = new int*[Str1Len+1];
-	
-	for(int i=0; i <=Str1Len; i++)
-	{
-		Table[i] = new int[Str2Len+1];
-		memset( Table[i], 0, sizeof(int) * (Str2Len +1) );
-	}
-	
-	cout<<LongestCommonSubsequenceTabulation( Str1,  Str2, Str1Len, Str2Len, Table)<<endl;
-	
-	return 0;
-}
-
-
+Expected output: None (There is no common subsequence)
+ */
