@@ -1,122 +1,109 @@
 #include <iostream>
-#include <string.h>
-#include <list>
-#include <map>
-#include <stack>
+#include <algorithm>
+#include <vector>
+
 using namespace std;
 
+#define DEBUG(X) cout << #X << " = " << X << endl;
+#define ALL(X) begin(X), end(X)
+
+void dfs(uint64_t u, const vector<vector<uint64_t>> &graph,
+         vector<bool> &visited, vector<uint64_t> &cut_vertices,
+         int64_t parent = -1, uint64_t time = 0) {
+
+    static vector<uint64_t> visit_time(graph.size(), 0);
+    static vector<uint64_t> lowest_time(graph.size(), 0);
+
+    visited[u] = true;
+    visit_time[u] = lowest_time[u] = time;
+    uint64_t children = 0;
+
+    for (auto &&v : graph[u]) {
+        if (parent == v) continue; // ignore parent
+        if (visited[v]) {          // back edge
+            lowest_time[u] = min(lowest_time[u], visit_time[v]);
+        } else { // tree edge
+            dfs(v, graph, visited, cut_vertices, u, time + 1);
+            lowest_time[u] = min(lowest_time[u], lowest_time[v]);
+
+            if (parent != -1 &&
+                lowest_time[v] > visit_time[u]) { // Cut vertices property
+                cut_vertices.push_back(u);
+            }
+            ++children;
+        }
+    }
+
+    if (parent == -1 && children > 1) { // Cut vertices property for root
+        cut_vertices.push_back(u);
+    }
+}
+
+vector<uint64_t> find_cut_vertices(const vector<vector<uint64_t>> &graph) {
+    vector<uint64_t> cut_vertices;
+    vector<bool> visited(graph.size(), false);
+
+    for (uint64_t u = 0; u < graph.size(); ++u)
+        if (!visited[u]) dfs(u, graph, visited, cut_vertices);
+
+    return cut_vertices;
+}
+
+int main() {
+    uint64_t n, m;
+    cin >> n >> m;
+
+    // Create graph
+    n += 1; // vertex can start from 0 or 1
+    vector<vector<uint64_t>> graph(n);
+    for (uint64_t i = 0; i < m; ++i) {
+        uint64_t u, v;
+        cin >> u >> v;
+        graph[u].push_back(v);
+        graph[v].push_back(u);
+    }
+
+    // Find cut vertices
+    auto cut_vertices = find_cut_vertices(graph);
+    sort(ALL(cut_vertices));
+    cout << cut_vertices.size() << endl;
+    for (auto &&v : cut_vertices) cout << v << " ";
+
+    return 0;
+}
+
 /*
-	Question: Articulation Points (or Cut Vertices) 
-	
-	Contents: 
-		- Algo 
-		- Time & Space Complexity
-		- Dependency Algo : - DFS
-*/
+/CP/build/main < ../input.txt > ../output.txt
 
-class Graph
-{
-	int V;
-	list<int> *AdList;	// Pointer for Dynamic Allocation of Adjecency list
-		
-	int ArticulationPointsUtil(int V, int parent, bool visited[], int arr[]);	
-	public:
-		Graph(int v);
-		void AddEdge(int V, int E);
+Test Case 1:
+4 3
+1 2
+2 3
+3 4
 
-		void ArticulationPoints(int S);
-};
-
-Graph::Graph(int v)
-{
-	this->V = v;
-	this->AdList = new list<int>[v];
-}
-
-void Graph::AddEdge(int V, int E)
-{
-	AdList[V].push_back(E);
-	AdList[E].push_back(V);		// Comment This Line For Directed Graph
-}
-
-/*---------------------------------Articulation Points (or Cut Vertices) --------------------------------------*/
-
-/*
-	# Algorithm:-
-	
-		- Check for Deapest Back edge
-			Handle Case 1: V is root with two independent childs
-			Handle Case 2: If V is not root, and one of its child have whose deepest back edge is greater or equal to arrival time of that vertex 
-			
-	# Time Complexity:-
-	# Space Complexity:-	
-
-*/
-
-void Graph::ArticulationPoints(int S)
-{
-	bool *visited = new bool[V];
-	int *arr = new int[V];
-	
-	memset(visited, 0, V*sizeof(bool));
-	memset(arr, -1, V*sizeof(int));
-	
-	ArticulationPointsUtil(S, S, visited, arr);
-}
-
-int Graph::ArticulationPointsUtil(int V, int parent, bool visited[], int arr[])
-{
-	static int time = 0;
-	int child = 0;
-	arr[V] = time++;
-	visited[V] = true;
-	int dbe = arr[V];	// Deapest Back Edge
-
-	list<int> :: iterator adjecent;
-	for(adjecent = AdList[V].begin(); adjecent!=AdList[V].end(); adjecent++)
-	{
-		if( !visited[*adjecent])
-		{
-			child++;
-			
-			dbe = ArticulationPointsUtil( *adjecent, V, visited, arr);
-			
-			// Handle Case 1: V is root with two independent childs
-			if( arr[V] == 0 && child > 1 )
-				cout<<V<<endl;
-				
-			// Handle Case 2: If V is not root, and one of its child have whose 
-			//deepest back edge is greater or equal to arrival time of that vertex 
-			if( arr[V] != 0 && dbe >= arr[V] )
-				cout<<V<<endl;
-		}
-		//if Adjecent is parent, Back Edge found
-		else if( *adjecent != parent)
-		{
-			dbe = min(dbe, arr[*adjecent]);
-		}
-	}
+2
+2 3
 
 
-		
-	return dbe;
-}
+Test Case 2:
+5 5
+1 0
+0 2
+2 1
+0 3
+3 4
+
+2
+0 3
 
 
-/*-----------------------------------------------------------------------------------------------------------------*/
-
-int main()
-{
-	Graph G(5);
-	
-	G.AddEdge(0, 1);
-	G.AddEdge(1, 2);
-	G.AddEdge(2, 3);
-	G.AddEdge(3, 4);
-	G.AddEdge(3, 1);
-	
-	G.ArticulationPoints(0);
+Test Case 3:
+4 3
+0 1
+1 2
+2 3
 
 
-	return 0;
-}
+2
+1 2
+ */
