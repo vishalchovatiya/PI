@@ -10,6 +10,27 @@ using namespace std;
 using sequence_t = vector<uint64_t>;
 
 
+// longest common subsequence dynamic programming - iterative approach (bottom up - tabulation)
+sequence_t longest_common_subsequence_tabulation(const sequence_t& s1, const sequence_t& s2) {
+    const uint64_t n1 = s1.size();
+    const uint64_t n2 = s2.size();
+    vector<vector<sequence_t>>      tab(n1 + 1, vector<sequence_t>(n2 + 1));
+
+    for (uint64_t i = 1; i <= n1; ++i) {
+        for (uint64_t j = 1; j <= n2; ++j) {
+            if (s1[i - 1] == s2[j - 1]) {
+                tab[i][j] = tab[i - 1][j - 1];
+                tab[i][j].push_back(s1[i - 1]);
+            } else {
+                auto lcs1 = tab[i - 1][j];
+                auto lcs2 = tab[i][j - 1];
+                tab[i][j] = lcs1.size() > lcs2.size() ? lcs1 : lcs2;
+            }
+        }
+    }
+
+    return tab[n1][n2];
+}
 
 // longest common subsequence using dynamic programming - recursive approach (top down - memoization)
 sequence_t longest_common_subsequence_memoization(const sequence_t& s1, const sequence_t& s2, uint64_t n1, uint64_t n2, vector<vector<sequence_t>>& memo) {
