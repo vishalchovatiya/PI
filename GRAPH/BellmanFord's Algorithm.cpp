@@ -1,178 +1,138 @@
 #include <iostream>
-#include <limits.h>
-#include <string>
-#include <string.h>
-#include <list>
+#include <algorithm>
 #include <vector>
-#include <map>
+
 using namespace std;
 
+#define DEBUG(X) cout << #X << " = " << X << endl;
+#define ALL(X) begin(X), end(X)
+
+// Single source shortest path Bellman-Ford algorithm
+// Time complexity: O(VE)
+// Space complexity: O(V)
+tuple<vector<uint64_t>, vector<uint64_t>> 
+sssp_bellman_ford(uint64_t s, const vector<vector<pair<uint64_t, uint64_t>>> &graph) {
+    uint64_t n = graph.size();
+    vector<uint64_t>    dist(n, UINT64_MAX);
+    vector<uint64_t>    parent(n, UINT64_MAX);
+
+    dist[s] = 0;
+    parent[s] = s;
+
+    for (uint64_t i = 0; i < n - 1; ++i) {
+        for (uint64_t u = 0; u < n; ++u) {
+            for (auto &&[v, w] : graph[u]) {
+                if (dist[u] != UINT64_MAX && dist[u] + w < dist[v]) {
+                    dist[v] = dist[u] + w;
+                    parent[v] = u;
+                }
+            }
+        }
+    }
+    return {dist, parent};
+}
+
+// Single source longest path Bellman-Ford algorithm
+// Time complexity: O(VE)
+// Space complexity: O(V)
+tuple<vector<int64_t>, vector<uint64_t>>
+sslp_bellman_ford(uint64_t s, const vector<vector<pair<uint64_t, int64_t>>> &graph) {
+    uint64_t n = graph.size();
+    vector<int64_t>     dist(n, INT64_MIN);
+    vector<uint64_t>    parent(n, UINT64_MAX);
+
+    dist[s] = 0;
+    parent[s] = s;
+
+    for (uint64_t i = 0; i < n - 1; ++i) {
+        for (uint64_t u = 0; u < n; ++u) {
+            for (auto &&[v, w] : graph[u]) {
+                if (dist[u] != INT64_MIN && dist[u] + w > dist[v]) {
+                    dist[v] = dist[u] + w;
+                    parent[v] = u;
+                }
+            }
+        }
+    }
+    return {dist, parent};
+}
+
+
+int main() {
+    uint64_t n, m;
+    cin >> n >> m;
+
+    // Create weighted graph
+    n += 1; // vertex can start from 0 or 1
+    vector<vector<pair<uint64_t, uint64_t>>> graph(n);
+    for (uint64_t i = 0; i < m; ++i) {
+        uint64_t u, v, w;
+        cin >> u >> v >> w;
+        graph[u].push_back({v, w});
+        graph[v].push_back({u, w});
+    }
+
+    // Single source shortest path
+    auto [dist, parent] = sssp_bellman_ford(0, graph);
+
+    // Print shortest path
+    for (uint64_t u = 0; u < n; ++u) {
+        cout << "Shortest path from 0 to " << u << ": ";
+        if (dist[u] == UINT64_MAX) {
+            cout << "No path" << endl;
+        } else {
+            vector<uint64_t> path;
+            for (uint64_t v = u; v != parent[v]; v = parent[v]) {
+                path.push_back(v);
+            }
+            path.push_back(0);
+            reverse(ALL(path));
+            for (auto &&v : path) cout << v << " ";
+            cout << endl;
+        }
+    } 
+
+    return 0;
+}
 
 /*
-	Question: BellmanFord's Algorithm for Single Source Shortest Path
-	
-	Contents: 
-		- BellmanFord's Algorithm
-		- Application of BellmanFord's Algorithm
-		- Time & Space Complexity
-		- Dependency Algo :
-*/
+/CP/build/main < ../input.txt > ../output.txt
+
+Test Case 1:
+4 5
+0 1 2
+0 2 4
+1 2 1
+1 3 5
+2 3 3
 
 
-/*-----------------------------------Edge Manipulation------------------------------------------*/		
-class Edge
-{
-	private:
-		int Src;
-		int Dest;	
-		int Weight;
-
-	public:	
-		
-		Edge(int V = 0, int E = 0, int W = 0)
-		{
-			this->Src = V;
-			this->Dest = E;
-			this->Weight = W;	
-		}
-			
-		int getWeight()
-		{
-			return	this->Weight;
-		}
-			
-		int getSrc()
-		{
-			return	this->Src;
-		}
-			
-		int getDest()
-		{
-			return	this->Dest;
-		}			
-};
-/*-----------------------------------------------------------------------------------------------*/		
+Test Case 2:
+3 3
+0 1 5
+0 2 3
+1 2 1
 
 
+Test Case 3:
+5 7
+0 1 4
+0 2 1
+1 2 2
+1 3 5
+2 3 8
+2 4 10
+3 4 6
 
-/*-----------------------------------Graph Manipulation------------------------------------------*/		
-		
-class Graph
-{	
-	int V;					// No. of vertices
-	list<int> *AdList;		// Pointer for Dynamic Allocation of Adjecency list		
-	list<Edge> EdgeList;	// Edge List
-
-	public:
-	
-		Graph(int v)
-		{
-			this->V = v;
-			this->AdList = new list<int>[v];
-		}
-		
-		void AddEdge(int V, int E, int W)
-		{
-			Edge edge(V,E,W);
-			EdgeList.push_back(edge);
-			
-			AdList[V].push_back(E);
-			//AdList[E].push_back(V);		// Comment This Line For Directed Graph
-		}
-		
-		/*			 				
-			# BellmanFord's Algorithm :-	Single Source Shortest Path with Negative Edge Weight Cycle Detection
-			
-			===== Finding shortest path between each vertex would lead to shortest path from source to any vertex =====
-			===== Works on negative edge length & can detect negative weight cycle =====
-			
-				- Initially set all vertex's distance to INFINITE except first vertice. Initialize first vertex distance with 0
-				- For Round |V| - 1 time
-					- Relax all edges
-						1. For every adjacent vertex of v, if (Distance from source to v) + (weight of edge(v,u)) is less than the label of u, then update the label of v with new weight 
-						2. Record parent of v & Shortest path from source vertex to vertex u
-				- Relax all edges once, if still one of the edge relaxed, then graph has negative weight cycle
-				
-			# Time Complexity:-
-			# Space Complexity:-	
-			# Application :- Google Maps, Rubik's Cube(with the minimum possible number of moves), Operation Research, Road Network, VLSI, Robotics
-			# Dependency Algo : - 
-		*/
-		int* SSSP()
-		{			
-			int *Distance = new int[V];
-			int Parent[V];
-			
-			for(int i=0; i<V; i++)
-				Distance[i] = INT_MAX;
-			
-			Distance[0] = 0;
-			
-			list<Edge> :: iterator edge;
-			
-			for(int Round=0; Round<(V-1); Round++)
-			{
-				for(edge = EdgeList.begin(); edge != EdgeList.end(); edge++)
-				{
-					
-					if( Distance[(*edge).getSrc()] != INT_MAX && Distance[(*edge).getDest()] > (*edge).getWeight() + Distance[(*edge).getSrc()] )
-					{
-						Distance[(*edge).getDest()] = (*edge).getWeight() + Distance[(*edge).getSrc()];
-						Parent[(*edge).getDest()] = (*edge).getSrc();
-					}
-				}
-			}
-			
-			for(edge = EdgeList.begin(); edge!=EdgeList.end(); edge++)
-			{
-				if( Distance[(*edge).getDest()] > (*edge).getWeight() + (*edge).getSrc() )
-				{
-					cout<< "Negative Weight Cycle Detected"<< endl;
-				}
-			}
-			
-			return Distance;
-		}
-		
-		void PrintSSSP()
-		{
-			int *SPaths = SSSP();		
-			
-			cout<<"\n\nSingle Source Shortest Path (Bellman-Ford): "<<endl;
-			for( int v=0; v<V; v++)
-			{			
-				cout<<"Distance from 0 to "<<v<<" = "<<SPaths[v]<<endl;
-			}
-			delete[] SPaths;
-		}
-
-		void test()
-		{	
-			
-			
-		}
-};	
-
-/*-------------------------------------------------------------------------------------------------*/	
-
-
-int main()
-{
-	Graph G(5);
-	
-	//	G.AddEdge( 2, 0, -5);
-
-	G.AddEdge( 2, 3, 2);
-	
-	G.AddEdge( 0, 4, 4);
-	G.AddEdge( 3, 4, 1);
-	
-	G.AddEdge( 4, 3, 5);
-	
-	G.AddEdge( 0, 1, 1);
-	G.AddEdge( 1, 2, -3);	
-	
-	G.PrintSSSP();
-	
-	return 0;
-}
+Test Case 4:
+6 9
+0 1 3
+0 3 6
+0 4 2
+1 2 1
+1 3 4
+2 3 2
+2 4 3
+3 4 1
+4 5 4
+ */
